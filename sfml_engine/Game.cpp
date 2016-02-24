@@ -14,7 +14,9 @@ Game::Game() : m_window("engine_test", sf::Vector2u(800, 600))
     
     m_mushroom.setTexture(m_mushroomTexture);
     
-    m_increment = sf::Vector2i(4, 4);
+    m_mushroom.setOrigin(m_mushroomTexture.getSize().x * 0.5f, m_mushroomTexture.getSize().y * 0.5f);
+    
+    m_increment = sf::Vector2i(400, 400);
 }
 
 Game::~Game(){}
@@ -30,6 +32,8 @@ void Game::MoveMushroom()
     const sf::Vector2u *l_windSize = m_window.GetWindowSize();
     sf::Vector2u l_size = m_mushroomTexture.getSize();
     
+    float fElapsed = m_elapsed.asSeconds();
+    
     if((m_mushroom.getPosition().x + (l_size.x / 2) > l_windSize->x && m_increment.x > 0)
        || (m_mushroom.getPosition().x - (l_size.x / 2) < 0 && m_increment.x < 0)){
         // Reverse the direction on X axis.
@@ -42,7 +46,7 @@ void Game::MoveMushroom()
         m_increment.y = -m_increment.y;
     }
     
-    m_mushroom.setPosition(m_mushroom.getPosition().x + m_increment.x, m_mushroom.getPosition().y + m_increment.y);
+    m_mushroom.setPosition(m_mushroom.getPosition().x + (m_increment.x * fElapsed), m_mushroom.getPosition().y + (m_increment.y * fElapsed));
 }
 
 void Game::Render()
@@ -50,4 +54,24 @@ void Game::Render()
     m_window.BeginDraw();
     m_window.Draw(m_mushroom);
     m_window.EndDraw();
+}
+
+Window* Game::GetWindow()
+{
+    return &m_window;
+}
+
+void Game::HandleInput()
+{
+    
+}
+
+sf::Time Game::GetElapsed()
+{
+    return m_elapsed;
+}
+
+void Game::RestartClock()
+{
+    m_elapsed = m_clock.restart();
 }

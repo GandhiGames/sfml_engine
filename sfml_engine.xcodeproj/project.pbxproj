@@ -44,6 +44,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D63A58271C7DBE9600EC1C97 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				D63A58221C7D25AA00EC1C97 /* Game.cpp */,
+				D63A58231C7D25AA00EC1C97 /* Game.hpp */,
+			);
+			name = Game;
+			sourceTree = "<group>";
+		};
 		D6C50BB61C7D152E00C2CCBC = {
 			isa = PBXGroup;
 			children = (
@@ -69,6 +78,7 @@
 		D6C50BC21C7D152E00C2CCBC /* sfml_engine */ = {
 			isa = PBXGroup;
 			children = (
+				D63A58271C7DBE9600EC1C97 /* Game */,
 				D6842DDC1C7D161F00691541 /* Window.cpp */,
 				D6842DDD1C7D161F00691541 /* Window.hpp */,
 				D6C50BC51C7D152E00C2CCBC /* ResourcePath.mm */,
@@ -76,8 +86,6 @@
 				D6C50BC81C7D152E00C2CCBC /* main.cpp */,
 				D6C50BCA1C7D152E00C2CCBC /* Resources */,
 				D6C50BC31C7D152E00C2CCBC /* Supporting Files */,
-				D63A58221C7D25AA00EC1C97 /* Game.cpp */,
-				D63A58231C7D25AA00EC1C97 /* Game.hpp */,
 			);
 			path = sfml_engine;
 			sourceTree = "<group>";
