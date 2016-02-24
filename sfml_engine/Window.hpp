@@ -9,7 +9,6 @@
 #ifndef Window_hpp
 #define Window_hpp
 
-#include <stdio.h>
 #include <SFML/Graphics.hpp>
 
 class Window {

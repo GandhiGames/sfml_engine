@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D614E6081C7E2F4F0017890C /* Snake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D614E6061C7E2F4F0017890C /* Snake.cpp */; };
 		D63A58241C7D25AA00EC1C97 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D63A58221C7D25AA00EC1C97 /* Game.cpp */; };
 		D63A58261C7D26B700EC1C97 /* Mushroom.png in Resources */ = {isa = PBXBuildFile; fileRef = D63A58251C7D26B700EC1C97 /* Mushroom.png */; };
 		D6842DDE1C7D161F00691541 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6842DDC1C7D161F00691541 /* Window.cpp */; };
@@ -15,12 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D63A58091C7D1C4000EC1C97 /* sfml-audio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-audio.framework"; path = "../../Downloads/SFML-2.3.2-osx-clang-universal/Frameworks/sfml-audio.framework"; sourceTree = "<group>"; };
-		D63A580A1C7D1C4000EC1C97 /* sfml-graphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-graphics.framework"; path = "../../Downloads/SFML-2.3.2-osx-clang-universal/Frameworks/sfml-graphics.framework"; sourceTree = "<group>"; };
-		D63A580B1C7D1C4000EC1C97 /* sfml-network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-network.framework"; path = "../../Downloads/SFML-2.3.2-osx-clang-universal/Frameworks/sfml-network.framework"; sourceTree = "<group>"; };
-		D63A580C1C7D1C4000EC1C97 /* sfml-system.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-system.framework"; path = "../../Downloads/SFML-2.3.2-osx-clang-universal/Frameworks/sfml-system.framework"; sourceTree = "<group>"; };
-		D63A580D1C7D1C4000EC1C97 /* sfml-window.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-window.framework"; path = "../../Downloads/SFML-2.3.2-osx-clang-universal/Frameworks/sfml-window.framework"; sourceTree = "<group>"; };
-		D63A580E1C7D1C4000EC1C97 /* SFML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SFML.framework; path = "../../Downloads/SFML-2.3.2-osx-clang-universal/Frameworks/SFML.framework"; sourceTree = "<group>"; };
+		D614E6061C7E2F4F0017890C /* Snake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Snake.cpp; sourceTree = "<group>"; };
+		D614E6071C7E2F4F0017890C /* Snake.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Snake.hpp; sourceTree = "<group>"; };
 		D63A58221C7D25AA00EC1C97 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		D63A58231C7D25AA00EC1C97 /* Game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
 		D63A58251C7D26B700EC1C97 /* Mushroom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mushroom.png; sourceTree = "<group>"; };
@@ -44,11 +41,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D614E6051C7E2F170017890C /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				D6842DDC1C7D161F00691541 /* Window.cpp */,
+				D6842DDD1C7D161F00691541 /* Window.hpp */,
+				D6C50BC51C7D152E00C2CCBC /* ResourcePath.mm */,
+				D6C50BC71C7D152E00C2CCBC /* ResourcePath.hpp */,
+			);
+			name = Engine;
+			sourceTree = "<group>";
+		};
 		D63A58271C7DBE9600EC1C97 /* Game */ = {
 			isa = PBXGroup;
 			children = (
 				D63A58221C7D25AA00EC1C97 /* Game.cpp */,
 				D63A58231C7D25AA00EC1C97 /* Game.hpp */,
+				D614E6061C7E2F4F0017890C /* Snake.cpp */,
+				D614E6071C7E2F4F0017890C /* Snake.hpp */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -56,12 +66,6 @@
 		D6C50BB61C7D152E00C2CCBC = {
 			isa = PBXGroup;
 			children = (
-				D63A58091C7D1C4000EC1C97 /* sfml-audio.framework */,
-				D63A580A1C7D1C4000EC1C97 /* sfml-graphics.framework */,
-				D63A580B1C7D1C4000EC1C97 /* sfml-network.framework */,
-				D63A580C1C7D1C4000EC1C97 /* sfml-system.framework */,
-				D63A580D1C7D1C4000EC1C97 /* sfml-window.framework */,
-				D63A580E1C7D1C4000EC1C97 /* SFML.framework */,
 				D6C50BC21C7D152E00C2CCBC /* sfml_engine */,
 				D6C50BC11C7D152E00C2CCBC /* Products */,
 			);
@@ -78,11 +82,8 @@
 		D6C50BC21C7D152E00C2CCBC /* sfml_engine */ = {
 			isa = PBXGroup;
 			children = (
+				D614E6051C7E2F170017890C /* Engine */,
 				D63A58271C7DBE9600EC1C97 /* Game */,
-				D6842DDC1C7D161F00691541 /* Window.cpp */,
-				D6842DDD1C7D161F00691541 /* Window.hpp */,
-				D6C50BC51C7D152E00C2CCBC /* ResourcePath.mm */,
-				D6C50BC71C7D152E00C2CCBC /* ResourcePath.hpp */,
 				D6C50BC81C7D152E00C2CCBC /* main.cpp */,
 				D6C50BCA1C7D152E00C2CCBC /* Resources */,
 				D6C50BC31C7D152E00C2CCBC /* Supporting Files */,
@@ -192,6 +193,7 @@
 			files = (
 				D6C50BC91C7D152E00C2CCBC /* main.cpp in Sources */,
 				D6842DDE1C7D161F00691541 /* Window.cpp in Sources */,
+				D614E6081C7E2F4F0017890C /* Snake.cpp in Sources */,
 				D6C50BC61C7D152E00C2CCBC /* ResourcePath.mm in Sources */,
 				D63A58241C7D25AA00EC1C97 /* Game.cpp in Sources */,
 			);
