@@ -91,6 +91,26 @@ void Snake::Tick()
     
 }
 
+void Snake::Render(sf::RenderWindow &l_window)
+{
+    if (m_snakeBody.empty()) {
+        return;
+    }
+    
+    // first draw head
+    auto head = m_snakeBody.begin();
+    m_bodyRect.setFillColor(sf::Color::Yellow);
+    m_bodyRect.setPosition(head->position.x * m_size, head->position.y * m_size);
+    l_window.draw(m_bodyRect);
+    
+    // then draw rest of body
+    m_bodyRect.setFillColor(sf::Color::Green);
+    for (auto itr = m_snakeBody.begin() + 1; itr != m_snakeBody.end(); itr++) {
+        m_bodyRect.setPosition(head->position.x * m_size, head->position.y * m_size);
+        l_window.draw(m_bodyRect);
+    }
+}
+
 void Snake::CheckCollision()
 {
     if (m_snakeBody.size() < 5) {
@@ -126,7 +146,13 @@ void Snake::Move()
 
 void Snake::Cut(int l_segments)
 {
+    for (int i = 0; i < l_segments; i++) {
+        m_snakeBody.pop_back();
+    }
     
+    if (--m_lives <= 0) {
+        Lose();
+    }
 }
 
 void Snake::SetDirection(Direction l_direction)

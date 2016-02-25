@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D614E6081C7E2F4F0017890C /* Snake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D614E6061C7E2F4F0017890C /* Snake.cpp */; };
+		D630FAE01C7F982D00A6F418 /* World.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D630FADE1C7F982D00A6F418 /* World.cpp */; };
 		D63A58241C7D25AA00EC1C97 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D63A58221C7D25AA00EC1C97 /* Game.cpp */; };
 		D63A58261C7D26B700EC1C97 /* Mushroom.png in Resources */ = {isa = PBXBuildFile; fileRef = D63A58251C7D26B700EC1C97 /* Mushroom.png */; };
 		D6842DDE1C7D161F00691541 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6842DDC1C7D161F00691541 /* Window.cpp */; };
@@ -18,6 +19,8 @@
 /* Begin PBXFileReference section */
 		D614E6061C7E2F4F0017890C /* Snake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Snake.cpp; sourceTree = "<group>"; };
 		D614E6071C7E2F4F0017890C /* Snake.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Snake.hpp; sourceTree = "<group>"; };
+		D630FADE1C7F982D00A6F418 /* World.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = World.cpp; sourceTree = "<group>"; };
+		D630FADF1C7F982D00A6F418 /* World.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = World.hpp; sourceTree = "<group>"; };
 		D63A58221C7D25AA00EC1C97 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		D63A58231C7D25AA00EC1C97 /* Game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
 		D63A58251C7D26B700EC1C97 /* Mushroom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mushroom.png; sourceTree = "<group>"; };
@@ -59,6 +62,8 @@
 				D63A58231C7D25AA00EC1C97 /* Game.hpp */,
 				D614E6061C7E2F4F0017890C /* Snake.cpp */,
 				D614E6071C7E2F4F0017890C /* Snake.hpp */,
+				D630FADE1C7F982D00A6F418 /* World.cpp */,
+				D630FADF1C7F982D00A6F418 /* World.hpp */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -193,6 +198,7 @@
 			files = (
 				D6C50BC91C7D152E00C2CCBC /* main.cpp in Sources */,
 				D6842DDE1C7D161F00691541 /* Window.cpp in Sources */,
+				D630FAE01C7F982D00A6F418 /* World.cpp in Sources */,
 				D614E6081C7E2F4F0017890C /* Snake.cpp in Sources */,
 				D6C50BC61C7D152E00C2CCBC /* ResourcePath.mm in Sources */,
 				D63A58241C7D25AA00EC1C97 /* Game.cpp in Sources */,
