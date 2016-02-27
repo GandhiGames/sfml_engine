@@ -30,13 +30,13 @@ public:
     ~Snake();
     
     void SetDirection(Direction l_direction);
-    const Direction *GetDirection();
+    const Direction &GetDirection() const;
     int GetSpeed();
-    const sf::Vector2i* GetPositon();
-    int GetLives();
-    int GetScore();
+    const sf::Vector2i & GetPositon() const;
+    int GetLives() const;
+    int GetScore() const;
     void IncreaseScore(int l_amount = 10);
-    bool HasLost();
+    bool HasLost() const;
     
     void Lose();
     void ToggleLost();
@@ -60,6 +60,7 @@ private:
     int m_score;
     bool m_lost;
     sf::RectangleShape m_bodyRect;
+    static const sf::Vector2i ZeroVector;
 
     
 };

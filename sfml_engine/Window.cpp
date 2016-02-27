@@ -77,23 +77,29 @@ void Window::EndDraw()
     m_window.display();
 }
 
-bool Window::IsDone()
+bool Window::IsDone() const
 {
     return m_isDone;
 }
 
-bool Window::IsFullScreen()
+bool Window::IsFullScreen() const
 {
     return m_isFullScreen;
 }
 
-const sf::Vector2u* Window::GetWindowSize()
+const sf::Vector2u & Window::GetWindowSize() const
 {
-    return &m_windowSize;
+    return m_windowSize;
+}
+
+sf::RenderWindow & Window::GetRenderWindow()
+{
+    return m_window;
 }
 
 void Window::Draw(const sf::Drawable &l_drawable)
 {
     m_window.draw(l_drawable);
 }
+
 

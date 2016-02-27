@@ -22,8 +22,8 @@ public:
     
     void RespawnApple();
     
-    void Update(const Snake &player);
-    void Render(const sf::RenderWindow &l_window);
+    void Update(Snake &l_player);
+    void Render(sf::RenderWindow &l_window);
     
 private:
     sf::Vector2u m_windowSize;

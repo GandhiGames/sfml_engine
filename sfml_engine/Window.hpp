@@ -8,7 +8,7 @@
 
 #ifndef Window_hpp
 #define Window_hpp
-
+ 
 #include <SFML/Graphics.hpp>
 
 class Window {
@@ -22,14 +22,16 @@ public:
     
     void Update();
     
-    bool IsDone();
-    bool IsFullScreen();
+    bool IsDone() const;
+    bool IsFullScreen() const;
     
-    const sf::Vector2u* GetWindowSize();
+    const sf::Vector2u & GetWindowSize() const;
     
     void ToggleFullScreen();
     
     void Draw(const sf::Drawable &l_drawable);
+    
+    sf::RenderWindow & GetRenderWindow();
     
 private:
     sf::RenderWindow m_window;

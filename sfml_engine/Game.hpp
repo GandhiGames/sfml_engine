@@ -11,7 +11,8 @@
 
 #include <stdio.h>
 #include "Window.hpp"
-#include "ResourcePath.hpp"
+#include "World.hpp"
+#include "Snake.hpp"
 
 class Game {
 public:
@@ -22,19 +23,18 @@ public:
     void Update();
     void Render();
     
-    Window* GetWindow();
+    const Window & GetWindow();
     
     sf::Time GetElapsed();
     void RestartClock();
     
 private:
-    void MoveMushroom();
     Window m_window;
-    sf::Texture m_mushroomTexture;
-    sf::Sprite m_mushroom;
+    World m_world;
+    Snake m_snake;
     sf::Vector2i m_increment;
     sf::Clock m_clock;
-    sf::Time m_elapsed;
+    float m_elapsed;
     
 };
 

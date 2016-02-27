@@ -8,6 +8,8 @@
 
 #include "Snake.hpp"
 
+const sf::Vector2i Snake::ZeroVector = sf::Vector2i(0, 0);
+
 Snake::Snake(int l_size)
 {
     m_size = l_size;
@@ -39,12 +41,9 @@ void Snake::Reset()
 
 void Snake::Grow()
 {
-    if (m_snakeBody.empty()){
-        return;
-    }
-    
-    SnakeSegment &tail_head = m_snakeBody[m_snakeBody.size() - 1];
-   
+    if (m_snakeBody.empty()){ return; }
+    SnakeSegment& tail_head =
+    m_snakeBody[m_snakeBody.size() - 1];
     
     if(m_snakeBody.size() > 1){
         SnakeSegment& tail_bone =
@@ -52,15 +51,19 @@ void Snake::Grow()
         
         if(tail_head.position.x == tail_bone.position.x){
             if(tail_head.position.y > tail_bone.position.y){
-                m_snakeBody.push_back(SnakeSegment(tail_head.position.x, tail_head.position.y + 1));
+                m_snakeBody.push_back(SnakeSegment(
+                                                   tail_head.position.x, tail_head.position.y + 1));
             } else {
-                m_snakeBody.push_back(SnakeSegment(tail_head.position.x, tail_head.position.y - 1));
+                m_snakeBody.push_back(SnakeSegment(
+                                                   tail_head.position.x, tail_head.position.y - 1));
             }
         } else if(tail_head.position.y == tail_bone.position.y){
             if(tail_head.position.x > tail_bone.position.x){
-                m_snakeBody.push_back(SnakeSegment(tail_head.position.x + 1, tail_head.position.y));
+                m_snakeBody.push_back(SnakeSegment(
+                                                   tail_head.position.x + 1, tail_head.position.y));
             } else {
-                m_snakeBody.push_back(SnakeSegment(tail_head.position.x - 1, tail_head.position.y));
+                m_snakeBody.push_back(SnakeSegment(
+                                                   tail_head.position.x - 1, tail_head.position.y));
             }
         }
     } else {
@@ -81,10 +84,13 @@ void Snake::Grow()
 }
 
 void Snake::Tick()
-{
+{    
     if (m_snakeBody.empty() || m_direction == Direction::None) {
+
         return;
     }
+    
+  
     
     Move();
     CheckCollision();
@@ -93,20 +99,19 @@ void Snake::Tick()
 
 void Snake::Render(sf::RenderWindow &l_window)
 {
-    if (m_snakeBody.empty()) {
-        return;
-    }
+    if (m_snakeBody.empty()){ return; }
     
-    // first draw head
     auto head = m_snakeBody.begin();
     m_bodyRect.setFillColor(sf::Color::Yellow);
-    m_bodyRect.setPosition(head->position.x * m_size, head->position.y * m_size);
+    m_bodyRect.setPosition(head->position.x * m_size,
+                           head->position.y * m_size);
     l_window.draw(m_bodyRect);
     
-    // then draw rest of body
     m_bodyRect.setFillColor(sf::Color::Green);
-    for (auto itr = m_snakeBody.begin() + 1; itr != m_snakeBody.end(); itr++) {
-        m_bodyRect.setPosition(head->position.x * m_size, head->position.y * m_size);
+    for(auto itr = m_snakeBody.begin() + 1;
+        itr != m_snakeBody.end(); ++itr){
+        m_bodyRect.setPosition(itr->position.x * m_size,
+                               itr->position.y * m_size);
         l_window.draw(m_bodyRect);
     }
 }
@@ -160,9 +165,9 @@ void Snake::SetDirection(Direction l_direction)
     m_direction = l_direction;
 }
 
-const Direction* Snake::GetDirection()
+const Direction & Snake::GetDirection() const
 {
-    return &m_direction;
+    return m_direction;
 }
 
 int Snake::GetSpeed()
@@ -170,17 +175,17 @@ int Snake::GetSpeed()
     return m_speed;
 }
 
-const sf::Vector2i* Snake::GetPositon()
+const sf::Vector2i & Snake::GetPositon() const
 {
-    return (!m_snakeBody.empty() ? &m_snakeBody.front().position : nullptr);
+    return (!m_snakeBody.empty() ? m_snakeBody.front().position : ZeroVector);
 }
 
-int Snake::GetLives()
+int Snake::GetLives() const
 {
     return m_lives;
 }
 
-int Snake::GetScore()
+int Snake::GetScore() const
 {
     return m_score;
 }
@@ -195,7 +200,7 @@ void Snake::ToggleLost()
     m_lost = !m_lost;
 }
 
-bool Snake::HasLost()
+bool Snake::HasLost() const
 {
     return m_lost;
 }

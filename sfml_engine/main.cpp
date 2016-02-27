@@ -21,7 +21,9 @@ int main(int, char const**)
 {
     Game game;
     
-    while (!game.GetWindow()->IsDone()) {
+
+    
+    while (!game.GetWindow().IsDone()) {
         game.HandleInput();
         game.Update();
         game.Render();
