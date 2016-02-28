@@ -31,6 +31,7 @@ public:
     
     void SetDirection(Direction l_direction);
     const Direction &GetDirection() const;
+    Direction GetPhysicalDirection();
     int GetSpeed();
     const sf::Vector2i & GetPositon() const;
     int GetLives() const;

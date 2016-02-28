@@ -13,6 +13,7 @@
 #include "Window.hpp"
 #include "World.hpp"
 #include "Snake.hpp"
+#include "Textbox.hpp"
 
 class Game {
 public:
@@ -35,6 +36,7 @@ private:
     sf::Vector2i m_increment;
     sf::Clock m_clock;
     float m_elapsed;
+    Textbox m_textbox;
     
 };
 

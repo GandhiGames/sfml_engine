@@ -14,6 +14,12 @@ Game::Game():m_window("engine_test", sf::Vector2u(800, 600)), m_snake(m_world.Ge
     m_clock.restart();
     
     m_elapsed = 0.0f;
+    
+    	srand(time(nullptr));
+    
+    m_textbox.Setup(5, 14, 350, sf::Vector2f(50, 50));
+    m_textbox.Add("Seeded random number generator with: " + std::to_string(time(nullptr)));
+    
 }
 
 Game::~Game(){}
@@ -31,6 +37,7 @@ void Game::Update()
         m_elapsed -= timeStep;
         
         if (m_snake.HasLost()) {
+            m_textbox.Add("Game Over");
             m_snake.Reset();
         }
     }
@@ -43,6 +50,7 @@ void Game::Render()
     m_window.BeginDraw();
     m_world.Render(m_window.GetRenderWindow());
     m_snake.Render(m_window.GetRenderWindow());
+    m_textbox.Render(m_window.GetRenderWindow());
     m_window.EndDraw();
 }
 
@@ -53,19 +61,19 @@ const Window & Game::GetWindow()
 
 void Game::HandleInput()
 {
- 
+    Direction l_dir = m_snake.GetPhysicalDirection();
     
    	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
-       && m_snake.GetDirection() != Direction::Down){
+       && l_dir != Direction::Down){
         m_snake.SetDirection(Direction::Up);
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)
-              && m_snake.GetDirection() != Direction::Up){
+              && l_dir != Direction::Up){
         m_snake.SetDirection(Direction::Down);
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)
-              && m_snake.GetDirection() != Direction::Right){
+              && l_dir != Direction::Right){
         m_snake.SetDirection(Direction::Left);
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)
-              && m_snake.GetDirection() != Direction::Left){
+              && l_dir!= Direction::Left){
         m_snake.SetDirection(Direction::Right);
     }
 }

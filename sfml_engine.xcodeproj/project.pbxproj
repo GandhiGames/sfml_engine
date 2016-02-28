@@ -10,7 +10,7 @@
 		D614E6081C7E2F4F0017890C /* Snake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D614E6061C7E2F4F0017890C /* Snake.cpp */; };
 		D630FAE01C7F982D00A6F418 /* World.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D630FADE1C7F982D00A6F418 /* World.cpp */; };
 		D63A58241C7D25AA00EC1C97 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D63A58221C7D25AA00EC1C97 /* Game.cpp */; };
-		D63A58261C7D26B700EC1C97 /* Mushroom.png in Resources */ = {isa = PBXBuildFile; fileRef = D63A58251C7D26B700EC1C97 /* Mushroom.png */; };
+		D6810F2B1C82157300A603C5 /* Textbox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6810F291C82157300A603C5 /* Textbox.cpp */; };
 		D6842DDE1C7D161F00691541 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6842DDC1C7D161F00691541 /* Window.cpp */; };
 		D6C50BC61C7D152E00C2CCBC /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6C50BC51C7D152E00C2CCBC /* ResourcePath.mm */; };
 		D6C50BC91C7D152E00C2CCBC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6C50BC81C7D152E00C2CCBC /* main.cpp */; };
@@ -23,7 +23,9 @@
 		D630FADF1C7F982D00A6F418 /* World.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = World.hpp; sourceTree = "<group>"; };
 		D63A58221C7D25AA00EC1C97 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		D63A58231C7D25AA00EC1C97 /* Game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
-		D63A58251C7D26B700EC1C97 /* Mushroom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mushroom.png; sourceTree = "<group>"; };
+		D6810F291C82157300A603C5 /* Textbox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Textbox.cpp; sourceTree = "<group>"; };
+		D6810F2A1C82157300A603C5 /* Textbox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Textbox.hpp; sourceTree = "<group>"; };
+		D6810F2D1C83690600A603C5 /* Vonique 64.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Vonique 64.ttf"; sourceTree = "<group>"; };
 		D6842DDC1C7D161F00691541 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		D6842DDD1C7D161F00691541 /* Window.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Window.hpp; sourceTree = "<group>"; };
 		D6C50BC01C7D152E00C2CCBC /* sfml_engine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sfml_engine.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +53,8 @@
 				D6842DDD1C7D161F00691541 /* Window.hpp */,
 				D6C50BC51C7D152E00C2CCBC /* ResourcePath.mm */,
 				D6C50BC71C7D152E00C2CCBC /* ResourcePath.hpp */,
+				D6810F291C82157300A603C5 /* Textbox.cpp */,
+				D6810F2A1C82157300A603C5 /* Textbox.hpp */,
 			);
 			name = Engine;
 			sourceTree = "<group>";
@@ -107,7 +111,7 @@
 		D6C50BCA1C7D152E00C2CCBC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D63A58251C7D26B700EC1C97 /* Mushroom.png */,
+				D6810F2D1C83690600A603C5 /* Vonique 64.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -169,7 +173,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D63A58261C7D26B700EC1C97 /* Mushroom.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +201,7 @@
 			files = (
 				D6C50BC91C7D152E00C2CCBC /* main.cpp in Sources */,
 				D6842DDE1C7D161F00691541 /* Window.cpp in Sources */,
+				D6810F2B1C82157300A603C5 /* Textbox.cpp in Sources */,
 				D630FAE01C7F982D00A6F418 /* World.cpp in Sources */,
 				D614E6081C7E2F4F0017890C /* Snake.cpp in Sources */,
 				D6C50BC61C7D152E00C2CCBC /* ResourcePath.mm in Sources */,
