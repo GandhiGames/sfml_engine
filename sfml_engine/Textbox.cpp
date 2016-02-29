@@ -10,7 +10,7 @@
 
 const sf::Vector2f Textbox::Offset = sf::Vector2f(2.0f, 2.0f);
 const sf::Vector2f Textbox::DefaultPosition = sf::Vector2f(0, 0);
-const sf::String Textbox::DefaultFont =  "Vonique 64.ttf";
+const sf::String Textbox::DefaultFont =  "arial.ttf";
 const sf::Color Textbox::DefaultFontColor = sf::Color::Red;
 
 Textbox::Textbox()
