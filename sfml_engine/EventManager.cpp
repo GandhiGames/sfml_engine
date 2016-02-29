@@ -8,6 +8,9 @@
 
 #include "EventManager.hpp"
 
+const std::string EventManager::DELIMITER = ":";
+const std::string EventManager::BINDINGS_FILE_NAME = "keys.cfg";
+
 EventManager::EventManager():m_hasFocus(true)
 {
     LoadBindings();
@@ -143,5 +146,49 @@ sf::Vector2i EventManager::GetMousePosition(const sf::RenderWindow * l_window)
 void EventManager::LoadBindings()
 {
     
+    std::ifstream bindings;
     
+    bindings.open(resourcePath() + BINDINGS_FILE_NAME);
+    
+    if (!bindings.is_open()) {
+        printf("Failed to load file %s", BINDINGS_FILE_NAME.c_str());
+        return;
+    }
+    
+    std::string line;
+    while (std::getline(bindings, line)) {
+        std::stringstream keystream(line);
+        std::string callbackName;
+        keystream >> callbackName;
+        Binding *bind = new Binding(callbackName);
+        
+        while (!keystream.eof()) {
+            std::string keyval;
+            keystream >> keyval;
+            
+            int start = 0;
+            int end = keyval.find(DELIMITER);
+            if (end == std::string::npos) {
+                delete bind;
+                bind = nullptr;
+                break;
+            }
+            
+            EventType type = EventType(stoi(keyval.substr(start, end - start)));
+            int code = stoi(keyval.substr(end + DELIMITER.length()));
+            EventInfo eventinfo;
+            eventinfo.m_code = code;
+            
+            bind->BindEvent(type, eventinfo);
+            
+        }
+        
+        if (!AddBinding(*bind)) {
+            delete bind;
+        }
+        
+        bind = nullptr;
+    }
+    
+    bindings.close();
 }

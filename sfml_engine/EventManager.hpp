@@ -11,7 +11,10 @@
 
 #include <unordered_map>
 #include <functional>
-#include <SFML/Window.hpp>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include "ResourcePath.hpp"
 #include <SFML/Graphics.hpp>
 
 enum class EventType {
@@ -197,6 +200,8 @@ public:
     sf::Vector2i GetMousePosition(const sf::RenderWindow * l_window = nullptr);
     
 private:
+    const static std::string DELIMITER;
+     const static std::string BINDINGS_FILE_NAME;
     Callbacks m_callbacks;
     Bindings m_bindings;
     bool m_hasFocus;
