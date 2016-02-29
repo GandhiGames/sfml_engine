@@ -14,6 +14,8 @@
 #include <string>
 #include "ResourcePath.hpp"
 
+//TODO: Singleton
+
 using MessageContainer = std::vector<std::string>;
 
 class Textbox {
@@ -30,14 +32,15 @@ public:
     void Render(sf::RenderWindow & l_window);
     
 private:
-    const static sf::Vector2f DefaultPosition;
-    constexpr static float LineSpacing = 1.2f;
-    const static sf::Vector2f Offset;
-    const static int DefaultLinesVisible = 5;
-    const static int DefaultCharSize = 9;
-    const static int DefaultWidth = 200;
-    const static sf::String DefaultFont;
-    const static sf::Color DefaultFontColor;
+    //TODO: define in header or imp?
+    const static sf::Vector2f DEFAULT_POSITION;
+    constexpr static float LINE_SPACING = 1.2f;
+    const static sf::Vector2f OFFSET;
+    const static int DEFAULT_LINES_VISIBLE = 5;
+    const static int DEFAULT_CHAR_SIZE = 9;
+    const static int DEFAULT_WIDTH = 200;
+    const static sf::String DEFAULT_FONT;
+    const static sf::Color DEFAULT_FONT_COLOUR;
     
     MessageContainer m_messages;
     int m_numLinesVisible;

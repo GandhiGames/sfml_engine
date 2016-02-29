@@ -8,14 +8,14 @@
 
 #include "Textbox.hpp"
 
-const sf::Vector2f Textbox::Offset = sf::Vector2f(2.0f, 2.0f);
-const sf::Vector2f Textbox::DefaultPosition = sf::Vector2f(0, 0);
-const sf::String Textbox::DefaultFont =  "arial.ttf";
-const sf::Color Textbox::DefaultFontColor = sf::Color::Red;
+const sf::Vector2f Textbox::OFFSET = sf::Vector2f(2.0f, 2.0f);
+const sf::Vector2f Textbox::DEFAULT_POSITION = sf::Vector2f(0, 0);
+const sf::String Textbox::DEFAULT_FONT =  "arial.ttf";
+const sf::Color Textbox::DEFAULT_FONT_COLOUR = sf::Color::Red;
 
 Textbox::Textbox()
 {
-    Setup(DefaultLinesVisible, DefaultCharSize, DefaultWidth, DefaultPosition);
+    Setup(DEFAULT_LINES_VISIBLE, DEFAULT_CHAR_SIZE, DEFAULT_WIDTH, DEFAULT_POSITION);
 }
 
 Textbox::Textbox(int l_visible, int l_charSize, int l_width, const sf::Vector2f & l_screenPos)
@@ -33,16 +33,16 @@ void Textbox::Setup(int l_visible, int l_charSize, int l_width, const sf::Vector
     m_numLinesVisible = l_visible;
     
     
-    m_font.loadFromFile(resourcePath() + DefaultFont);
+    m_font.loadFromFile(resourcePath() + DEFAULT_FONT);
     m_content.setFont(m_font);
     m_content.setString(" ");
     
     m_content.setCharacterSize(l_charSize);
-    m_content.setColor(DefaultFontColor);
+    m_content.setColor(DEFAULT_FONT_COLOUR);
     
-    m_content.setPosition(l_screenPos + Offset);
+    m_content.setPosition(l_screenPos + OFFSET);
     
-    m_background.setSize(sf::Vector2f(l_width, (l_visible * (l_charSize * LineSpacing))));
+    m_background.setSize(sf::Vector2f(l_width, (l_visible * (l_charSize * LINE_SPACING))));
     m_background.setFillColor(sf::Color(90, 90, 90, 90));
     m_background.setPosition(l_screenPos);
 }

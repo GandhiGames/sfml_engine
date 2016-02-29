@@ -14,6 +14,7 @@
 		D6810F2F1C836D6E00A603C5 /* arial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6810F2E1C836D6E00A603C5 /* arial.ttf */; };
 		D6810F341C8376CD00A603C5 /* EventManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6810F321C8376CD00A603C5 /* EventManager.cpp */; };
 		D6842DDE1C7D161F00691541 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6842DDC1C7D161F00691541 /* Window.cpp */; };
+		D6B609F91C84FDD500E5B970 /* keys.cfg in Resources */ = {isa = PBXBuildFile; fileRef = D6B609F81C84FDD500E5B970 /* keys.cfg */; };
 		D6C50BC61C7D152E00C2CCBC /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6C50BC51C7D152E00C2CCBC /* ResourcePath.mm */; };
 		D6C50BC91C7D152E00C2CCBC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6C50BC81C7D152E00C2CCBC /* main.cpp */; };
 /* End PBXBuildFile section */
@@ -32,6 +33,7 @@
 		D6810F331C8376CD00A603C5 /* EventManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EventManager.hpp; sourceTree = "<group>"; };
 		D6842DDC1C7D161F00691541 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		D6842DDD1C7D161F00691541 /* Window.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Window.hpp; sourceTree = "<group>"; };
+		D6B609F81C84FDD500E5B970 /* keys.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = keys.cfg; sourceTree = "<group>"; };
 		D6C50BC01C7D152E00C2CCBC /* sfml_engine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sfml_engine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6C50BC41C7D152E00C2CCBC /* sfml_engine-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "sfml_engine-Info.plist"; sourceTree = "<group>"; };
 		D6C50BC51C7D152E00C2CCBC /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 		D6C50BCA1C7D152E00C2CCBC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D6B609F81C84FDD500E5B970 /* keys.cfg */,
 				D6810F2E1C836D6E00A603C5 /* arial.ttf */,
 			);
 			name = Resources;
@@ -179,6 +182,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6B609F91C84FDD500E5B970 /* keys.cfg in Resources */,
 				D6810F2F1C836D6E00A603C5 /* arial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

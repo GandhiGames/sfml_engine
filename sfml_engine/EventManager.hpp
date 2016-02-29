@@ -47,13 +47,60 @@ struct EventDetails {
         Clear();
     }
     
-private:
-    std::string m_bindName;
-    sf::Vector2i m_size;
-    sf::Uint32 m_textEntered;
-    sf::Vector2i m_mouse;
-    int m_mouseWheelDelta;
-    int m_keyCode;
+    const int GetKeyCode() const
+    {
+        return m_keyCode;
+    }
+    
+    void SetKeyCode (int code)
+    {
+        m_keyCode = code;
+    }
+    
+    const sf::Vector2i& GetMousePos()
+    {
+        return m_mouse;
+    }
+    
+    void SetMouseX(int x)
+    {
+        m_mouse.x = x;
+    }
+    
+    void SetMouseY(int y)
+    {
+        m_mouse.y = y;
+    }
+    
+    void SetSizeX(int x)
+    {
+        m_size.x = x;
+    }
+    
+    void SetSizeY(int y)
+    {
+        m_size.y = y;
+    }
+    
+    const int& GetMouseDelta()
+    {
+        return m_mouseWheelDelta;
+    }
+    
+    void SetMouseDelta(int l_mouseDelta)
+    {
+        m_mouseWheelDelta = l_mouseDelta;
+    }
+    
+    const sf::Uint32 &GetTextEntered()
+    {
+        return m_textEntered;
+    }
+    
+    void SetTextEntered (sf::Uint32 l_textEntered)
+    {
+        m_textEntered = l_textEntered;
+    }
     
     void Clear()
     {
@@ -63,7 +110,14 @@ private:
         m_mouseWheelDelta = 0;
         m_keyCode = -1;
     }
- 
+    
+private:
+    std::string m_bindName;
+    sf::Vector2i m_size;
+    sf::Uint32 m_textEntered;
+    sf::Vector2i m_mouse;
+    int m_mouseWheelDelta;
+    int m_keyCode;
 };
 
 struct Binding {
@@ -72,11 +126,42 @@ struct Binding {
     {
         m_events.emplace_back(l_type, l_info);
     }
-
+    
+    const std::string & GetName() const
+    {
+        return m_name;
+    }
+    
+    const Events& GetEvents() const
+    {
+        return m_events;
+    }
+    
+    EventDetails &GetDetails()
+    {
+        return m_details;
+    }
+    
+    void IncrementEventCount ()
+    {
+        m_eventCount++;
+    }
+    
+    const int& GetEventCount () const
+    {
+        return m_eventCount;
+    }
+    
+    void SetEventCount(int l_count)
+    {
+        m_eventCount = l_count;
+    }
+    
+    
 private:
     std::string m_name;
     Events m_events;
-    int m_eventCount;
+    int m_eventCount; //c
     EventDetails m_details;
 };
 
@@ -85,6 +170,38 @@ using Bindings = std::unordered_map<std::string, Binding*>;
 
 using Callbacks = std::unordered_map<std::string, std::function<void(EventDetails*)>>;
 
-
+class EventManager {
+public:
+    EventManager();
+    ~EventManager();
+    
+    bool AddBinding(Binding &l_binding);
+    bool RemoveBinding(const std::string & l_name);
+    
+    void SetFocus(const bool & l_focus);
+    
+    //TODO: needs to be defined in header?
+    template<class T>
+    bool AddCallback(const std::string & l_name, void(T::*l_func)(EventDetails*), T* l_instance)
+    {
+        auto tmp = std::bind(l_func, l_instance, std::placeholders::_1);
+        
+        return m_callbacks.emplace(l_name, tmp).second;
+    }
+    
+    void RemoveCallback(const std::string & l_name);
+    
+    void HandleEvent(sf::Event & l_event);
+    void Update();
+    
+    sf::Vector2i GetMousePosition(const sf::RenderWindow * l_window = nullptr);
+    
+private:
+    Callbacks m_callbacks;
+    Bindings m_bindings;
+    bool m_hasFocus;
+    
+    void LoadBindings();
+};
 
 #endif /* EventManager_hpp */
