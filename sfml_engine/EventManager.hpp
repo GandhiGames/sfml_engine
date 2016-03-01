@@ -201,7 +201,7 @@ public:
     
 private:
     const static std::string DELIMITER;
-     const static std::string BINDINGS_FILE_NAME;
+    const static std::string BINDINGS_FILE_NAME;
     Callbacks m_callbacks;
     Bindings m_bindings;
     bool m_hasFocus;

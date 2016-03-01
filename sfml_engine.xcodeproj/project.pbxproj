@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D6090D191C8610D600947243 /* Mushroom.png in Resources */ = {isa = PBXBuildFile; fileRef = D6090D181C8610D600947243 /* Mushroom.png */; };
 		D614E6081C7E2F4F0017890C /* Snake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D614E6061C7E2F4F0017890C /* Snake.cpp */; };
 		D630FAE01C7F982D00A6F418 /* World.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D630FADE1C7F982D00A6F418 /* World.cpp */; };
 		D63A58241C7D25AA00EC1C97 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D63A58221C7D25AA00EC1C97 /* Game.cpp */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D6090D181C8610D600947243 /* Mushroom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mushroom.png; sourceTree = "<group>"; };
 		D614E6061C7E2F4F0017890C /* Snake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Snake.cpp; sourceTree = "<group>"; };
 		D614E6071C7E2F4F0017890C /* Snake.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Snake.hpp; sourceTree = "<group>"; };
 		D630FADE1C7F982D00A6F418 /* World.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = World.cpp; sourceTree = "<group>"; };
@@ -52,9 +54,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D6090D1A1C86179200947243 /* State Manager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "State Manager";
+			sourceTree = "<group>";
+		};
 		D614E6051C7E2F170017890C /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				D6090D1A1C86179200947243 /* State Manager */,
 				D6842DDC1C7D161F00691541 /* Window.cpp */,
 				D6842DDD1C7D161F00691541 /* Window.hpp */,
 				D6C50BC51C7D152E00C2CCBC /* ResourcePath.mm */,
@@ -119,6 +129,7 @@
 		D6C50BCA1C7D152E00C2CCBC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D6090D181C8610D600947243 /* Mushroom.png */,
 				D6B609F81C84FDD500E5B970 /* keys.cfg */,
 				D6810F2E1C836D6E00A603C5 /* arial.ttf */,
 			);
@@ -182,6 +193,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6090D191C8610D600947243 /* Mushroom.png in Resources */,
 				D6B609F91C84FDD500E5B970 /* keys.cfg in Resources */,
 				D6810F2F1C836D6E00A603C5 /* arial.ttf in Resources */,
 			);

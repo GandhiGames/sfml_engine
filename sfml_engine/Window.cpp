@@ -29,6 +29,11 @@ void Window::Setup(const std::string &l_title, const sf::Vector2u &l_size)
     m_windowSize = l_size;
     m_isFullScreen = false;
     m_isDone = false;
+    m_isFocused = true;
+    
+    m_eventManager.AddCallback("Fullscreen_toggle", &Window::ToggleFullScreen, this);
+    m_eventManager.AddCallback("Window_close", &Window::Close, this);
+    
     Create();
 }
 
@@ -46,25 +51,27 @@ void Window::Destroy()
 
 void Window::Update()
 {
-    sf::Event event;
+   	sf::Event event;
     
-    while (m_window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
-            m_isDone = true;
-        } else if (event.type == sf::Event::KeyPressed &&
-                   event.key.code == sf::Keyboard::F5) {
-            ToggleFullScreen();
-        }
-        
-        
+    while(m_window.pollEvent(event)){
+        if (event.type == sf::Event::LostFocus){ m_isFocused = false; m_eventManager.SetFocus(false); }
+        else if (event.type == sf::Event::GainedFocus){ m_isFocused = true; m_eventManager.SetFocus(true); }
+        m_eventManager.HandleEvent(event);
     }
+    
+    m_eventManager.Update();
 }
 
-void Window::ToggleFullScreen()
+void Window::ToggleFullScreen(EventDetails *l_details)
 {
     m_isFullScreen = !m_isFullScreen;
     Destroy();
     Create();
+}
+
+void Window::Close(EventDetails *l_details)
+{
+    m_isDone = true;
 }
 
 void Window::BeginDraw()
@@ -77,14 +84,19 @@ void Window::EndDraw()
     m_window.display();
 }
 
-bool Window::IsDone() const
+const bool& Window::IsDone() const
 {
     return m_isDone;
 }
 
-bool Window::IsFullScreen() const
+const bool& Window::IsFullScreen() const
 {
     return m_isFullScreen;
+}
+
+const bool& Window::IsFocused() const
+{
+    return m_isFocused;
 }
 
 const sf::Vector2u & Window::GetWindowSize() const
@@ -95,6 +107,11 @@ const sf::Vector2u & Window::GetWindowSize() const
 sf::RenderWindow & Window::GetRenderWindow()
 {
     return m_window;
+}
+
+EventManager &Window::GetEventManager()
+{
+    return  m_eventManager;
 }
 
 void Window::Draw(const sf::Drawable &l_drawable)

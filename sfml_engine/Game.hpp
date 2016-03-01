@@ -14,6 +14,7 @@
 #include "World.hpp"
 #include "Snake.hpp"
 #include "Textbox.hpp"
+#include <SFML/Graphics.hpp>
 
 class Game {
 public:
@@ -29,6 +30,8 @@ public:
     sf::Time GetElapsed();
     void RestartClock();
     
+    void MoveSprite(EventDetails *l_details = nullptr);
+    
 private:
     Window m_window;
     World m_world;
@@ -37,6 +40,9 @@ private:
     sf::Clock m_clock;
     float m_elapsed;
     Textbox m_textbox;
+    sf::Texture m_mushroomTexture;
+    sf::Sprite m_mushroomSprite;
+    
     
 };
 

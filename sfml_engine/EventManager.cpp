@@ -113,6 +113,8 @@ void EventManager::HandleEvent(sf::Event &l_event)
 // returns false if binding found with same name.
 bool EventManager::AddBinding(Binding &l_binding)
 {
+    
+    
     if (m_bindings.find(l_binding.GetName()) != m_bindings.end()) {
         return false;
     }
@@ -143,6 +145,7 @@ sf::Vector2i EventManager::GetMousePosition(const sf::RenderWindow * l_window)
     return l_window ? sf::Mouse::getPosition(*l_window) : sf::Mouse::getPosition();
 }
 
+//TODO: error handling, refractor (see commented out lines)
 void EventManager::LoadBindings()
 {
     
@@ -169,8 +172,8 @@ void EventManager::LoadBindings()
             int start = 0;
             int end = keyval.find(DELIMITER);
             if (end == std::string::npos) {
-                delete bind;
-                bind = nullptr;
+                //delete bind;
+                //bind = nullptr;
                 break;
             }
             
@@ -183,6 +186,8 @@ void EventManager::LoadBindings()
             
         }
         
+    
+        
         if (!AddBinding(*bind)) {
             delete bind;
         }
@@ -191,4 +196,9 @@ void EventManager::LoadBindings()
     }
     
     bindings.close();
+}
+
+void EventManager::SetFocus(const bool &l_focus)
+{
+    m_hasFocus = l_focus;
 }
