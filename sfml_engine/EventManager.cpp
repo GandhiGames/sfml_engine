@@ -8,6 +8,8 @@
 
 #include "EventManager.hpp"
 
+//TODO: Seperate into seperate header files
+
 const std::string EventManager::DELIMITER = ":";
 const std::string EventManager::BINDINGS_FILE_NAME = "keys.cfg";
 
