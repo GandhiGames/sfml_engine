@@ -11,6 +11,7 @@
 
 //#include "StateManager.hpp"
 #include <SFML/Graphics.hpp>
+#include <unordered_map>
 
 class StateManager;
 
@@ -19,7 +20,7 @@ class BaseState {
     
 public:
     BaseState(StateManager &l_stateManager):m_stateManager(l_stateManager), m_transparent(false), m_trancendent(false){};
-    virtual ~BaseState();
+    virtual ~BaseState(){};
     
     virtual void OnCreate() = 0;
     virtual void OnDestroy() = 0;
@@ -60,5 +61,8 @@ protected:
     bool m_transparent;
     bool m_trancendent;
 };
+
+
+
 
 #endif /* BaseState_h */

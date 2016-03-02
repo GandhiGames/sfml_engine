@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		D6090D191C8610D600947243 /* Mushroom.png in Resources */ = {isa = PBXBuildFile; fileRef = D6090D181C8610D600947243 /* Mushroom.png */; };
 		D6090D1D1C8617BF00947243 /* StateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6090D1B1C8617BF00947243 /* StateManager.cpp */; };
-		D614E6081C7E2F4F0017890C /* Snake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D614E6061C7E2F4F0017890C /* Snake.cpp */; };
-		D630FAE01C7F982D00A6F418 /* World.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D630FADE1C7F982D00A6F418 /* World.cpp */; };
+		D635F0C81C8784E700F868BB /* State_Intro.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D635F0C61C8784E700F868BB /* State_Intro.cpp */; };
+		D635F0CA1C87852700F868BB /* intro.png in Resources */ = {isa = PBXBuildFile; fileRef = D635F0C91C87852700F868BB /* intro.png */; };
 		D63A58241C7D25AA00EC1C97 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D63A58221C7D25AA00EC1C97 /* Game.cpp */; };
 		D6810F2B1C82157300A603C5 /* Textbox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6810F291C82157300A603C5 /* Textbox.cpp */; };
 		D6810F2F1C836D6E00A603C5 /* arial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6810F2E1C836D6E00A603C5 /* arial.ttf */; };
@@ -27,10 +27,10 @@
 		D6090D1C1C8617BF00947243 /* StateManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StateManager.hpp; sourceTree = "<group>"; };
 		D6090D1E1C8632E700947243 /* BaseState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseState.h; sourceTree = "<group>"; };
 		D6090D1F1C863A1B00947243 /* SharedContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedContext.h; sourceTree = "<group>"; };
-		D614E6061C7E2F4F0017890C /* Snake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Snake.cpp; sourceTree = "<group>"; };
-		D614E6071C7E2F4F0017890C /* Snake.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Snake.hpp; sourceTree = "<group>"; };
-		D630FADE1C7F982D00A6F418 /* World.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = World.cpp; sourceTree = "<group>"; };
-		D630FADF1C7F982D00A6F418 /* World.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = World.hpp; sourceTree = "<group>"; };
+		D635F07E1C877DA100F868BB /* StateType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StateType.h; sourceTree = "<group>"; };
+		D635F0C61C8784E700F868BB /* State_Intro.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State_Intro.cpp; sourceTree = "<group>"; };
+		D635F0C71C8784E700F868BB /* State_Intro.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = State_Intro.hpp; sourceTree = "<group>"; };
+		D635F0C91C87852700F868BB /* intro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = intro.png; sourceTree = "<group>"; };
 		D63A58221C7D25AA00EC1C97 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		D63A58231C7D25AA00EC1C97 /* Game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
 		D6810F291C82157300A603C5 /* Textbox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Textbox.cpp; sourceTree = "<group>"; };
@@ -66,6 +66,7 @@
 				D6090D1C1C8617BF00947243 /* StateManager.hpp */,
 				D6090D1E1C8632E700947243 /* BaseState.h */,
 				D6090D1F1C863A1B00947243 /* SharedContext.h */,
+				D635F07E1C877DA100F868BB /* StateType.h */,
 			);
 			name = "State Manager";
 			sourceTree = "<group>";
@@ -73,28 +74,58 @@
 		D614E6051C7E2F170017890C /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				D635F07D1C87742E00F868BB /* Resource Management */,
+				D635F07C1C87741600F868BB /* Debug */,
+				D635F07B1C87740500F868BB /* Event Manager */,
 				D6090D1A1C86179200947243 /* State Manager */,
 				D6842DDC1C7D161F00691541 /* Window.cpp */,
 				D6842DDD1C7D161F00691541 /* Window.hpp */,
-				D6C50BC51C7D152E00C2CCBC /* ResourcePath.mm */,
-				D6C50BC71C7D152E00C2CCBC /* ResourcePath.hpp */,
-				D6810F291C82157300A603C5 /* Textbox.cpp */,
-				D6810F2A1C82157300A603C5 /* Textbox.hpp */,
+			);
+			name = Engine;
+			sourceTree = "<group>";
+		};
+		D635F07B1C87740500F868BB /* Event Manager */ = {
+			isa = PBXGroup;
+			children = (
 				D6810F321C8376CD00A603C5 /* EventManager.cpp */,
 				D6810F331C8376CD00A603C5 /* EventManager.hpp */,
 			);
-			name = Engine;
+			name = "Event Manager";
+			sourceTree = "<group>";
+		};
+		D635F07C1C87741600F868BB /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				D6810F291C82157300A603C5 /* Textbox.cpp */,
+				D6810F2A1C82157300A603C5 /* Textbox.hpp */,
+			);
+			name = Debug;
+			sourceTree = "<group>";
+		};
+		D635F07D1C87742E00F868BB /* Resource Management */ = {
+			isa = PBXGroup;
+			children = (
+				D6C50BC51C7D152E00C2CCBC /* ResourcePath.mm */,
+				D6C50BC71C7D152E00C2CCBC /* ResourcePath.hpp */,
+			);
+			name = "Resource Management";
+			sourceTree = "<group>";
+		};
+		D635F0C51C8784D400F868BB /* States */ = {
+			isa = PBXGroup;
+			children = (
+				D635F0C61C8784E700F868BB /* State_Intro.cpp */,
+				D635F0C71C8784E700F868BB /* State_Intro.hpp */,
+			);
+			name = States;
 			sourceTree = "<group>";
 		};
 		D63A58271C7DBE9600EC1C97 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				D635F0C51C8784D400F868BB /* States */,
 				D63A58221C7D25AA00EC1C97 /* Game.cpp */,
 				D63A58231C7D25AA00EC1C97 /* Game.hpp */,
-				D614E6061C7E2F4F0017890C /* Snake.cpp */,
-				D614E6071C7E2F4F0017890C /* Snake.hpp */,
-				D630FADE1C7F982D00A6F418 /* World.cpp */,
-				D630FADF1C7F982D00A6F418 /* World.hpp */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -138,6 +169,7 @@
 		D6C50BCA1C7D152E00C2CCBC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D635F0C91C87852700F868BB /* intro.png */,
 				D6090D181C8610D600947243 /* Mushroom.png */,
 				D6B609F81C84FDD500E5B970 /* keys.cfg */,
 				D6810F2E1C836D6E00A603C5 /* arial.ttf */,
@@ -202,6 +234,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D635F0CA1C87852700F868BB /* intro.png in Resources */,
 				D6090D191C8610D600947243 /* Mushroom.png in Resources */,
 				D6B609F91C84FDD500E5B970 /* keys.cfg in Resources */,
 				D6810F2F1C836D6E00A603C5 /* arial.ttf in Resources */,
@@ -235,10 +268,9 @@
 				D6842DDE1C7D161F00691541 /* Window.cpp in Sources */,
 				D6810F2B1C82157300A603C5 /* Textbox.cpp in Sources */,
 				D6090D1D1C8617BF00947243 /* StateManager.cpp in Sources */,
-				D630FAE01C7F982D00A6F418 /* World.cpp in Sources */,
-				D614E6081C7E2F4F0017890C /* Snake.cpp in Sources */,
 				D6C50BC61C7D152E00C2CCBC /* ResourcePath.mm in Sources */,
 				D6810F341C8376CD00A603C5 /* EventManager.cpp in Sources */,
+				D635F0C81C8784E700F868BB /* State_Intro.cpp in Sources */,
 				D63A58241C7D25AA00EC1C97 /* Game.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,6 +375,7 @@
 		D6C50BD61C7D152E00C2CCBC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				INFOPLIST_FILE = "sfml_engine/sfml_engine-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
@@ -353,6 +386,7 @@
 		D6C50BD71C7D152E00C2CCBC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				INFOPLIST_FILE = "sfml_engine/sfml_engine-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "";

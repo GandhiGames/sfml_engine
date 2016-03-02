@@ -21,9 +21,19 @@ struct SharedContext {
         return m_window;
     }
     
+    void SetWindow(Window *l_window)
+    {
+        m_window = l_window;
+    }
+    
     EventManager *GetEventManager()
     {
         return m_eventManager;
+    }
+    
+    void SetEventManager(EventManager *l_eventManager)
+    {
+        m_eventManager = l_eventManager;
     }
     
 private:

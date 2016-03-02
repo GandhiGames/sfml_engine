@@ -13,7 +13,7 @@
 const std::string EventManager::DELIMITER = ":";
 const std::string EventManager::BINDINGS_FILE_NAME = "keys.cfg";
 
-EventManager::EventManager():m_hasFocus(true)
+EventManager::EventManager():m_currentState(StateType(0)), m_hasFocus(true)
 {
     LoadBindings();
 }
@@ -56,10 +56,23 @@ void EventManager::Update()
         }
         
         if (bind->GetEvents().size() == bind->GetEventCount()){
-            auto callItr = m_callbacks.find(bind->GetName());
+            auto stateCallbacks = m_callbacks.find(m_currentState);
+            auto otherCallbacks = m_callbacks.find(StateType(0));
             
-            if (callItr != m_callbacks.end()){
-                callItr->second(&bind->GetDetails());
+            if (stateCallbacks != m_callbacks.end()){
+                auto callItr = stateCallbacks->second.find(bind->GetName());
+                if (callItr != stateCallbacks->second.end()){
+                    // Pass in information about events.
+                    callItr->second(&bind->GetDetails());
+                }
+            }
+            
+            if (otherCallbacks != m_callbacks.end()){
+                auto callItr = otherCallbacks->second.find(bind->GetName());
+                if (callItr != otherCallbacks->second.end()){
+                    // Pass in information about events.
+                    callItr->second(&bind->GetDetails());
+                }
             }
         }
         bind->SetEventCount(0);
@@ -115,8 +128,6 @@ void EventManager::HandleEvent(sf::Event &l_event)
 // returns false if binding found with same name.
 bool EventManager::AddBinding(Binding &l_binding)
 {
-    
-    
     if (m_bindings.find(l_binding.GetName()) != m_bindings.end()) {
         return false;
     }
@@ -137,9 +148,14 @@ bool EventManager::RemoveBinding(const std::string &l_name)
     return true;
 }
 
-void EventManager::RemoveCallback(const std::string &l_name)
+void EventManager::RemoveCallback(const StateType &l_state,const std::string &l_name)
 {
-    m_callbacks.erase(l_name);
+    auto itr = m_callbacks.find(l_state);
+    if (itr == m_callbacks.end()){ return false; }
+    auto itr2 = itr->second.find(l_name);
+    if (itr2 == itr->second.end()){ return false; }
+    itr->second.erase(l_name);
+    return true;
 }
 
 sf::Vector2i EventManager::GetMousePosition(const sf::RenderWindow * l_window)
@@ -203,4 +219,9 @@ void EventManager::LoadBindings()
 void EventManager::SetFocus(const bool &l_focus)
 {
     m_hasFocus = l_focus;
+}
+
+void EventManager::SetCurrentState(const StateType &l_state)
+{
+    m_currentState = l_state;
 }

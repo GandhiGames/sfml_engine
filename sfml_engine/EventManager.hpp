@@ -16,6 +16,7 @@
 #include <iostream>
 #include "ResourcePath.hpp"
 #include <SFML/Graphics.hpp>
+#include "StateType.h"
 
 enum class EventType {
     KeyDown = sf::Event::KeyPressed,
@@ -171,7 +172,10 @@ private:
 // unordered_map guarantees only one binding per action
 using Bindings = std::unordered_map<std::string, Binding*>;
 
-using Callbacks = std::unordered_map<std::string, std::function<void(EventDetails*)>>;
+using CallbackContainer = std::unordered_map<std::string, std::function<void(EventDetails *)>>;
+
+
+using Callbacks = std::unordered_map<StateType, CallbackContainer>;
 
 class EventManager {
 public:
@@ -181,18 +185,19 @@ public:
     bool AddBinding(Binding &l_binding);
     bool RemoveBinding(const std::string & l_name);
     
+    void SetCurrentState(const StateType &l_state);
     void SetFocus(const bool & l_focus);
     
     //TODO: needs to be defined in header?
     template<class T>
-    bool AddCallback(const std::string & l_name, void(T::*l_func)(EventDetails*), T* l_instance)
+    bool AddCallback(const StateType &l_state, const std::string & l_name, void(T::*l_func)(EventDetails*), T* l_instance)
     {
+        auto itr = m_callbacks.emplace(l_state, CallbackContainer()).first;
         auto tmp = std::bind(l_func, l_instance, std::placeholders::_1);
-        
-        return m_callbacks.emplace(l_name, tmp).second;
+        return itr->second.emplace(l_name, tmp).second;
     }
     
-    void RemoveCallback(const std::string & l_name);
+    void RemoveCallback(const StateType &l_state, const std::string & l_name);
     
     void HandleEvent(sf::Event & l_event);
     void Update();
@@ -204,6 +209,7 @@ private:
     const static std::string BINDINGS_FILE_NAME;
     Callbacks m_callbacks;
     Bindings m_bindings;
+    StateType m_currentState;
     bool m_hasFocus;
     
     void LoadBindings();

@@ -9,28 +9,21 @@
 #ifndef StateManager_hpp
 #define StateManager_hpp
 
-#include <stdio.h>
-#include <vector>
-#include <unordered_map>
-#include "BaseState.h"
 #include "SharedContext.h"
+#include "BaseState.h"
+#include "StateType.h"
+#include "State_Intro.hpp"
 
-
-enum class StateType {
-    Intro = 1,
-    MainMenu,
-    Game,
-    Paused,
-    GameOver,
-    Credits
-};
-
-using StateContainer = std::vector<std::pair<StateType, BaseState*>>;
-
-using TypeContainer = std::vector<StateType>;
-
+// State factory.
 using StateFactory = std::unordered_map<StateType, std::function<BaseState*(void)>>;
 
+// State container.
+using StateContainer = std::vector<std::pair<StateType, BaseState*>>;
+// Type container.
+using TypeContainer = std::vector<StateType>;
+
+
+//TODO:move destructor to implementation
 class StateManager{
 public:
     StateManager(SharedContext &l_sharedContext);
@@ -43,7 +36,7 @@ public:
     
     SharedContext &GetContext();
     
-    const bool &HasState(const StateType &l_type) const;
+    bool HasState(const StateType &l_type) const;
     
     void SwitchTo(const StateType &l_type);
     void Remove(const StateType &l_type);
@@ -53,12 +46,11 @@ private:
     void RemoveState(const StateType &l_type);
     
     template<class T>
-    void RegisterState(const StateType &l_type)
-    {
-        m_stateFactory[l_type] = [this]()->BaseState*
+    void RegisterState(const StateType& l_type){
+        m_stateFactory[l_type] = [this]() -> BaseState*
         {
-            return new T(this);
-        }
+            return new T(*this);
+        };
     }
     
     SharedContext &m_sharedContext;
@@ -66,9 +58,5 @@ private:
     TypeContainer m_toRemove;
     StateFactory m_stateFactory;
 };
-
-
-
-
 
 #endif /* StateManager_hpp */

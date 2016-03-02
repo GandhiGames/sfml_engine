@@ -9,41 +9,31 @@
 #ifndef Game_hpp
 #define Game_hpp
 
-#include <stdio.h>
 #include "Window.hpp"
-#include "World.hpp"
-#include "Snake.hpp"
-#include "Textbox.hpp"
-#include <SFML/Graphics.hpp>
+#include "EventManager.hpp"
+#include "StateManager.hpp"
+#include "SharedContext.h"
+#include <iostream>
 
 class Game {
 public:
     Game();
     ~Game();
     
-    void HandleInput();
     void Update();
     void Render();
-    
-    const Window & GetWindow();
+    void LateUpdate();
     
     sf::Time GetElapsed();
-    void RestartClock();
     
-    void MoveSprite(EventDetails *l_details = nullptr);
-    
+    Window* GetWindow();
 private:
+    SharedContext m_context;
     Window m_window;
-    World m_world;
-    Snake m_snake;
-    sf::Vector2i m_increment;
+    StateManager m_stateManager;
     sf::Clock m_clock;
-    float m_elapsed;
-    Textbox m_textbox;
-    sf::Texture m_mushroomTexture;
-    sf::Sprite m_mushroomSprite;
-    
-    
+    sf::Time m_elapsed;
+    void RestartClock();
 };
 
 #endif /* Game_hpp */

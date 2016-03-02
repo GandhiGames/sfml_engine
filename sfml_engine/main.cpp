@@ -21,11 +21,10 @@ int main(int, char const**)
 {
     Game game;
     
-    while (!game.GetWindow().IsDone()) {
-        game.HandleInput();
+    while (!game.GetWindow()->IsDone()) {
         game.Update();
         game.Render();
-        game.RestartClock();
+        game.LateUpdate();
     }
     
     return EXIT_SUCCESS;
