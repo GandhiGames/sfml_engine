@@ -13,7 +13,7 @@ Game::Game(): m_window("engine_test", sf::Vector2u(800, 600)), m_stateManager(m_
     srand(time(nullptr));
     
     m_context.SetWindow(&m_window);
-    m_context.SetEventManager(&m_window.GetEventManager());
+    m_context.SetEventManager(m_window.GetEventManager());
     
     m_stateManager.SwitchTo(StateType::Intro);
 }

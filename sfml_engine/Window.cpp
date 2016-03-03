@@ -104,14 +104,14 @@ const sf::Vector2u & Window::GetWindowSize() const
     return m_windowSize;
 }
 
-sf::RenderWindow & Window::GetRenderWindow()
+sf::RenderWindow * Window::GetRenderWindow()
 {
-    return m_window;
+    return &m_window;
 }
 
-EventManager &Window::GetEventManager()
+EventManager * Window::GetEventManager()
 {
-    return  m_eventManager;
+    return  &m_eventManager;
 }
 
 void Window::Draw(const sf::Drawable &l_drawable)

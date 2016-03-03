@@ -15,10 +15,9 @@ State_Intro::~State_Intro(){}
 
 void State_Intro::OnCreate()
 {
-    printf("Here");
     m_timePassed = 0.0f;
     
-    sf::Vector2u windowSize = GetStateManager().GetContext().GetWindow()->GetRenderWindow().getSize();
+    sf::Vector2u windowSize = GetStateManager().GetContext().GetWindow()->GetRenderWindow()->getSize();
     
     m_introTexture.loadFromFile(resourcePath() + "intro.png");
     m_introSprite.setTexture(m_introTexture);
@@ -29,15 +28,15 @@ void State_Intro::OnCreate()
     
     m_font.loadFromFile(resourcePath() + "arial.ttf");
     m_text.setFont(m_font);
+    m_text.setColor(sf::Color::Black);
     m_text.setString({ "Press SPACE to continue" });
     m_text.setCharacterSize(15);
     sf::FloatRect textRect = m_text.getLocalBounds();
-    m_text.setOrigin(textRect.left + textRect.width / 2.0f,
-                     textRect.top + textRect.height / 2.0f);
-    m_text.setPosition(windowSize.x / 2.0f, windowSize.y / 2.0f);
+    m_text.setOrigin(textRect.left + textRect.width * 0.5f,
+                     textRect.top + textRect.height * 0.5f);
+    m_text.setPosition(windowSize.x * 0.5f, windowSize.y * 0.5f);
     
-    EventManager* evMgr = GetStateManager().GetContext().GetEventManager();
-    evMgr->AddCallback(StateType::Intro,"Intro_Continue",&State_Intro::Continue,this);
+   GetStateManager().GetContext().GetEventManager()->AddCallback(StateType::Intro,"Intro_continue",&State_Intro::Continue,this);
 }
 
 void State_Intro::OnDestroy()
@@ -51,7 +50,7 @@ void State_Intro::Deactivate(){}
 
 void State_Intro::Update(const sf::Time &l_time)
 {
-    if (m_timePassed < 5.0f) {
+    if (m_timePassed < MENU_TIME) {
         m_timePassed += l_time.asSeconds();
         
         m_introSprite.setPosition(m_introSprite.getPosition().x, m_introSprite.getPosition().y + (48 * l_time.asSeconds()));
@@ -60,18 +59,18 @@ void State_Intro::Update(const sf::Time &l_time)
 
 void State_Intro::Draw()
 {
-    sf::RenderWindow window = GetStateManager().GetContext().GetWindow()->GetRenderWindow();
+    sf::RenderWindow *window = GetStateManager().GetContext().GetWindow()->GetRenderWindow();
     
-    window.draw(m_introSprite);
+    window->draw(m_introSprite);
     
-    if (m_timePassed >= 5.0f) {
-        window.draw(m_text);
+    if (m_timePassed >= MENU_TIME) {
+        window->draw(m_text);
     }
 }
 
 void State_Intro::Continue(EventDetails *l_details)
 {
-    if (m_timePassed >= 5.0f) {
+    if (m_timePassed >= MENU_TIME) {
         GetStateManager().SwitchTo(StateType::MainMenu);
         GetStateManager().Remove(StateType::Intro);
     }

@@ -29,6 +29,7 @@ public:
     void Continue(EventDetails *l_details);
     
 private:
+    constexpr static float MENU_TIME = 2.0f;
     sf::Texture m_introTexture;
     sf::Sprite m_introSprite;
     sf::Font m_font;

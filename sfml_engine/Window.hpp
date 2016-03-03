@@ -34,9 +34,8 @@ public:
    
      void Draw(const sf::Drawable &l_drawable);
 
-    sf::RenderWindow & GetRenderWindow();
-    
-    EventManager &GetEventManager();
+    sf::RenderWindow *GetRenderWindow();
+    EventManager *GetEventManager();
     
 private:
     EventManager m_eventManager;

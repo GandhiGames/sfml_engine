@@ -16,7 +16,6 @@
 #include <iostream>
 #include "ResourcePath.hpp"
 #include <SFML/Graphics.hpp>
-#include "StateType.h"
 
 enum class EventType {
     KeyDown = sf::Event::KeyPressed,
@@ -174,6 +173,7 @@ using Bindings = std::unordered_map<std::string, Binding*>;
 
 using CallbackContainer = std::unordered_map<std::string, std::function<void(EventDetails *)>>;
 
+enum class StateType;
 
 using Callbacks = std::unordered_map<StateType, CallbackContainer>;
 

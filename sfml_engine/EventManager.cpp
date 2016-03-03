@@ -35,6 +35,7 @@ void EventManager::Update()
             switch (e_itr.first){
                 case(EventType::Keyboard) :
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(e_itr.second.m_code))){
+                        
                         if (bind->GetDetails().GetKeyCode() != -1){
                             bind->GetDetails().SetKeyCode(e_itr.second.m_code);
                         }
