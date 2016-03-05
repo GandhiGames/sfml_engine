@@ -32,7 +32,9 @@ public:
     void ToggleFullScreen(EventDetails *l_details = nullptr);
     void Close(EventDetails *l_details = nullptr);
    
-     void Draw(const sf::Drawable &l_drawable);
+    void Draw(const sf::Drawable &l_drawable);
+    
+    sf::FloatRect GetViewSpace() const;
 
     sf::RenderWindow *GetRenderWindow();
     EventManager *GetEventManager();

@@ -62,6 +62,19 @@ void Window::Update()
     m_eventManager.Update();
 }
 
+sf::FloatRect Window::GetViewSpace() const
+{
+    sf::View l_view = m_window.getView();
+    
+    sf::Vector2f viewCenter = l_view.getCenter();
+    sf::Vector2f viewSize = l_view.getSize();
+    sf::Vector2f viewSizeHalf(viewSize.x * 0.5f, viewSize.y * 0.5f);
+    
+    sf::FloatRect viewSpace(viewCenter - viewSizeHalf, viewSize);
+    
+    return viewSpace;
+}
+
 void Window::ToggleFullScreen(EventDetails *l_details)
 {
     m_isFullScreen = !m_isFullScreen;

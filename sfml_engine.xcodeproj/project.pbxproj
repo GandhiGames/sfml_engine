@@ -30,6 +30,7 @@
 		D6090D1C1C8617BF00947243 /* StateManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StateManager.hpp; sourceTree = "<group>"; };
 		D6090D1E1C8632E700947243 /* BaseState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseState.h; sourceTree = "<group>"; };
 		D6090D1F1C863A1B00947243 /* SharedContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedContext.h; sourceTree = "<group>"; };
+		D628FB491C8B396100191FAA /* ResourceManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ResourceManager.hpp; sourceTree = "<group>"; };
 		D635F07E1C877DA100F868BB /* StateType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StateType.h; sourceTree = "<group>"; };
 		D635F0C61C8784E700F868BB /* State_Intro.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State_Intro.cpp; sourceTree = "<group>"; };
 		D635F0C71C8784E700F868BB /* State_Intro.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = State_Intro.hpp; sourceTree = "<group>"; };
@@ -116,6 +117,7 @@
 			children = (
 				D6C50BC51C7D152E00C2CCBC /* ResourcePath.mm */,
 				D6C50BC71C7D152E00C2CCBC /* ResourcePath.hpp */,
+				D628FB491C8B396100191FAA /* ResourceManager.hpp */,
 			);
 			name = "Resource Management";
 			sourceTree = "<group>";
