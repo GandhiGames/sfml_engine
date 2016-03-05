@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		D6090D191C8610D600947243 /* Mushroom.png in Resources */ = {isa = PBXBuildFile; fileRef = D6090D181C8610D600947243 /* Mushroom.png */; };
 		D6090D1D1C8617BF00947243 /* StateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6090D1B1C8617BF00947243 /* StateManager.cpp */; };
+		D6314CBF1C8B9186002C041C /* TextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6314CBD1C8B9186002C041C /* TextureManager.cpp */; };
+		D6314CC31C8B992B002C041C /* SpriteSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6314CC11C8B992B002C041C /* SpriteSheet.cpp */; };
 		D635F0C81C8784E700F868BB /* State_Intro.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D635F0C61C8784E700F868BB /* State_Intro.cpp */; };
 		D635F0CA1C87852700F868BB /* intro.png in Resources */ = {isa = PBXBuildFile; fileRef = D635F0C91C87852700F868BB /* intro.png */; };
 		D63A58241C7D25AA00EC1C97 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D63A58221C7D25AA00EC1C97 /* Game.cpp */; };
@@ -30,7 +32,11 @@
 		D6090D1C1C8617BF00947243 /* StateManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StateManager.hpp; sourceTree = "<group>"; };
 		D6090D1E1C8632E700947243 /* BaseState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseState.h; sourceTree = "<group>"; };
 		D6090D1F1C863A1B00947243 /* SharedContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedContext.h; sourceTree = "<group>"; };
-		D628FB491C8B396100191FAA /* ResourceManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ResourceManager.hpp; sourceTree = "<group>"; };
+		D6314CBC1C8B4C29002C041C /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManager.h; sourceTree = "<group>"; };
+		D6314CBD1C8B9186002C041C /* TextureManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureManager.cpp; sourceTree = "<group>"; };
+		D6314CBE1C8B9186002C041C /* TextureManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextureManager.hpp; sourceTree = "<group>"; };
+		D6314CC11C8B992B002C041C /* SpriteSheet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteSheet.cpp; sourceTree = "<group>"; };
+		D6314CC21C8B992B002C041C /* SpriteSheet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SpriteSheet.hpp; sourceTree = "<group>"; };
 		D635F07E1C877DA100F868BB /* StateType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StateType.h; sourceTree = "<group>"; };
 		D635F0C61C8784E700F868BB /* State_Intro.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State_Intro.cpp; sourceTree = "<group>"; };
 		D635F0C71C8784E700F868BB /* State_Intro.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = State_Intro.hpp; sourceTree = "<group>"; };
@@ -84,6 +90,7 @@
 		D614E6051C7E2F170017890C /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				D6314CC01C8B991B002C041C /* Sprites */,
 				D635F07D1C87742E00F868BB /* Resource Management */,
 				D635F07C1C87741600F868BB /* Debug */,
 				D635F07B1C87740500F868BB /* Event Manager */,
@@ -92,6 +99,15 @@
 				D6842DDD1C7D161F00691541 /* Window.hpp */,
 			);
 			name = Engine;
+			sourceTree = "<group>";
+		};
+		D6314CC01C8B991B002C041C /* Sprites */ = {
+			isa = PBXGroup;
+			children = (
+				D6314CC11C8B992B002C041C /* SpriteSheet.cpp */,
+				D6314CC21C8B992B002C041C /* SpriteSheet.hpp */,
+			);
+			name = Sprites;
 			sourceTree = "<group>";
 		};
 		D635F07B1C87740500F868BB /* Event Manager */ = {
@@ -117,7 +133,9 @@
 			children = (
 				D6C50BC51C7D152E00C2CCBC /* ResourcePath.mm */,
 				D6C50BC71C7D152E00C2CCBC /* ResourcePath.hpp */,
-				D628FB491C8B396100191FAA /* ResourceManager.hpp */,
+				D6314CBC1C8B4C29002C041C /* ResourceManager.h */,
+				D6314CBD1C8B9186002C041C /* TextureManager.cpp */,
+				D6314CBE1C8B9186002C041C /* TextureManager.hpp */,
 			);
 			name = "Resource Management";
 			sourceTree = "<group>";
@@ -287,11 +305,13 @@
 				D6090D1D1C8617BF00947243 /* StateManager.cpp in Sources */,
 				D6C50BC61C7D152E00C2CCBC /* ResourcePath.mm in Sources */,
 				D6810F341C8376CD00A603C5 /* EventManager.cpp in Sources */,
+				D6314CC31C8B992B002C041C /* SpriteSheet.cpp in Sources */,
 				D635F0C81C8784E700F868BB /* State_Intro.cpp in Sources */,
 				D6C8D8C91C88E4030027F8DE /* State_Game.cpp in Sources */,
 				D6C8D8C61C88DB080027F8DE /* State_Menu.cpp in Sources */,
 				D6C8D8CC1C88E8AF0027F8DE /* State_Paused.cpp in Sources */,
 				D63A58241C7D25AA00EC1C97 /* Game.cpp in Sources */,
+				D6314CBF1C8B9186002C041C /* TextureManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

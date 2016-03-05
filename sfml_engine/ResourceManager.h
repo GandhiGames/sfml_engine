@@ -11,12 +11,18 @@
 
 #include <string>
 #include <unordered_map>
+#include <iostream>
+#include <fstream>
+#include <sstream>
 #include "ResourcePath.hpp"
 
-template<typename derived, typename T>
+template<typename Derived, typename T>
 class ResourceManager {
 public:
-    ResourceManager(const std::string &l_pathsFile);
+    ResourceManager(const std::string &l_pathsFile)
+    {
+        LoadPaths(l_pathsFile);
+    }
     
     virtual ~ResourceManager()
     {
@@ -24,14 +30,13 @@ public:
     }
     
     void PurgeResources(){
-        std::cout << "Purging all resources:" << std::endl;
+        printf("Purging all resources:\n");
         while(m_resources.begin() != m_resources.end()){
-            std::cout << "Removing: "
-            << m_resources.begin()->first << std::endl;
+            printf("Removing: %s\n", m_resources.begin()->first.c_str());
             delete m_resources.begin()->second.first;
             m_resources.erase(m_resources.begin());
         }
-        std::cout << "Purging finished." << std::endl;
+        printf("Purging finished.");
     }
     
     T* GetResource(const std::string &l_id)
@@ -42,7 +47,7 @@ public:
     
     const std::string &GetPath(const std::string &l_id)
     {
-        auto path = m_paths.Find(l_id);
+        auto path = m_paths.find(l_id);
         return (path != m_paths.end() ? path->second : "");
     }
     
@@ -75,12 +80,12 @@ protected:
     {
         return static_cast<Derived*>(this)->Load(l_path);
     }
-
+    
 private:
     std::unordered_map<std::string, std::pair<T*, unsigned int>> m_resources;
     std::unordered_map<std::string, std::string> m_paths;
     
-
+    
     std::pair<T*,unsigned int>* Find(const std::string& l_id)
     {
         auto itr = m_resources.find(l_id);
@@ -113,9 +118,7 @@ private:
             paths.close();
             return;
         }
-        std::cerr << 
-        "! Failed loading the path file: " 
-        << l_pathFile << std::endl;
+        printf("! Failed loading the path file: %s\n",l_pathFile.c_str());
     }
 };
 
