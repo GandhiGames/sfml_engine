@@ -11,6 +11,7 @@
 		D6090D1D1C8617BF00947243 /* StateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6090D1B1C8617BF00947243 /* StateManager.cpp */; };
 		D6314CBF1C8B9186002C041C /* TextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6314CBD1C8B9186002C041C /* TextureManager.cpp */; };
 		D6314CC31C8B992B002C041C /* SpriteSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6314CC11C8B992B002C041C /* SpriteSheet.cpp */; };
+		D633D3A71C8C4C450054C097 /* AnimBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D633D3A51C8C4C450054C097 /* AnimBase.cpp */; };
 		D635F0C81C8784E700F868BB /* State_Intro.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D635F0C61C8784E700F868BB /* State_Intro.cpp */; };
 		D635F0CA1C87852700F868BB /* intro.png in Resources */ = {isa = PBXBuildFile; fileRef = D635F0C91C87852700F868BB /* intro.png */; };
 		D63A58241C7D25AA00EC1C97 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D63A58221C7D25AA00EC1C97 /* Game.cpp */; };
@@ -37,6 +38,9 @@
 		D6314CBE1C8B9186002C041C /* TextureManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextureManager.hpp; sourceTree = "<group>"; };
 		D6314CC11C8B992B002C041C /* SpriteSheet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteSheet.cpp; sourceTree = "<group>"; };
 		D6314CC21C8B992B002C041C /* SpriteSheet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SpriteSheet.hpp; sourceTree = "<group>"; };
+		D633D3A51C8C4C450054C097 /* AnimBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimBase.cpp; sourceTree = "<group>"; };
+		D633D3A61C8C4C450054C097 /* AnimBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AnimBase.hpp; sourceTree = "<group>"; };
+		D633D3A81C8C4DC30054C097 /* Direction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direction.h; sourceTree = "<group>"; };
 		D635F07E1C877DA100F868BB /* StateType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StateType.h; sourceTree = "<group>"; };
 		D635F0C61C8784E700F868BB /* State_Intro.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State_Intro.cpp; sourceTree = "<group>"; };
 		D635F0C71C8784E700F868BB /* State_Intro.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = State_Intro.hpp; sourceTree = "<group>"; };
@@ -104,10 +108,21 @@
 		D6314CC01C8B991B002C041C /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				D633D3A91C8C57F60054C097 /* Animations */,
 				D6314CC11C8B992B002C041C /* SpriteSheet.cpp */,
 				D6314CC21C8B992B002C041C /* SpriteSheet.hpp */,
+				D633D3A81C8C4DC30054C097 /* Direction.h */,
 			);
 			name = Sprites;
+			sourceTree = "<group>";
+		};
+		D633D3A91C8C57F60054C097 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				D633D3A51C8C4C450054C097 /* AnimBase.cpp */,
+				D633D3A61C8C4C450054C097 /* AnimBase.hpp */,
+			);
+			name = Animations;
 			sourceTree = "<group>";
 		};
 		D635F07B1C87740500F868BB /* Event Manager */ = {
@@ -308,6 +323,7 @@
 				D6314CC31C8B992B002C041C /* SpriteSheet.cpp in Sources */,
 				D635F0C81C8784E700F868BB /* State_Intro.cpp in Sources */,
 				D6C8D8C91C88E4030027F8DE /* State_Game.cpp in Sources */,
+				D633D3A71C8C4C450054C097 /* AnimBase.cpp in Sources */,
 				D6C8D8C61C88DB080027F8DE /* State_Menu.cpp in Sources */,
 				D6C8D8CC1C88E8AF0027F8DE /* State_Paused.cpp in Sources */,
 				D63A58241C7D25AA00EC1C97 /* Game.cpp in Sources */,
