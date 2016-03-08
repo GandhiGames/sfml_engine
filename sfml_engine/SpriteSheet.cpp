@@ -46,6 +46,71 @@ void SpriteSheet::SetDirection(const Direction& l_dir){
     m_animationCurrent->CropSprite();
 }
 
+bool SpriteSheet::LoadSheet(const std::string& l_file){
+    std::ifstream sheet;
+    sheet.open(resourcePath() + l_file);
+    if(sheet.is_open()){
+        ReleaseSheet(); // Release current sheet resources.
+        std::string line;
+        while(std::getline(sheet,line)){
+            if (line[0] == '|'){ continue; }
+            std::stringstream keystream(line);
+            std::string type;
+            keystream >> type;
+            if(type == "Texture"){
+                if (m_texture != ""){
+                    std::cerr << "! Duplicate texture entries in: " << l_file << std::endl;
+                    continue;
+                }
+                std::string texture;
+                keystream >> texture;
+                if (!m_textureManager.RequireResource(texture)){
+                    std::cerr << "! Could not set up the texture: " << texture << std::endl;
+                    continue;
+                }
+                m_texture = texture;
+                m_sprite.setTexture(*m_textureManager.GetResource(m_texture));
+            } else if(type == "Size"){
+                keystream >> m_spriteSize.x >> m_spriteSize.y;
+                SetSpriteSize(m_spriteSize);
+            } else if(type == "Scale"){
+                keystream >> m_spriteScale.x >> m_spriteScale.y;
+                m_sprite.setScale(m_spriteScale);
+            } else if(type == "AnimationType"){
+                keystream >> m_animType;
+            } else if(type == "Animation"){
+                std::string name;
+                keystream >> name;
+                if (m_animations.find(name) != m_animations.end()){
+                    std::cerr << "! Duplicate animation(" << name << ") in: " << l_file << std::endl;
+                    continue;
+                }
+                AnimBase* anim	= nullptr;
+                if(m_animType == "Directional"){
+                    anim = new AnimDirectional();
+                } else {
+                    std::cerr << "! Unknown animation type: " << m_animType << std::endl;
+                    continue;
+                }
+                
+                keystream >> *anim;
+                anim->SetSpriteSheet(this);
+                anim->SetName(name);
+                anim->Reset();
+                m_animations.emplace(name,anim);
+                
+                if (m_animationCurrent){ continue; }
+                m_animationCurrent = anim;
+                m_animationCurrent->Play();
+            }
+        }
+        sheet.close();
+        return true;
+    }
+    std::cerr << "! Failed loading spritesheet: " << l_file << std::endl;
+    return false;
+}
+
 bool SpriteSheet::SetAnimation(const std::string& l_name,
                                const bool& l_play, const bool& l_loop)
 {

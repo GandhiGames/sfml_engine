@@ -14,6 +14,7 @@
 #include "TextureManager.hpp"
 #include <SFML/Graphics.hpp>
 #include "Direction.h"
+#include "AnimDirectional.hpp"
 
 using Animations = std::unordered_map<std::string, AnimBase*>;
 

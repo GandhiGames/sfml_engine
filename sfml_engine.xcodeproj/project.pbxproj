@@ -7,18 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D6090D191C8610D600947243 /* Mushroom.png in Resources */ = {isa = PBXBuildFile; fileRef = D6090D181C8610D600947243 /* Mushroom.png */; };
 		D6090D1D1C8617BF00947243 /* StateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6090D1B1C8617BF00947243 /* StateManager.cpp */; };
 		D6314CBF1C8B9186002C041C /* TextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6314CBD1C8B9186002C041C /* TextureManager.cpp */; };
 		D6314CC31C8B992B002C041C /* SpriteSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6314CC11C8B992B002C041C /* SpriteSheet.cpp */; };
 		D633D3A71C8C4C450054C097 /* AnimBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D633D3A51C8C4C450054C097 /* AnimBase.cpp */; };
 		D635F0C81C8784E700F868BB /* State_Intro.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D635F0C61C8784E700F868BB /* State_Intro.cpp */; };
-		D635F0CA1C87852700F868BB /* intro.png in Resources */ = {isa = PBXBuildFile; fileRef = D635F0C91C87852700F868BB /* intro.png */; };
 		D63A58241C7D25AA00EC1C97 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D63A58221C7D25AA00EC1C97 /* Game.cpp */; };
 		D6810F2B1C82157300A603C5 /* Textbox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6810F291C82157300A603C5 /* Textbox.cpp */; };
-		D6810F2F1C836D6E00A603C5 /* arial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6810F2E1C836D6E00A603C5 /* arial.ttf */; };
 		D6810F341C8376CD00A603C5 /* EventManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6810F321C8376CD00A603C5 /* EventManager.cpp */; };
 		D6842DDE1C7D161F00691541 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6842DDC1C7D161F00691541 /* Window.cpp */; };
+		D6A0B6051C8E16C500148032 /* AnimDirectional.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6A0B6031C8E16C500148032 /* AnimDirectional.cpp */; };
+		D6A0B6101C8E1C8D00148032 /* keys.cfg.txt in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60C1C8E1C8D00148032 /* keys.cfg.txt */; };
+		D6A0B6111C8E1C8D00148032 /* media in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60D1C8E1C8D00148032 /* media */; };
+		D6A0B6121C8E1C8D00148032 /* textures.cfg.txt in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60E1C8E1C8D00148032 /* textures.cfg.txt */; };
+		D6A0B6131C8E1C8D00148032 /* tiles.cfg.txt in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60F1C8E1C8D00148032 /* tiles.cfg.txt */; };
+		D6A0B6181C8E2BA400148032 /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6A0B6161C8E2BA400148032 /* Map.cpp */; };
 		D6B609F91C84FDD500E5B970 /* keys.cfg in Resources */ = {isa = PBXBuildFile; fileRef = D6B609F81C84FDD500E5B970 /* keys.cfg */; };
 		D6C50BC61C7D152E00C2CCBC /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6C50BC51C7D152E00C2CCBC /* ResourcePath.mm */; };
 		D6C50BC91C7D152E00C2CCBC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6C50BC81C7D152E00C2CCBC /* main.cpp */; };
@@ -28,7 +31,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D6090D181C8610D600947243 /* Mushroom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mushroom.png; sourceTree = "<group>"; };
 		D6090D1B1C8617BF00947243 /* StateManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateManager.cpp; sourceTree = "<group>"; };
 		D6090D1C1C8617BF00947243 /* StateManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StateManager.hpp; sourceTree = "<group>"; };
 		D6090D1E1C8632E700947243 /* BaseState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseState.h; sourceTree = "<group>"; };
@@ -44,16 +46,22 @@
 		D635F07E1C877DA100F868BB /* StateType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StateType.h; sourceTree = "<group>"; };
 		D635F0C61C8784E700F868BB /* State_Intro.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State_Intro.cpp; sourceTree = "<group>"; };
 		D635F0C71C8784E700F868BB /* State_Intro.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = State_Intro.hpp; sourceTree = "<group>"; };
-		D635F0C91C87852700F868BB /* intro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = intro.png; sourceTree = "<group>"; };
 		D63A58221C7D25AA00EC1C97 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		D63A58231C7D25AA00EC1C97 /* Game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
 		D6810F291C82157300A603C5 /* Textbox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Textbox.cpp; sourceTree = "<group>"; };
 		D6810F2A1C82157300A603C5 /* Textbox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Textbox.hpp; sourceTree = "<group>"; };
-		D6810F2E1C836D6E00A603C5 /* arial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = arial.ttf; sourceTree = "<group>"; };
 		D6810F321C8376CD00A603C5 /* EventManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventManager.cpp; sourceTree = "<group>"; };
 		D6810F331C8376CD00A603C5 /* EventManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EventManager.hpp; sourceTree = "<group>"; };
 		D6842DDC1C7D161F00691541 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		D6842DDD1C7D161F00691541 /* Window.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Window.hpp; sourceTree = "<group>"; };
+		D6A0B6031C8E16C500148032 /* AnimDirectional.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimDirectional.cpp; sourceTree = "<group>"; };
+		D6A0B6041C8E16C500148032 /* AnimDirectional.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AnimDirectional.hpp; sourceTree = "<group>"; };
+		D6A0B60C1C8E1C8D00148032 /* keys.cfg.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = keys.cfg.txt; sourceTree = "<group>"; };
+		D6A0B60D1C8E1C8D00148032 /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; path = media; sourceTree = "<group>"; };
+		D6A0B60E1C8E1C8D00148032 /* textures.cfg.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = textures.cfg.txt; sourceTree = "<group>"; };
+		D6A0B60F1C8E1C8D00148032 /* tiles.cfg.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tiles.cfg.txt; sourceTree = "<group>"; };
+		D6A0B6161C8E2BA400148032 /* Map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Map.cpp; sourceTree = "<group>"; };
+		D6A0B6171C8E2BA400148032 /* Map.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Map.hpp; sourceTree = "<group>"; };
 		D6B609F81C84FDD500E5B970 /* keys.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = keys.cfg; sourceTree = "<group>"; };
 		D6C50BC01C7D152E00C2CCBC /* sfml_engine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sfml_engine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6C50BC41C7D152E00C2CCBC /* sfml_engine-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "sfml_engine-Info.plist"; sourceTree = "<group>"; };
@@ -94,6 +102,8 @@
 		D614E6051C7E2F170017890C /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				D6A0B6191C8E3BF600148032 /* Entity Manager */,
+				D6A0B6151C8E1F3400148032 /* Map */,
 				D6314CC01C8B991B002C041C /* Sprites */,
 				D635F07D1C87742E00F868BB /* Resource Management */,
 				D635F07C1C87741600F868BB /* Debug */,
@@ -121,6 +131,8 @@
 			children = (
 				D633D3A51C8C4C450054C097 /* AnimBase.cpp */,
 				D633D3A61C8C4C450054C097 /* AnimBase.hpp */,
+				D6A0B6031C8E16C500148032 /* AnimDirectional.cpp */,
+				D6A0B6041C8E16C500148032 /* AnimDirectional.hpp */,
 			);
 			name = Animations;
 			sourceTree = "<group>";
@@ -180,6 +192,22 @@
 			name = Game;
 			sourceTree = "<group>";
 		};
+		D6A0B6151C8E1F3400148032 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				D6A0B6161C8E2BA400148032 /* Map.cpp */,
+				D6A0B6171C8E2BA400148032 /* Map.hpp */,
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
+		D6A0B6191C8E3BF600148032 /* Entity Manager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Entity Manager";
+			sourceTree = "<group>";
+		};
 		D6C50BB61C7D152E00C2CCBC = {
 			isa = PBXGroup;
 			children = (
@@ -219,10 +247,11 @@
 		D6C50BCA1C7D152E00C2CCBC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D635F0C91C87852700F868BB /* intro.png */,
-				D6090D181C8610D600947243 /* Mushroom.png */,
+				D6A0B60C1C8E1C8D00148032 /* keys.cfg.txt */,
+				D6A0B60D1C8E1C8D00148032 /* media */,
+				D6A0B60E1C8E1C8D00148032 /* textures.cfg.txt */,
+				D6A0B60F1C8E1C8D00148032 /* tiles.cfg.txt */,
 				D6B609F81C84FDD500E5B970 /* keys.cfg */,
-				D6810F2E1C836D6E00A603C5 /* arial.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -284,10 +313,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D635F0CA1C87852700F868BB /* intro.png in Resources */,
-				D6090D191C8610D600947243 /* Mushroom.png in Resources */,
+				D6A0B6101C8E1C8D00148032 /* keys.cfg.txt in Resources */,
+				D6A0B6131C8E1C8D00148032 /* tiles.cfg.txt in Resources */,
+				D6A0B6111C8E1C8D00148032 /* media in Resources */,
 				D6B609F91C84FDD500E5B970 /* keys.cfg in Resources */,
-				D6810F2F1C836D6E00A603C5 /* arial.ttf in Resources */,
+				D6A0B6121C8E1C8D00148032 /* textures.cfg.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,11 +344,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6A0B6051C8E16C500148032 /* AnimDirectional.cpp in Sources */,
 				D6C50BC91C7D152E00C2CCBC /* main.cpp in Sources */,
 				D6842DDE1C7D161F00691541 /* Window.cpp in Sources */,
 				D6810F2B1C82157300A603C5 /* Textbox.cpp in Sources */,
 				D6090D1D1C8617BF00947243 /* StateManager.cpp in Sources */,
 				D6C50BC61C7D152E00C2CCBC /* ResourcePath.mm in Sources */,
+				D6A0B6181C8E2BA400148032 /* Map.cpp in Sources */,
 				D6810F341C8376CD00A603C5 /* EventManager.cpp in Sources */,
 				D6314CC31C8B992B002C041C /* SpriteSheet.cpp in Sources */,
 				D635F0C81C8784E700F868BB /* State_Intro.cpp in Sources */,

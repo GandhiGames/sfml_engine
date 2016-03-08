@@ -12,9 +12,13 @@
 
 #include "Window.hpp"
 #include "EventManager.hpp"
+#include "TextureManager.hpp"
 
+class Map;
+
+//TODO: pass by reference for all setter methods?
 struct SharedContext {
-    SharedContext():m_window(nullptr), m_eventManager(nullptr){}
+    SharedContext():m_window(nullptr), m_eventManager(nullptr), m_textureManager(nullptr){}
     
     Window *GetWindow()
     {
@@ -36,9 +40,31 @@ struct SharedContext {
         m_eventManager = l_eventManager;
     }
     
+    TextureManager* GetTextureManager()
+    {
+        return m_textureManager;
+    }
+    
+    void SetTextureManager(TextureManager *l_textureManager)
+    {
+        m_textureManager = l_textureManager;
+    }
+    
+    Map *GetMap()
+    {
+        return m_map;
+    }
+    
+    void SetMap(Map *l_map)
+    {
+        m_map = l_map;
+    }
+    
 private:
     Window *m_window;
     EventManager *m_eventManager;
+    TextureManager *m_textureManager;
+    Map *m_map;
 };
 
 #endif /* SharedContext_h */
