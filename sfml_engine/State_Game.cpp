@@ -54,21 +54,21 @@ void State_Game::Update(const sf::Time &l_time)
     EntityBase *player = context.GetEntityManager()->Find("Player");
     if(!player){
         std::cout << "Respawning player..." << std::endl;
-        context->m_entityManager->Add(EntityType::Player,"Player");
-        player = context->m_entityManager->Find("Player");
+        context.GetEntityManager()->Add(EntityType::Player,"Player");
+        player = context.GetEntityManager()->Find("Player");
         player->SetPosition(m_gameMap->GetPlayerStart());
     } else {
         m_view.setCenter(player->GetPosition());
-        context->m_wind->GetRenderWindow()->setView(m_view);
+        context.GetWindow()->GetRenderWindow()->setView(m_view);
     }
     
-    sf::FloatRect viewSpace = context->m_wind->GetViewSpace();
+    sf::FloatRect viewSpace = context.GetWindow()->GetViewSpace();
     if(viewSpace.left <= 0){
         m_view.setCenter(viewSpace.width / 2,m_view.getCenter().y);
-        context->m_wind->GetRenderWindow()->setView(m_view);
+        context.GetWindow()->GetRenderWindow()->setView(m_view);
     } else if (viewSpace.left + viewSpace.width > (m_gameMap->GetMapSize().x + 1) * Sheet::Tile_Size){
         m_view.setCenter(((m_gameMap->GetMapSize().x + 1) * Sheet::Tile_Size) - (viewSpace.width / 2), m_view.getCenter().y);
-        context->m_wind->GetRenderWindow()->setView(m_view);
+        context.GetWindow()->GetRenderWindow()->setView(m_view);
     }
     
     m_gameMap->Update(l_time.asSeconds());
@@ -77,7 +77,8 @@ void State_Game::Update(const sf::Time &l_time)
 
 void State_Game::Draw()
 {
-    GetStateManager().GetContext().GetWindow()->GetRenderWindow()->draw(m_sprite);
+    m_gameMap->Draw();
+    m_stateManager.GetContext().GetEntityManager()->Draw();
 }
 
 void State_Game::MainMenu(EventDetails *l_detals)

@@ -16,6 +16,7 @@
 #include "State_Menu.hpp"
 #include "State_Game.hpp"
 #include "State_Paused.hpp"
+#include "State_GameOver.hpp"
 
 // State factory.
 using StateFactory = std::unordered_map<StateType, std::function<BaseState*(void)>>;

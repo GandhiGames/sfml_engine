@@ -56,3 +56,16 @@ void AnimBase::SetActionEnd(Frame l_frame){ m_frameActionEnd = l_frame; }
 void AnimBase::SetFrameTime(float l_time){ m_frameTime = l_time; }
 void AnimBase::SetLooping(bool l_loop){ m_loop = l_loop; }
 void AnimBase::SetName(const std::string& l_name){ m_name = l_name; }
+
+SpriteSheet* AnimBase::GetSpriteSheet(){ return m_spriteSheet; }
+Frame AnimBase::GetFrame(){ return m_frameCurrent; }
+Frame AnimBase::GetStartFrame(){ return m_frameStart; }
+Frame AnimBase::GetEndFrame(){ return m_frameEnd; }
+Frame AnimBase::GetFrameRow(){ return m_frameRow; }
+int AnimBase::GetActionStart(){ return m_frameActionStart; }
+int AnimBase::GetActionEnd(){ return m_frameActionEnd; }
+float AnimBase::GetFrameTime(){ return m_frameTime; }
+float AnimBase::GetElapsedTime(){ return m_elapsedTime; }
+std::string AnimBase::GetName(){ return m_name; }
+bool AnimBase::IsLooping(){ return m_loop; }
+bool AnimBase::IsPlaying(){ return m_playing; }

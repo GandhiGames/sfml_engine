@@ -142,9 +142,9 @@ void Character::Update(float l_dT){
         // End debug.
     }
     if(GetState() != EntityState::Dying && GetState() != EntityState::Attacking && GetState() != EntityState::Hurt){
-        if(abs(m_velocity.y) >= 0.001f){
+        if(std::abs(m_velocity.y) >= 0.001f){
             SetState(EntityState::Jumping);
-        } else if(abs(m_velocity.x) >= 0.1f){
+        } else if(std::abs(m_velocity.x) >= 0.1f){
             SetState(EntityState::Walking);
         } else {
             SetState(EntityState::Idle);

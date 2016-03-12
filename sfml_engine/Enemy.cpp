@@ -34,7 +34,7 @@ void Enemy::Update(float l_dT){
     Character::Update(l_dT);
     
     if (m_hasDestination){
-        if (abs(m_destination.x - m_position.x) < 16){ m_hasDestination = false; return; }
+        if (std::abs(m_destination.x - m_position.x) < 16){ m_hasDestination = false; return; }
         if (m_destination.x - m_position.x > 0){ Move(Direction::Right); } else { Move(Direction::Left); }
         if (m_collidingOnX){ m_hasDestination = false; }
         return;

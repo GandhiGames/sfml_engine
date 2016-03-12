@@ -7,6 +7,9 @@
 //
 
 #include "EntityBase.hpp"
+#include "EntityManager.hpp"
+#include "SharedContext.h"
+#include "Map.hpp"
 
 bool SortCollisions(const CollisionElement& l_1, const CollisionElement& l_2)
 {
@@ -17,6 +20,8 @@ EntityBase::EntityBase(EntityManager* l_entityMgr)
 :m_entityManager(l_entityMgr), m_name("EntityBase"),
 m_type(EntityType::Base), m_id(0), m_referenceTile(nullptr),
 m_state(EntityState::Idle), m_collidingOnX(false), m_collidingOnY(false){}
+
+EntityBase::~EntityBase(){}
 
 void EntityBase::SetPosition(float l_x, float l_y){
     m_position = sf::Vector2f(l_x,l_y);
@@ -42,10 +47,17 @@ void EntityBase::SetState(const EntityState& l_state){
     m_state = l_state;
 }
 
+const sf::Vector2f& EntityBase::GetSize()const{ return m_size; }
+std::string EntityBase::GetName()const{ return m_name; }
+EntityState EntityBase::GetState()const{ return m_state; }
+unsigned int EntityBase::GetId()const{ return m_id; }
+EntityType EntityBase::GetType()const{ return m_type; }
+const sf::Vector2f& EntityBase::GetPosition()const{ return m_position; }
+
 void EntityBase::Move(float l_x, float l_y){
     m_positionOld = m_position;
     m_position += sf::Vector2f(l_x,l_y);
-    sf::Vector2u mapSize = m_entityManager->GetContext()->m_gameMap->GetMapSize();
+    sf::Vector2u mapSize = m_entityManager->GetContext()->GetMap()->GetMapSize();
     if(m_position.x < 0){
         m_position.x = 0;
     } else if(m_position.x > (mapSize.x + 1) * Sheet::Tile_Size){
@@ -68,12 +80,12 @@ void EntityBase::Accelerate(float l_x, float l_y){
 
 void EntityBase::AddVelocity(float l_x, float l_y){
     m_velocity += sf::Vector2f(l_x,l_y);
-    if(abs(m_velocity.x) > m_maxVelocity.x){
+    if(std::abs(m_velocity.x) > m_maxVelocity.x){
         if(m_velocity.x < 0){ m_velocity.x = -m_maxVelocity.x; }
         else { m_velocity.x = m_maxVelocity.x; }
     }
     
-    if(abs(m_velocity.y) > m_maxVelocity.y){
+    if(std::abs(m_velocity.y) > m_maxVelocity.y){
         if(m_velocity.y < 0){ m_velocity.y = -m_maxVelocity.y; }
         else { m_velocity.y = m_maxVelocity.y; }
     }
@@ -81,7 +93,7 @@ void EntityBase::AddVelocity(float l_x, float l_y){
 
 void EntityBase::ApplyFriction(float l_x, float l_y){
     if(m_velocity.x != 0){
-        if(abs(m_velocity.x) - abs(l_x) < 0){ m_velocity.x = 0; }
+        if(std::abs(m_velocity.x) - std::abs(l_x) < 0){ m_velocity.x = 0; }
         else {
             if(m_velocity.x < 0){ m_velocity.x += l_x; }
             else { m_velocity.x -= l_x; }
@@ -89,7 +101,7 @@ void EntityBase::ApplyFriction(float l_x, float l_y){
     }
     
     if(m_velocity.y != 0){
-        if (abs(m_velocity.y) - abs(l_y) < 0){ m_velocity.y = 0; }
+        if (std::abs(m_velocity.y) - std::abs(l_y) < 0){ m_velocity.y = 0; }
         else {
             if(m_velocity.y < 0){ m_velocity.y += l_y; }
             else { m_velocity.y -= l_y; }
@@ -102,7 +114,7 @@ void EntityBase::UpdateAABB(){
 }
 
 void EntityBase::Update(float l_dT){
-    Map* map = m_entityManager->GetContext()->m_gameMap;
+    Map* map = m_entityManager->GetContext()->GetMap();
     float gravity = map->GetGravity();
     Accelerate(0,gravity);
     AddVelocity(m_acceleration.x * l_dT, m_acceleration.y * l_dT);
@@ -129,7 +141,7 @@ void EntityBase::Update(float l_dT){
 }
 
 void EntityBase::CheckCollisions(){
-    Map* gameMap = m_entityManager->GetContext()->m_gameMap;
+    Map* gameMap = m_entityManager->GetContext()->GetMap();
     unsigned int tileSize = gameMap->GetTileSize();
     int fromX = floor(m_AABB.left / tileSize);
     int toX = floor((m_AABB.left + m_AABB.width) / tileSize);
@@ -157,25 +169,25 @@ void EntityBase::CheckCollisions(){
 void EntityBase::ResolveCollisions(){
     if(!m_collisions.empty()){
         std::sort(m_collisions.begin(), m_collisions.end(), SortCollisions);
-        Map* gameMap = m_entityManager->GetContext()->m_gameMap;
+        Map* gameMap = m_entityManager->GetContext()->GetMap();
         unsigned int tileSize = gameMap->GetTileSize();
         for (auto &itr : m_collisions){
             if (!m_AABB.intersects(itr.m_tileBounds)){ continue; }
             
             // Debug
-            if(m_entityManager->GetContext()->m_debugOverlay.Debug()){
+            if(m_entityManager->GetContext()->GetDebugOverlay()->Debug()){
                 sf::Vector2f tempPos(itr.m_tileBounds.left, itr.m_tileBounds.top);
                 sf::RectangleShape* rect = new sf::RectangleShape(sf::Vector2f(tileSize,tileSize));
                 rect->setPosition(tempPos);
                 rect->setFillColor(sf::Color(255,255,0,150));
-                m_entityManager->GetContext()->m_debugOverlay.Add(rect);
+                m_entityManager->GetContext()->GetDebugOverlay()->Add(rect);
             }
             // End debug.
             
             float xDiff = (m_AABB.left + (m_AABB.width / 2)) - (itr.m_tileBounds.left + (itr.m_tileBounds.width / 2));
             float yDiff = (m_AABB.top + (m_AABB.height / 2)) - (itr.m_tileBounds.top + (itr.m_tileBounds.height / 2));
             float resolve = 0;
-            if(abs(xDiff) > abs(yDiff)){
+            if(std::abs(xDiff) > std::abs(yDiff)){
                 if(xDiff > 0){
                     resolve = (itr.m_tileBounds.left + tileSize) - m_AABB.left;
                 } else {

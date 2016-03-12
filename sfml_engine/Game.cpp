@@ -8,12 +8,19 @@
 
 #include "Game.hpp"
 
-Game::Game(): m_window("engine_test", sf::Vector2u(800, 600)), m_stateManager(m_context){
+Game::Game():
+    m_window("engine_test", sf::Vector2u(800, 600)),m_stateManager(m_context),
+        m_entityManager(&m_context, 100)
+{
     m_clock.restart();
     srand(time(nullptr));
     
     m_context.SetWindow(&m_window);
     m_context.SetEventManager(m_window.GetEventManager());
+    m_context.SetTextureManager(&m_textureManager);
+    m_context.SetEntityManager(&m_entityManager);
+    m_debugOverlay.SetDebug(true);
+    m_context.SetDebugOverlay(&m_debugOverlay);
     
     m_stateManager.SwitchTo(StateType::Intro);
 }
@@ -33,6 +40,12 @@ void Game::Render(){
     m_window.BeginDraw();
     // Render here.
     m_stateManager.Draw();
+    
+    // Debug.
+    if(m_context.GetDebugOverlay()->Debug()){
+        m_context.GetDebugOverlay()->Draw(m_window.GetRenderWindow());
+    }
+    
     m_window.EndDraw();
 }
 
