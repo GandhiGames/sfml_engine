@@ -16,6 +16,10 @@
 		D6810F2B1C82157300A603C5 /* Textbox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6810F291C82157300A603C5 /* Textbox.cpp */; };
 		D6810F341C8376CD00A603C5 /* EventManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6810F321C8376CD00A603C5 /* EventManager.cpp */; };
 		D6842DDE1C7D161F00691541 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6842DDC1C7D161F00691541 /* Window.cpp */; };
+		D68D9E381C9366E30094CF43 /* EntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D68D9E361C9366E30094CF43 /* EntityManager.cpp */; };
+		D68D9E3C1C9372BE0094CF43 /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D68D9E3A1C9372BE0094CF43 /* Character.cpp */; };
+		D68D9E401C938CC80094CF43 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D68D9E3E1C938CC80094CF43 /* Player.cpp */; };
+		D68D9E431C938F430094CF43 /* Enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D68D9E411C938F430094CF43 /* Enemy.cpp */; };
 		D6A0B6051C8E16C500148032 /* AnimDirectional.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6A0B6031C8E16C500148032 /* AnimDirectional.cpp */; };
 		D6A0B6101C8E1C8D00148032 /* keys.cfg.txt in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60C1C8E1C8D00148032 /* keys.cfg.txt */; };
 		D6A0B6111C8E1C8D00148032 /* media in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60D1C8E1C8D00148032 /* media */; };
@@ -28,6 +32,7 @@
 		D6C8D8C61C88DB080027F8DE /* State_Menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6C8D8C41C88DB080027F8DE /* State_Menu.cpp */; };
 		D6C8D8C91C88E4030027F8DE /* State_Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6C8D8C71C88E4030027F8DE /* State_Game.cpp */; };
 		D6C8D8CC1C88E8AF0027F8DE /* State_Paused.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6C8D8CA1C88E8AF0027F8DE /* State_Paused.cpp */; };
+		D6DCDBC61C8F646F00A90A24 /* EntityBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6DCDBC41C8F646F00A90A24 /* EntityBase.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +59,15 @@
 		D6810F331C8376CD00A603C5 /* EventManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EventManager.hpp; sourceTree = "<group>"; };
 		D6842DDC1C7D161F00691541 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		D6842DDD1C7D161F00691541 /* Window.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Window.hpp; sourceTree = "<group>"; };
+		D68D9E351C933EF70094CF43 /* DebugOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugOverlay.h; sourceTree = "<group>"; };
+		D68D9E361C9366E30094CF43 /* EntityManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityManager.cpp; sourceTree = "<group>"; };
+		D68D9E371C9366E30094CF43 /* EntityManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EntityManager.hpp; sourceTree = "<group>"; };
+		D68D9E3A1C9372BE0094CF43 /* Character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Character.cpp; sourceTree = "<group>"; };
+		D68D9E3B1C9372BE0094CF43 /* Character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Character.hpp; sourceTree = "<group>"; };
+		D68D9E3E1C938CC80094CF43 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Player.cpp; sourceTree = "<group>"; };
+		D68D9E3F1C938CC80094CF43 /* Player.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Player.hpp; sourceTree = "<group>"; };
+		D68D9E411C938F430094CF43 /* Enemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Enemy.cpp; sourceTree = "<group>"; };
+		D68D9E421C938F430094CF43 /* Enemy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Enemy.hpp; sourceTree = "<group>"; };
 		D6A0B6031C8E16C500148032 /* AnimDirectional.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimDirectional.cpp; sourceTree = "<group>"; };
 		D6A0B6041C8E16C500148032 /* AnimDirectional.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AnimDirectional.hpp; sourceTree = "<group>"; };
 		D6A0B60C1C8E1C8D00148032 /* keys.cfg.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = keys.cfg.txt; sourceTree = "<group>"; };
@@ -74,6 +88,8 @@
 		D6C8D8C81C88E4030027F8DE /* State_Game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = State_Game.hpp; sourceTree = "<group>"; };
 		D6C8D8CA1C88E8AF0027F8DE /* State_Paused.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State_Paused.cpp; sourceTree = "<group>"; };
 		D6C8D8CB1C88E8AF0027F8DE /* State_Paused.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = State_Paused.hpp; sourceTree = "<group>"; };
+		D6DCDBC41C8F646F00A90A24 /* EntityBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityBase.cpp; sourceTree = "<group>"; };
+		D6DCDBC51C8F646F00A90A24 /* EntityBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EntityBase.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +118,7 @@
 		D614E6051C7E2F170017890C /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				D68D9E351C933EF70094CF43 /* DebugOverlay.h */,
 				D6A0B6191C8E3BF600148032 /* Entity Manager */,
 				D6A0B6151C8E1F3400148032 /* Map */,
 				D6314CC01C8B991B002C041C /* Sprites */,
@@ -185,11 +202,32 @@
 		D63A58271C7DBE9600EC1C97 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				D68D9E3D1C938CB80094CF43 /* Actors */,
 				D635F0C51C8784D400F868BB /* States */,
 				D63A58221C7D25AA00EC1C97 /* Game.cpp */,
 				D63A58231C7D25AA00EC1C97 /* Game.hpp */,
 			);
 			name = Game;
+			sourceTree = "<group>";
+		};
+		D68D9E391C9372AB0094CF43 /* Actors */ = {
+			isa = PBXGroup;
+			children = (
+				D68D9E3A1C9372BE0094CF43 /* Character.cpp */,
+				D68D9E3B1C9372BE0094CF43 /* Character.hpp */,
+			);
+			name = Actors;
+			sourceTree = "<group>";
+		};
+		D68D9E3D1C938CB80094CF43 /* Actors */ = {
+			isa = PBXGroup;
+			children = (
+				D68D9E3E1C938CC80094CF43 /* Player.cpp */,
+				D68D9E3F1C938CC80094CF43 /* Player.hpp */,
+				D68D9E411C938F430094CF43 /* Enemy.cpp */,
+				D68D9E421C938F430094CF43 /* Enemy.hpp */,
+			);
+			name = Actors;
 			sourceTree = "<group>";
 		};
 		D6A0B6151C8E1F3400148032 /* Map */ = {
@@ -204,6 +242,11 @@
 		D6A0B6191C8E3BF600148032 /* Entity Manager */ = {
 			isa = PBXGroup;
 			children = (
+				D68D9E391C9372AB0094CF43 /* Actors */,
+				D6DCDBC41C8F646F00A90A24 /* EntityBase.cpp */,
+				D6DCDBC51C8F646F00A90A24 /* EntityBase.hpp */,
+				D68D9E361C9366E30094CF43 /* EntityManager.cpp */,
+				D68D9E371C9366E30094CF43 /* EntityManager.hpp */,
 			);
 			name = "Entity Manager";
 			sourceTree = "<group>";
@@ -348,16 +391,21 @@
 				D6C50BC91C7D152E00C2CCBC /* main.cpp in Sources */,
 				D6842DDE1C7D161F00691541 /* Window.cpp in Sources */,
 				D6810F2B1C82157300A603C5 /* Textbox.cpp in Sources */,
+				D68D9E401C938CC80094CF43 /* Player.cpp in Sources */,
+				D68D9E3C1C9372BE0094CF43 /* Character.cpp in Sources */,
 				D6090D1D1C8617BF00947243 /* StateManager.cpp in Sources */,
 				D6C50BC61C7D152E00C2CCBC /* ResourcePath.mm in Sources */,
 				D6A0B6181C8E2BA400148032 /* Map.cpp in Sources */,
+				D68D9E431C938F430094CF43 /* Enemy.cpp in Sources */,
 				D6810F341C8376CD00A603C5 /* EventManager.cpp in Sources */,
 				D6314CC31C8B992B002C041C /* SpriteSheet.cpp in Sources */,
 				D635F0C81C8784E700F868BB /* State_Intro.cpp in Sources */,
+				D68D9E381C9366E30094CF43 /* EntityManager.cpp in Sources */,
 				D6C8D8C91C88E4030027F8DE /* State_Game.cpp in Sources */,
 				D633D3A71C8C4C450054C097 /* AnimBase.cpp in Sources */,
 				D6C8D8C61C88DB080027F8DE /* State_Menu.cpp in Sources */,
 				D6C8D8CC1C88E8AF0027F8DE /* State_Paused.cpp in Sources */,
+				D6DCDBC61C8F646F00A90A24 /* EntityBase.cpp in Sources */,
 				D63A58241C7D25AA00EC1C97 /* Game.cpp in Sources */,
 				D6314CBF1C8B9186002C041C /* TextureManager.cpp in Sources */,
 			);

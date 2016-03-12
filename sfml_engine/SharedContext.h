@@ -13,6 +13,8 @@
 #include "Window.hpp"
 #include "EventManager.hpp"
 #include "TextureManager.hpp"
+#include "EntityManager.hpp"
+#include "DebugOverlay.h"
 
 class Map;
 
@@ -60,11 +62,33 @@ struct SharedContext {
         m_map = l_map;
     }
     
+    EntityManager* GetEntityManager() const
+    {
+        return m_entityManager;
+    }
+    
+    void SetEntityManager(EntityManager *l_entityManager)
+    {
+        m_entityManager = l_entityManager;
+    }
+    
+    DebugOverlay *GetDebugOverlay()
+    {
+        return m_debugOverlay;
+    }
+    
+    void SetDebugOverlay(DebugOverlay *l_debugOverlay)
+    {
+        m_debugOverlay = l_debugOverlay;
+    }
+    
 private:
     Window *m_window;
     EventManager *m_eventManager;
     TextureManager *m_textureManager;
+    EntityManager *m_entityManager;
     Map *m_map;
+    DebugOverlay *m_debugOverlay;
 };
 
 #endif /* SharedContext_h */

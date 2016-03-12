@@ -1,6 +1,7 @@
 #include "ResourcePath.hpp"
 
 //TODO: Make multiplatform  - beginning of chapter 6
+//TODO: create "relative folder paths file" containing references to Characters/fonts folders etc so that any changes to resources file paths does not require code change.
 
 #import <Foundation/Foundation.h>
 

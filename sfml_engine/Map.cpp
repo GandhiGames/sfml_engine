@@ -51,7 +51,7 @@ void Map::PurgeMap(){
         delete itr.second;
     }
     m_tileMap.clear();
-    m_context.m_entityManager->Purge();
+    m_context.GetEntityManager()->Purge();
     
     if (m_backgroundTexture == ""){ return; }
     m_context.GetTextureManager()->ReleaseResource(m_backgroundTexture);
@@ -92,7 +92,7 @@ void Map::LoadMap(const std::string& l_path){
     std::ifstream mapFile;
     mapFile.open(resourcePath() + l_path);
     if (!mapFile.is_open()){ std::cout << "! Failed loading map file: " << l_path << std::endl; return; }
-    EntityManager *entityMgr = m_context.m_entityManager;
+    EntityManager *entityMgr = m_context.GetEntityManager();
     std::string line;
     std::cout << "--- Loading a map: " << l_path << std::endl;
     
@@ -201,19 +201,19 @@ void Map::Draw(){
             ++count;
             
             // Debug.
-         /*   if(m_context->m_debugOverlay.Debug()){
-                if(tile->m_properties.m_deadly || tile->m_warp){
+            if(m_context.GetDebugOverlay()->Debug()){
+                if(tile->m_properties->m_deadly || tile->m_warp){
                     sf::RectangleShape* tileMarker = new sf::RectangleShape(
                                                                             sf::Vector2f(Sheet::Tile_Size,Sheet::Tile_Size));
                     tileMarker->setPosition(x * Sheet::Tile_Size, y * Sheet::Tile_Size);
-                    if(tile->m_properties.m_deadly){
+                    if(tile->m_properties->m_deadly){
                         tileMarker->setFillColor(sf::Color(255,0,0,100));
                     } else if(tile->m_warp){
                         tileMarker->setFillColor(sf::Color(0,255,0,150));
                     }
-                    m_context->m_debugOverlay.Add(tileMarker);
+                    m_context.GetDebugOverlay()->Add(tileMarker);
                 }
-            } */
+            }
             // End debug.
         }
     }

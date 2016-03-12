@@ -45,7 +45,7 @@ struct EventInfo {
 using Events = std::vector<std::pair<EventType, EventInfo>>;
 
 struct EventDetails {
-    EventDetails(const std::string & l_bindName):m_bindName(l_bindName)
+    EventDetails(const std::string & l_bindName):m_name(l_bindName)
     {
         Clear();
     }
@@ -105,6 +105,16 @@ struct EventDetails {
         m_textEntered = l_textEntered;
     }
     
+    const std::string& GetName()
+    {
+        return m_name;
+    }
+    
+    void SetName(const std::string &l_name)
+    {
+        m_name = l_name;
+    }
+    
     void Clear()
     {
         m_size = sf::Vector2i(0, 0);
@@ -115,7 +125,7 @@ struct EventDetails {
     }
     
 private:
-    std::string m_bindName;
+    std::string m_name;
     sf::Vector2i m_size;
     sf::Uint32 m_textEntered;
     sf::Vector2i m_mouse;

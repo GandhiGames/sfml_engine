@@ -11,6 +11,8 @@
 
 #include "BaseState.h"
 #include "EventManager.hpp"
+#include "Map.hpp"
+#include "EntityBase.hpp"
 
 class State_Game : public BaseState {
 public:
@@ -28,11 +30,10 @@ public:
 
     void MainMenu(EventDetails *l_detals);
     void Pause(EventDetails *l_details);
+    void ToggleOverlay(EventDetails *l_details);
     
 private:
-    sf::Texture m_texture;
-    sf::Sprite m_sprite;
-    sf::Vector2f m_increment;
+    Map *m_gameMap;
 };
 
 #endif /* State_Game_hpp */
