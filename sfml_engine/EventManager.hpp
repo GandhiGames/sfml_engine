@@ -207,7 +207,7 @@ public:
         return itr->second.emplace(l_name, tmp).second;
     }
     
-    void RemoveCallback(const StateType &l_state, const std::string & l_name);
+    bool RemoveCallback(const StateType &l_state, const std::string & l_name);
     
     void HandleEvent(sf::Event & l_event);
     void Update();
@@ -215,8 +215,6 @@ public:
     sf::Vector2i GetMousePosition(const sf::RenderWindow * l_window = nullptr);
     
 private:
-    const static std::string DELIMITER;
-    const static std::string BINDINGS_FILE_NAME;
     Callbacks m_callbacks;
     Bindings m_bindings;
     StateType m_currentState;

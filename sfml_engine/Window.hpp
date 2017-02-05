@@ -11,6 +11,7 @@
  
 #include <SFML/Graphics.hpp>
 #include "EventManager.hpp"
+#include "Textbox.hpp"
 
 class Window {
 public:
@@ -28,7 +29,7 @@ public:
     const bool& IsFocused() const;
     
     const sf::Vector2u & GetWindowSize() const;
-    
+
     void ToggleFullScreen(EventDetails *l_details = nullptr);
     void Close(EventDetails *l_details = nullptr);
    

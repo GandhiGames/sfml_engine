@@ -29,7 +29,7 @@ void State_Intro::OnCreate()
     
     m_font.loadFromFile(resourcePath() + "media/Fonts/arial.ttf");
     m_text.setFont(m_font);
-    m_text.setColor(sf::Color::Black);
+    m_text.setFillColor(sf::Color::Black);
     m_text.setString({ "Press SPACE to continue" });
     m_text.setCharacterSize(15);
     sf::FloatRect textRect = m_text.getLocalBounds();

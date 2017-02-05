@@ -21,6 +21,7 @@ Game::Game():
     m_context.SetEntityManager(&m_entityManager);
     m_debugOverlay.SetDebug(true);
     m_context.SetDebugOverlay(&m_debugOverlay);
+    m_context.SetDebugText(&m_debugText);
     
     m_stateManager.SwitchTo(StateType::Intro);
 }
@@ -44,6 +45,10 @@ void Game::Render(){
     // Debug.
     if(m_context.GetDebugOverlay()->Debug()){
         m_context.GetDebugOverlay()->Draw(m_window.GetRenderWindow());
+    }
+    
+    if(m_context.GetDebugText()){
+        m_context.GetDebugText()->Render(m_window.GetRenderWindow());
     }
     
     m_window.EndDraw();

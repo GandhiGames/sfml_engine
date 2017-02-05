@@ -25,7 +25,7 @@ void State_Menu::OnCreate()
                      textRect.top + textRect.height / 2.0f);
     
     m_text.setPosition(400,100);
-    m_text.setColor(sf::Color::Black);
+    m_text.setFillColor(sf::Color::Black);
     
     m_buttonSize = sf::Vector2f(300.0f,32.0f);
     m_buttonPos = sf::Vector2f(400,200);

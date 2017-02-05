@@ -10,9 +10,6 @@
 
 //TODO: Seperate into seperate header files
 
-const std::string EventManager::DELIMITER = ":";
-const std::string EventManager::BINDINGS_FILE_NAME = "keys.cfg";
-
 EventManager::EventManager():m_currentState(StateType(0)), m_hasFocus(true)
 {
     LoadBindings();
@@ -53,6 +50,22 @@ void EventManager::Update()
                 case(EventType::Joystick) :
                     // Up for expansion.
                     break;
+                    
+                    // Ignored.
+                case EventType::KeyDown:
+                case EventType::KeyUp:
+                case EventType::MButtonDown:
+                case EventType::MButtonUp:
+                case EventType::MouseWheel:
+                case EventType::WindowResized:
+                case EventType::GainedFocus:
+                case EventType::LostFocus:
+                case EventType::MouseEntered:
+                case EventType::MouseLeft:
+                case EventType::Closed:
+                case EventType::TextEntered:
+                    break;
+
             }
         }
         
@@ -127,7 +140,7 @@ void EventManager::HandleEvent(sf::Event &l_event)
 }
 
 // returns false if binding found with same name.
-bool EventManager::AddBinding(Binding &l_binding)
+bool EventManager::AddBinding(Binding& l_binding)
 {
     if (m_bindings.find(l_binding.GetName()) != m_bindings.end()) {
         return false;
@@ -149,7 +162,7 @@ bool EventManager::RemoveBinding(const std::string &l_name)
     return true;
 }
 
-void EventManager::RemoveCallback(const StateType &l_state,const std::string &l_name)
+bool EventManager::RemoveCallback(const StateType &l_state,const std::string &l_name)
 {
     auto itr = m_callbacks.find(l_state);
     if (itr == m_callbacks.end()){ return false; }
@@ -167,13 +180,15 @@ sf::Vector2i EventManager::GetMousePosition(const sf::RenderWindow * l_window)
 //TODO: error handling, refractor (see commented out lines)
 void EventManager::LoadBindings()
 {
+    const std::string delimiter = ":";
+    const std::string bindings_file_name = "keys.cfg";
     
     std::ifstream bindings;
     
-    bindings.open(resourcePath() + BINDINGS_FILE_NAME);
+    bindings.open(resourcePath() + bindings_file_name);
     
     if (!bindings.is_open()) {
-        printf("Failed to load file %s", BINDINGS_FILE_NAME.c_str());
+        printf("Failed to load file %s", bindings_file_name.c_str());
         return;
     }
     
@@ -188,8 +203,8 @@ void EventManager::LoadBindings()
             std::string keyval;
             keystream >> keyval;
             
-            int start = 0;
-            int end = keyval.find(DELIMITER);
+            const int start = 0;
+            const int end = keyval.find(delimiter);
             if (end == std::string::npos) {
                 //delete bind;
                 //bind = nullptr;
@@ -197,7 +212,7 @@ void EventManager::LoadBindings()
             }
             
             EventType type = EventType(stoi(keyval.substr(start, end - start)));
-            int code = stoi(keyval.substr(end + DELIMITER.length()));
+            int code = stoi(keyval.substr(end + delimiter.length()));
             EventInfo eventinfo;
             eventinfo.m_code = code;
             
@@ -205,9 +220,7 @@ void EventManager::LoadBindings()
             
         }
         
-    
-        
-        if (!AddBinding(*bind)) {
+        if (bind && !AddBinding(*bind)) {
             delete bind;
         }
         

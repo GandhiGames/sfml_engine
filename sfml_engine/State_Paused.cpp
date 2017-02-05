@@ -19,7 +19,7 @@ void State_Paused::OnCreate()
     
     m_font.loadFromFile(resourcePath() + "media/Fonts/arial.ttf");
     m_text.setFont(m_font);
-    m_text.setColor(sf::Color::Black);
+    m_text.setFillColor(sf::Color::Black);
     m_text.setString(sf::String("PAUSED"));
     m_text.setCharacterSize(14);
     m_text.setStyle(sf::Text::Bold);

@@ -212,8 +212,12 @@ void Map::Draw(){
                         tileMarker->setFillColor(sf::Color(0,255,0,150));
                     }
                     m_context.GetDebugOverlay()->Add(tileMarker);
+                    
+                    
                 }
             }
+            
+            m_context.GetDebugText()->Add("friction:" + std::to_string(tile->m_properties->m_friction.x) + "," + std::to_string(tile->m_properties->m_friction.y));
             // End debug.
         }
     }

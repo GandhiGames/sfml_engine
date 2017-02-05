@@ -10,7 +10,7 @@
 
 const sf::Vector2f Textbox::OFFSET = sf::Vector2f(2.0f, 2.0f);
 const sf::Vector2f Textbox::DEFAULT_POSITION = sf::Vector2f(0, 0);
-const sf::String Textbox::DEFAULT_FONT =  "arial.ttf";
+const sf::String Textbox::DEFAULT_FONT =  "media/Fonts/arial.ttf";
 const sf::Color Textbox::DEFAULT_FONT_COLOUR = sf::Color::Red;
 
 Textbox::Textbox()
@@ -38,7 +38,7 @@ void Textbox::Setup(int l_visible, int l_charSize, int l_width, const sf::Vector
     m_content.setString(" ");
     
     m_content.setCharacterSize(l_charSize);
-    m_content.setColor(DEFAULT_FONT_COLOUR);
+    m_content.setFillColor(DEFAULT_FONT_COLOUR);
     
     m_content.setPosition(l_screenPos + OFFSET);
     
@@ -52,7 +52,7 @@ void Textbox::Clear()
     m_messages.clear();
 }
 
-void Textbox::Render(sf::RenderWindow &l_window)
+void Textbox::Render(sf::RenderWindow* l_window)
 {
     if (m_messages.size() == 0) {
         return;
@@ -66,8 +66,8 @@ void Textbox::Render(sf::RenderWindow &l_window)
     }
     
     m_content.setString(l_content);
-    l_window.draw(m_background);
-    l_window.draw(m_content);
+    l_window->draw(m_background);
+    l_window->draw(m_content);
 }
 
 void Textbox::Add(std::string l_message)

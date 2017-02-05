@@ -20,10 +20,10 @@ void State_GameOver::OnCreate(){
     m_text.setFont(m_font);
     m_text.setCharacterSize(16);
     m_text.setString("You beat the game! Congratulations!");
-    m_text.setColor(sf::Color::White);
+    m_text.setFillColor(sf::Color::White);
     m_text.setOrigin(m_text.getLocalBounds().width / 2,
                      m_text.getLocalBounds().height / 2);
-    m_text.setColor(sf::Color::Black);
+    m_text.setFillColor(sf::Color::Black);
     m_text.setPosition(400, 300);
     
     m_stateManager.Remove(StateType::Game);

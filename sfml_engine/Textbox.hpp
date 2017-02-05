@@ -14,10 +14,6 @@
 #include <string>
 #include "ResourcePath.hpp"
 
-//TODO: Singleton
-
-using MessageContainer = std::vector<std::string>;
-
 class Textbox {
 public:
     Textbox();
@@ -29,7 +25,7 @@ public:
     void Add(std::string l_message);
     void Clear();
     
-    void Render(sf::RenderWindow & l_window);
+    void Render(sf::RenderWindow* l_window);
     
 private:
     //TODO: define in header or imp?
@@ -42,7 +38,7 @@ private:
     const static sf::String DEFAULT_FONT;
     const static sf::Color DEFAULT_FONT_COLOUR;
     
-    MessageContainer m_messages;
+    std::vector<std::string> m_messages;
     int m_numLinesVisible;
     
     sf::RectangleShape m_background;

@@ -14,6 +14,7 @@
 #include "StateManager.hpp"
 #include "SharedContext.h"
 #include "EntityManager.hpp"
+#include "Textbox.hpp"
 #include <iostream>
 
 class Game {
@@ -39,7 +40,7 @@ private:
     TextureManager m_textureManager;
     StateManager m_stateManager;
     DebugOverlay m_debugOverlay;
-
+    Textbox m_debugText;
 
 
 };
