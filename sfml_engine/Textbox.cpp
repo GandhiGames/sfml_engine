@@ -7,11 +7,12 @@
 //
 
 #include "Textbox.hpp"
+#include <iostream>
 
 const sf::Vector2f Textbox::OFFSET = sf::Vector2f(2.0f, 2.0f);
 const sf::Vector2f Textbox::DEFAULT_POSITION = sf::Vector2f(0, 0);
 const sf::String Textbox::DEFAULT_FONT =  "media/Fonts/arial.ttf";
-const sf::Color Textbox::DEFAULT_FONT_COLOUR = sf::Color::Red;
+const sf::Color Textbox::DEFAULT_FONT_COLOUR = sf::Color::White;
 
 Textbox::Textbox()
 {
@@ -43,6 +44,7 @@ void Textbox::Setup(int l_visible, int l_charSize, int l_width, const sf::Vector
     m_content.setPosition(l_screenPos + OFFSET);
     
     m_background.setSize(sf::Vector2f(l_width, (l_visible * (l_charSize * LINE_SPACING))));
+
     m_background.setFillColor(sf::Color(90, 90, 90, 90));
     m_background.setPosition(l_screenPos);
 }
@@ -58,13 +60,13 @@ void Textbox::Render(sf::RenderWindow* l_window)
         return;
     }
     
+    l_window->setView(m_view);
     std::string l_content;
     
     for (auto &itr : m_messages)
     {
         l_content.append(itr + "\n");
     }
-    
     m_content.setString(l_content);
     l_window->draw(m_background);
     l_window->draw(m_content);

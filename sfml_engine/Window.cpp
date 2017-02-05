@@ -112,12 +112,12 @@ const bool& Window::IsFocused() const
     return m_isFocused;
 }
 
-const sf::Vector2u & Window::GetWindowSize() const
+const sf::Vector2u& Window::GetWindowSize() const
 {
     return m_windowSize;
 }
 
-sf::RenderWindow * Window::GetRenderWindow()
+sf::RenderWindow* Window::GetRenderWindow()
 {
     return &m_window;
 }

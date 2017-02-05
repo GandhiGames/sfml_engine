@@ -216,8 +216,6 @@ void Map::Draw(){
                     
                 }
             }
-            
-            m_context.GetDebugText()->Add("friction:" + std::to_string(tile->m_properties->m_friction.x) + "," + std::to_string(tile->m_properties->m_friction.y));
             // End debug.
         }
     }

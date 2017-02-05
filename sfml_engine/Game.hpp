@@ -15,6 +15,7 @@
 #include "SharedContext.h"
 #include "EntityManager.hpp"
 #include "Textbox.hpp"
+#include "Console.hpp"
 #include <iostream>
 
 class Game {
@@ -41,7 +42,7 @@ private:
     StateManager m_stateManager;
     DebugOverlay m_debugOverlay;
     Textbox m_debugText;
-
+    Console m_console;
 
 };
 

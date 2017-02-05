@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		66CFE4211E47C8C4009333F1 /* Console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66CFE41F1E47C8C4009333F1 /* Console.cpp */; };
 		D6090D1D1C8617BF00947243 /* StateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6090D1B1C8617BF00947243 /* StateManager.cpp */; };
 		D6314CBF1C8B9186002C041C /* TextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6314CBD1C8B9186002C041C /* TextureManager.cpp */; };
 		D6314CC31C8B992B002C041C /* SpriteSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6314CC11C8B992B002C041C /* SpriteSheet.cpp */; };
@@ -37,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		66CFE41F1E47C8C4009333F1 /* Console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Console.cpp; sourceTree = "<group>"; };
+		66CFE4201E47C8C4009333F1 /* Console.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Console.hpp; sourceTree = "<group>"; };
 		D6090D1B1C8617BF00947243 /* StateManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateManager.cpp; sourceTree = "<group>"; };
 		D6090D1C1C8617BF00947243 /* StateManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StateManager.hpp; sourceTree = "<group>"; };
 		D6090D1E1C8632E700947243 /* BaseState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseState.h; sourceTree = "<group>"; };
@@ -106,6 +109,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		66CFE41E1E47C8B3009333F1 /* Console */ = {
+			isa = PBXGroup;
+			children = (
+				66CFE41F1E47C8C4009333F1 /* Console.cpp */,
+				66CFE4201E47C8C4009333F1 /* Console.hpp */,
+			);
+			name = Console;
+			sourceTree = "<group>";
+		};
 		D6090D1A1C86179200947243 /* State Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +133,7 @@
 		D614E6051C7E2F170017890C /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				66CFE41E1E47C8B3009333F1 /* Console */,
 				D6A0B6191C8E3BF600148032 /* Entity Manager */,
 				D6A0B6151C8E1F3400148032 /* Map */,
 				D6314CC01C8B991B002C041C /* Sprites */,
@@ -387,6 +400,7 @@
 				D6A0B6051C8E16C500148032 /* AnimDirectional.cpp in Sources */,
 				D67004F31C94C991003EE3F6 /* State_GameOver.cpp in Sources */,
 				D6C50BC91C7D152E00C2CCBC /* main.cpp in Sources */,
+				66CFE4211E47C8C4009333F1 /* Console.cpp in Sources */,
 				D6842DDE1C7D161F00691541 /* Window.cpp in Sources */,
 				D6810F2B1C82157300A603C5 /* Textbox.cpp in Sources */,
 				D68D9E401C938CC80094CF43 /* Player.cpp in Sources */,

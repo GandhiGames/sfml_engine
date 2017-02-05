@@ -33,8 +33,8 @@ private:
     constexpr static float LINE_SPACING = 1.2f;
     const static sf::Vector2f OFFSET;
     const static int DEFAULT_LINES_VISIBLE = 5;
-    const static int DEFAULT_CHAR_SIZE = 9;
-    const static int DEFAULT_WIDTH = 200;
+    const static int DEFAULT_CHAR_SIZE = 18;
+    const static int DEFAULT_WIDTH = 300;
     const static sf::String DEFAULT_FONT;
     const static sf::Color DEFAULT_FONT_COLOUR;
     
@@ -44,6 +44,7 @@ private:
     sf::RectangleShape m_background;
     sf::Font m_font;
     sf::Text m_content;
+    sf::View m_view;
 };
 
 #endif /* Textbox_hpp */
