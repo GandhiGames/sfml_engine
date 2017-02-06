@@ -29,6 +29,7 @@ Textbox::~Textbox()
     Clear();
 }
 
+//TODO: create correct resource request for font.
 void Textbox::Setup(int l_visible, int l_charSize, int l_width, const sf::Vector2f &l_screenPos)
 {
     m_numLinesVisible = l_visible;

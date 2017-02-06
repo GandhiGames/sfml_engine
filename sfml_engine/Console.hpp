@@ -32,13 +32,18 @@ public:
     void HandleTextInput(EventDetails* l_details);
     void Backspace(EventDetails* l_details);
     void ValidateInput(EventDetails* l_details);
-    void CycleInput(EventDetails* l_details);
+    void CycleInputUp(EventDetails* l_details);
+    void CycleInputDown(EventDetails* l_details);
     
     void Draw(sf::RenderWindow* l_wind);
     
     void Open();
     
     void Close();
+    
+    void Update(const float& l_dt);
+    
+    bool IsOpen();
  
 private:
     void Purge();
@@ -46,10 +51,22 @@ private:
     void ParseCommand();
     void Print(const std::string& l_str);
     std::vector<std::string> Tokenize(const std::string& l_input, char l_delim);
+    void UpdateTextFromCurrentCommand();
     
-    bool m_show;
+    float m_percentScreen;
+    float m_moveInPixelsPerSec;
+    float m_moveOutPixelsPerSec;
+    float m_accumulatedMove;
+    float m_moveOffset;
+    sf::Uint16 m_xOffset;
+    bool m_shouldOpen;
+    bool m_shouldClose;
+    bool m_isOpen;
     int m_maxBufferLength;
     int m_maxBufferLines;
+    sf::Uint8 m_characterSize;
+    sf::Uint8 m_commandCacheSize;
+    sf::Int8 m_InputCommandsIndex;
     sf::Text m_inputText;
     sf::Text m_outputText;
     sf::Text m_inputPreText;
@@ -59,6 +76,7 @@ private:
     sf::Font m_textFont;
     sf::RectangleShape m_backgroundOut;
     sf::RectangleShape m_backgroundIn;
+    std::vector<std::string> m_inputCommands;
     
 };
 

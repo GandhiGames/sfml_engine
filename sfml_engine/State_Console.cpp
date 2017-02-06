@@ -27,6 +27,8 @@ void State_Console::OnCreate()
     evMgr->AddCallback(StateType::Console, "Text_Entered", &Console::HandleTextInput, &m_console);
     evMgr->AddCallback(StateType::Console, "Key_Return", &Console::ValidateInput, &m_console);
     evMgr->AddCallback(StateType::Console, "Key_Backspace", &Console::Backspace, &m_console);
+    evMgr->AddCallback(StateType::Console, "Key_Up", &Console::CycleInputUp, &m_console);
+    evMgr->AddCallback(StateType::Console, "Key_Down", &Console::CycleInputDown, &m_console);
 }
 
 void State_Console::OnDestroy()
@@ -35,6 +37,8 @@ void State_Console::OnDestroy()
     evMgr->RemoveCallback(StateType::Console, "Key_Tilde");
     evMgr->RemoveCallback(StateType::Console, "Text_Entered");
     evMgr->RemoveCallback(StateType::Console, "Key_Return");
+    evMgr->RemoveCallback(StateType::Console, "Key_Up");
+    evMgr->RemoveCallback(StateType::Console, "Key_Down");
     
     m_stateManager.GetContext().SetConsole(nullptr);
 }
@@ -54,15 +58,17 @@ void State_Console::Deactivate()
 void State_Console::Close(EventDetails* l_details)
 {
     m_console.Close();
-    
-    // Move to game state when console closed (do in update).
-    
-    m_stateManager.SwitchTo(StateType::Game);
 }
 
 void State_Console::Update(const sf::Time& l_time)
 {
     // Update console loc
+    
+    m_console.Update(l_time.asSeconds());
+    
+    if(!m_console.IsOpen()){
+        m_stateManager.SwitchTo(StateType::Game);
+    }
 }
 
 void State_Console::Draw()
