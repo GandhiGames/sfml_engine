@@ -21,6 +21,7 @@ void State_Game::OnCreate()
     evMgr->AddCallback(StateType::Game, "Key_Escape", &State_Game::MainMenu, this);
     evMgr->AddCallback(StateType::Game, "Key_P", &State_Game::Pause, this);
     evMgr->AddCallback(StateType::Game, "Key_O", &State_Game::ToggleOverlay, this);
+    evMgr->AddCallback(StateType::Game, "Key_Tilde", &State_Game::OpenConsole, this);
     
     sf::Vector2u size = m_stateManager.GetContext().GetWindow()->GetWindowSize();
     m_view.setSize(size.x,size.y);
@@ -40,6 +41,7 @@ void State_Game::OnDestroy()
     evMgr->RemoveCallback(StateType::Game, "Key_Escape");
     evMgr->RemoveCallback(StateType::Game, "Key_P");
     evMgr->RemoveCallback(StateType::Game, "Key_O");
+    evMgr->RemoveCallback(StateType::Game, "Key_Tilde");
     
     delete m_gameMap;
     m_gameMap = nullptr;
@@ -92,6 +94,12 @@ void State_Game::Pause(EventDetails *l_details)
 }
 
 // Test/debug methods.
-void State_Game::ToggleOverlay(EventDetails* l_details){
+void State_Game::ToggleOverlay(EventDetails* l_details)
+{
     m_stateManager.GetContext().GetDebugOverlay()->SetDebug(!m_stateManager.GetContext().GetDebugOverlay()->Debug());
+}
+
+void State_Game::OpenConsole(EventDetails* l_details)
+{
+    m_stateManager.SwitchTo(StateType::Console);
 }

@@ -13,6 +13,7 @@ StateManager::StateManager(SharedContext &l_sharedContext):m_sharedContext(l_sha
     RegisterState<State_Intro>(StateType::Intro);
     RegisterState<State_Menu>(StateType::MainMenu);
     RegisterState<State_Game>(StateType::Game);
+    RegisterState<State_Console>(StateType::Console);
     RegisterState<State_Paused>(StateType::Paused);
     RegisterState<State_GameOver>(StateType::GameOver);
 }

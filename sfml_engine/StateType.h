@@ -9,7 +9,7 @@
 #ifndef StateType_h
 #define StateType_h
 
-enum class StateType{ Intro = 1, MainMenu, Game, Paused, GameOver, Credits };
+enum class StateType{ Intro = 1, MainMenu, Game, Paused, Console, GameOver, Credits };
 
 // TODO: http://stackoverflow.com/questions/18837857/cant-use-enum-class-as-unordered-map-key add specialisation
 

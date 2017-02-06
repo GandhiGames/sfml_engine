@@ -25,15 +25,17 @@ public:
     void Activate();
     void Deactivate();
     
-    void Update(const sf::Time &l_time);
+    void Update(const sf::Time& l_time);
     void Draw();
 
-    void MainMenu(EventDetails *l_detals);
-    void Pause(EventDetails *l_details);
-    void ToggleOverlay(EventDetails *l_details);
+    void MainMenu(EventDetails* l_detals);
+    void Pause(EventDetails* l_details);
+    void ToggleOverlay(EventDetails* l_details);
+    void OpenConsole(EventDetails* l_details);
+
     
 private:
-    Map *m_gameMap;
+    Map* m_gameMap;
 };
 
 #endif /* State_Game_hpp */

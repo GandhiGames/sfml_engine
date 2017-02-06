@@ -94,7 +94,7 @@ void EventManager::Update()
     }
 }
 
-void EventManager::HandleEvent(sf::Event &l_event)
+void EventManager::HandleEvent(sf::Event& l_event)
 {
    	for (auto &b_itr : m_bindings){
         Binding* bind = b_itr.second;

@@ -19,7 +19,7 @@ class BaseState {
     friend class StateManager;
     
 public:
-    BaseState(StateManager &l_stateManager):m_stateManager(l_stateManager), m_transparent(false), m_trancendent(false){};
+    BaseState(StateManager& l_stateManager):m_stateManager(l_stateManager), m_transparent(false), m_trancendent(false){};
     virtual ~BaseState(){};
     
     virtual void OnCreate() = 0;
@@ -62,7 +62,7 @@ public:
     }
 
 protected:
-    StateManager &m_stateManager;
+    StateManager& m_stateManager;
     sf::View m_view;
     bool m_transparent;
     bool m_trancendent;

@@ -35,11 +35,6 @@ Window* Game::GetWindow(){ return &m_window; }
 void Game::Update(){
     m_window.Update();
     m_stateManager.Update(m_elapsed);
-    
-    sf::Event event;
-    if(m_window.GetRenderWindow()->pollEvent(event)){
-        m_console.HandleEvent(event);
-    }
 }
 
 void Game::Render(){
@@ -56,8 +51,6 @@ void Game::Render(){
     if(m_context.GetDebugText()){
         m_context.GetDebugText()->Render(m_window.GetRenderWindow());
     }
-    
-    m_console.Draw(m_window.GetRenderWindow());
     
     m_window.EndDraw();
 }

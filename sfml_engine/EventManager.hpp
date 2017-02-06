@@ -95,7 +95,7 @@ struct EventDetails {
         m_mouseWheelDelta = l_mouseDelta;
     }
     
-    const sf::Uint32 &GetTextEntered()
+    const sf::Uint32& GetTextEntered()
     {
         return m_textEntered;
     }
