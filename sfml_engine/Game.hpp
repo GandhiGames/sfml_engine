@@ -42,6 +42,7 @@ private:
     StateManager m_stateManager;
     DebugOverlay m_debugOverlay;
     Textbox m_debugText;
+    Console m_console;
 };
 
 #endif /* Game_hpp */

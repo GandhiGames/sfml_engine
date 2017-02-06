@@ -10,51 +10,45 @@
 
 //TODO: create correct resource request for font.
 //TODO: add scrollbar for output - control by keyboard?
-Console::Console(sf::RenderWindow* l_wind)
+Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
 {
-    const sf::Vector2u windSize = l_wind->getSize();
-    
+    m_screenSize = l_wind->getSize();
     m_characterSize = 14;
     m_maxBufferLength = 30;
     m_commandCacheSize = 10;
-    m_moveInPixelsPerSec = 600;
-    m_moveOutPixelsPerSec = 800;
-    m_percentScreen = 0.3;
-    m_xOffset = l_wind->getSize().x * 0.05;
-    m_moveOffset = windSize.y * m_percentScreen;
-    m_maxBufferLines = (m_moveOffset / (m_characterSize + 3)) - 1;
+    m_xOffset = m_screenSize.x * 0.05;
+    m_state = ConsoleState::None;
+    m_cursorIndex = 0;
     
-    m_backgroundOut.setSize(sf::Vector2f(windSize.x - m_xOffset * 2, m_moveOffset));
     m_backgroundOut.setFillColor(sf::Color(90, 90, 90, 180));
-    m_backgroundOut.setPosition(m_xOffset, 0);
-    
-    m_backgroundIn.setSize(sf::Vector2f(windSize.x - m_xOffset * 2, m_characterSize * 2));
     m_backgroundIn.setFillColor(sf::Color(90, 90, 90, 180));
-    m_backgroundIn.setPosition(m_xOffset,
-                             m_backgroundOut.getPosition().y + m_backgroundOut.getSize().y - m_backgroundIn.getSize().y);
     
     m_textFont.loadFromFile(resourcePath() + "media/Fonts/arial.ttf");
-    
     m_inputText.setFont(m_textFont);
     m_inputText.setCharacterSize(m_characterSize);
     m_inputText.setFillColor(sf::Color::Black);
-    m_inputText.setPosition(m_xOffset + m_characterSize,
-                            m_backgroundIn.getPosition().y + (m_backgroundIn.getSize().y * 0.5) - (m_characterSize * 0.5));
-    
     m_outputText.setFont(m_textFont);
     m_outputText.setCharacterSize(m_characterSize);
     m_outputText.setFillColor(sf::Color::Black);
-    m_outputText.setPosition(m_xOffset + m_characterSize, m_backgroundOut.getPosition().y + 5);
-    
-    
     m_inputPreText.setFont(m_textFont);
     m_inputPreText.setString(">");
     m_inputPreText.setCharacterSize(m_characterSize);
-    m_inputPreText.setPosition(m_xOffset, m_backgroundIn.getPosition().y + (m_backgroundIn.getSize().y * 0.5) - (m_characterSize * 0.5));
+    m_inputPreText.setFillColor(sf::Color::White);
+    
+    m_cursor.SetSize(sf::Vector2f(m_characterSize * 0.5f, m_characterSize));
+    
     
     Command listCommands = [this](std::vector<std::string> l) -> std::string
     {
+        
+        if(l.size() > 0 && l[0] == "-help") {
+            return "list_commands: lists all available commands";
+            
+        }
+        
         Print("commands:");
+        
+        Print("<comand_name> -help: sometimes provides useful info");
         
         for(const auto& i : m_commands) {
             Print(i.first);
@@ -67,7 +61,12 @@ Console::Console(sf::RenderWindow* l_wind)
     
     Command clear = [this](std::vector<std::string> l) -> std::string
     {
+        if(l.size() > 0 && l[0] == "-help"){
+            return "clear: clears screen";
+        }
+        
         Purge();
+
         return "";
         
     };
@@ -75,14 +74,19 @@ Console::Console(sf::RenderWindow* l_wind)
     
     Command exit = [this](std::vector<std::string> l) -> std::string
     {
-        Close();
+        if(l.size() > 0 && l[0] == "-help") {
+            return "exit: closes console";
+        }
+        
+        Close(m_movePixelsPerSec);
+
         return "";
         
     };
     Add("exit", exit);
     
-    m_isOpen = false;
-    m_shouldOpen = false;
+   
+
 }
 
 Console::~Console()
@@ -90,31 +94,42 @@ Console::~Console()
     // what do i need to remove?
 }
 
-void Console::Open()
+void Console::Build(const float& l_screenSize)
 {
+    m_percentScreen = l_screenSize;
+    m_moveOffset = m_screenSize.y * m_percentScreen;
+    m_maxBufferLines = (m_moveOffset / (m_characterSize + 3)) - 1;
+    
+    m_backgroundIn.setSize(sf::Vector2f(m_screenSize.x - m_xOffset * 2, m_characterSize * 2));
+    m_backgroundOut.setSize(sf::Vector2f(m_screenSize.x - m_xOffset * 2, m_moveOffset));
+    
+}
+
+void Console::Open(const float& l_screenSize, const float& l_movePixelsPerSec)
+{
+    assert(l_screenSize > 0 && l_screenSize <= 1);
+    
+    if(m_percentScreen != l_screenSize){
+        Build(l_screenSize);
+        ResetConsolePosition(ConsoleState::Closed);
+    }
+    
+    m_movePixelsPerSec = l_movePixelsPerSec;
+    
     m_inputBuffer.erase();
     UpdateText();
     
-    m_backgroundOut.setPosition(m_xOffset, 0 - m_moveOffset);
-    m_backgroundIn.setPosition(m_xOffset,
-                               m_backgroundOut.getPosition().y + m_backgroundOut.getSize().y - m_backgroundIn.getSize().y);
-    m_inputText.setPosition(m_xOffset + m_characterSize,
-                            m_backgroundIn.getPosition().y + (m_backgroundIn.getSize().y * 0.5) - (m_characterSize * 0.5));
-    m_outputText.setPosition(m_xOffset + m_characterSize, m_backgroundOut.getPosition().y + 5);
-    
-    m_inputPreText.setPosition(m_xOffset, m_backgroundIn.getPosition().y + (m_backgroundIn.getSize().y * 0.5) - (m_characterSize * 0.5));
-    
-    m_shouldClose = false;
     m_accumulatedMove = 0;
-    m_shouldOpen = true;
+
+    m_state = ConsoleState::Opening;
+   
 }
 
-void Console::Close()
+void Console::Close(const float& l_movePixelsPerSec)
 {
-    m_shouldOpen = false;
     m_accumulatedMove = 0;
-    m_shouldClose = true;
-
+    m_movePixelsPerSec = l_movePixelsPerSec;
+    m_state = ConsoleState::Closing;
 }
 
 void Console::Draw(sf::RenderWindow* l_wind)
@@ -126,60 +141,74 @@ void Console::Draw(sf::RenderWindow* l_wind)
     l_wind->draw(m_inputText);
     l_wind->draw(m_outputText);
     
+    if(m_state == ConsoleState::Open){
+        m_cursor.Draw(l_wind);
+    }
 }
 
 void Console::Update(const float& l_dt)
 {
-    if(m_shouldOpen){
- 
-        m_backgroundIn.setPosition(m_xOffset, m_backgroundIn.getPosition().y + m_moveInPixelsPerSec * l_dt);
-        m_backgroundOut.setPosition(m_xOffset, m_backgroundOut.getPosition().y + m_moveInPixelsPerSec * l_dt);
-        m_inputText.setPosition(m_inputText.getPosition().x, m_inputText.getPosition().y + m_moveInPixelsPerSec * l_dt);
-        m_outputText.setPosition(m_outputText.getPosition().x, m_outputText.getPosition().y + m_moveInPixelsPerSec * l_dt);
-        m_inputPreText.setPosition(m_inputPreText.getPosition().x, m_inputPreText.getPosition().y + m_moveInPixelsPerSec * l_dt);
-        
-        m_accumulatedMove += m_moveInPixelsPerSec * l_dt;
-        
-        if(m_accumulatedMove >= m_moveOffset){
-            m_backgroundOut.setPosition(m_xOffset, 0);
-            m_backgroundIn.setPosition(m_xOffset, m_backgroundOut.getPosition().y + m_backgroundOut.getSize().y - m_backgroundIn.getSize().y);
-            m_inputText.setPosition(m_xOffset + m_characterSize,
-                                    m_backgroundIn.getPosition().y + (m_backgroundIn.getSize().y * 0.5) - (m_characterSize * 0.5));
-            m_outputText.setPosition(m_xOffset + m_characterSize, m_backgroundOut.getPosition().y + 5);
-            
-            m_inputPreText.setPosition(m_xOffset, m_backgroundIn.getPosition().y + (m_backgroundIn.getSize().y * 0.5) - (m_characterSize * 0.5));
-            
-            m_shouldOpen = false;
-            m_isOpen = true;
-        }
-    }else if(m_shouldClose){
-        
-        m_backgroundIn.setPosition(m_xOffset, m_backgroundIn.getPosition().y - m_moveOutPixelsPerSec * l_dt);
-        m_backgroundOut.setPosition(m_xOffset,  m_backgroundOut.getPosition().y - m_moveOutPixelsPerSec * l_dt);
-        m_inputText.setPosition(m_inputText.getPosition().x, m_inputText.getPosition().y - m_moveOutPixelsPerSec * l_dt);
-        m_outputText.setPosition(m_outputText.getPosition().x, m_outputText.getPosition().y - m_moveOutPixelsPerSec * l_dt);
-        m_inputPreText.setPosition(m_inputPreText.getPosition().x, m_inputPreText.getPosition().y - m_moveOutPixelsPerSec * l_dt);
-        
-         m_accumulatedMove += m_moveOutPixelsPerSec * l_dt;
-        
-        if(m_accumulatedMove >= m_moveOffset){
-            m_backgroundOut.setPosition(m_xOffset, 0 - m_moveOffset);
-            m_backgroundIn.setPosition(m_xOffset, m_backgroundOut.getPosition().y + m_backgroundOut.getSize().y - m_backgroundIn.getSize().y);
-            
-            m_inputText.setPosition(m_xOffset + m_characterSize,
-                                    m_backgroundIn.getPosition().y + (m_backgroundIn.getSize().y * 0.5) - (m_characterSize * 0.5));
-            m_outputText.setPosition(m_xOffset + m_characterSize, m_backgroundOut.getPosition().y + 5);
-            
-            m_inputPreText.setPosition(m_xOffset, m_backgroundIn.getPosition().y + (m_backgroundIn.getSize().y * 0.5) - (m_characterSize * 0.5));
-            m_shouldClose = false;
-            m_isOpen = false;
-        }
+    switch (m_state) {
+        case ConsoleState::Open:
+            m_cursor.Update(l_dt);
+            break;
+        case ConsoleState::Opening:
+            DoMovement(m_movePixelsPerSec * l_dt, ConsoleState::Open);
+            break;
+        case ConsoleState::Closing:
+            DoMovement(-m_movePixelsPerSec * l_dt, ConsoleState::Closed);
+            break;
+        default:
+            assert(m_state != ConsoleState::None);
+            break;
     }
+    
+   
+}
+
+void Console::DoMovement(const float& l_moveAmount, const ConsoleState& l_goToSate)
+{
+    MoveConsoleVertical(l_moveAmount);
+    
+    m_accumulatedMove += l_moveAmount < 0 ? (l_moveAmount * -1) : l_moveAmount;
+    
+    if(m_accumulatedMove >= m_moveOffset){
+        ResetConsolePosition(l_goToSate);
+        m_state = l_goToSate;
+    }
+
+}
+
+void Console::MoveConsoleVertical(const float& l_amount)
+{
+    m_backgroundIn.setPosition(m_xOffset, m_backgroundIn.getPosition().y + l_amount);
+    m_backgroundOut.setPosition(m_xOffset,  m_backgroundOut.getPosition().y + l_amount);
+    m_inputText.setPosition(m_inputText.getPosition().x, m_inputText.getPosition().y + l_amount);
+    m_outputText.setPosition(m_outputText.getPosition().x, m_outputText.getPosition().y + l_amount);
+    m_inputPreText.setPosition(m_inputPreText.getPosition().x, m_inputPreText.getPosition().y + l_amount);
+}
+
+void Console::ResetConsolePosition(const ConsoleState& l_desiredState)
+{
+    assert(l_desiredState == ConsoleState::Open || l_desiredState == ConsoleState::Closed);
+    
+    float y = l_desiredState == ConsoleState::Closed ? -m_moveOffset : 0;
+    
+    m_backgroundOut.setPosition(m_xOffset, y);
+    m_backgroundIn.setPosition(m_xOffset, m_backgroundOut.getPosition().y + m_backgroundOut.getSize().y - m_backgroundIn.getSize().y);
+    
+    m_inputText.setPosition(m_xOffset + m_characterSize,
+                            m_backgroundIn.getPosition().y + (m_backgroundIn.getSize().y * 0.5) - (m_characterSize * 0.5));
+    m_outputText.setPosition(m_xOffset + m_characterSize, m_backgroundOut.getPosition().y + 5);
+    
+    m_inputPreText.setPosition(m_xOffset + m_inputPreText.getLocalBounds().width * 0.2, m_backgroundIn.getPosition().y + (m_backgroundIn.getSize().y * 0.5) - (m_characterSize * 0.5));
+    
+    m_cursor.SetPosition(sf::Vector2f(m_inputText.getPosition().x, y < 0 ?  (m_inputText.getPosition().y + m_moveOffset) : m_inputText.getPosition().y));
 }
 
 bool Console::IsOpen()
 {
-    return m_shouldOpen || m_isOpen;
+    return m_state != ConsoleState::Closed;
 }
 
 void Console::Add(const std::string& l_name, Command l_cmd)
@@ -199,14 +228,20 @@ void Console::Remove(const std::string& l_name)
 
 void Console::HandleTextInput(EventDetails* l_details)
 {
-    if(m_isOpen){
+    if(m_state == ConsoleState::Open){
         const sf::Uint32& textEntered = l_details->GetTextEntered();
         
         if (textEntered > 31
             && textEntered < 127
             && m_inputBuffer.size() < m_maxBufferLength)
         {
-            m_inputBuffer += static_cast<char>(textEntered);
+
+            m_inputBuffer.insert(m_inputBuffer.begin() + m_cursorIndex, static_cast<char>(textEntered));
+            
+            m_cursor.SetX(m_inputText.findCharacterPos(m_cursorIndex).x + m_textFont.getGlyph(m_inputBuffer[m_cursorIndex], m_characterSize, false).bounds.width);
+            
+            m_cursorIndex++;
+
             UpdateText();
         }
         
@@ -215,16 +250,21 @@ void Console::HandleTextInput(EventDetails* l_details)
 
 void Console::ValidateInput(EventDetails* l_details)
 {
-    if(m_isOpen){
+    if(m_state == ConsoleState::Open){
         ParseCommand();
     }
 }
 
 void Console::Backspace(EventDetails* l_details)
 {
-    if(m_isOpen){
-        if(!m_inputBuffer.empty()){
-            m_inputBuffer.pop_back();
+      if(m_state == ConsoleState::Open){
+        if(!m_inputBuffer.empty() && m_cursorIndex > 0){
+            m_inputBuffer.erase(m_inputBuffer.begin() + m_cursorIndex -1);
+            m_cursorIndex--;
+            
+ 
+            m_cursor.SetX(m_inputText.findCharacterPos(m_cursorIndex).x);
+            
             UpdateText();
         }
     }
@@ -255,6 +295,10 @@ void Console::CycleInputDown(EventDetails* l_details)
             m_InputCommandsIndex = m_inputCommands.size() - 1;
             
             m_inputBuffer.erase();
+            
+            m_cursorIndex = 0;
+            m_cursor.SetX(m_inputText.getPosition().x);
+            
             UpdateText();
         } else{
             UpdateTextFromCurrentCommand();
@@ -262,48 +306,33 @@ void Console::CycleInputDown(EventDetails* l_details)
     }
 }
 
+void Console::MoveCursorLeft(EventDetails* l_details)
+{
+    if(m_cursorIndex > 0){
+        m_cursorIndex--;
+        
+        m_cursor.SetX(m_inputText.findCharacterPos(m_cursorIndex).x);
+    }
+}
+
+void Console::MoveCursorRight(EventDetails* l_details)
+{
+    if(m_cursorIndex < m_inputBuffer.size()){
+        m_cursorIndex++;
+        
+        m_cursor.SetX(m_inputText.findCharacterPos(m_cursorIndex).x);
+    }
+}
+
 void Console::UpdateTextFromCurrentCommand()
 {
     m_inputBuffer = m_inputCommands[m_InputCommandsIndex];
+    m_cursorIndex = m_inputBuffer.size();
     
     UpdateText();
+    
+    m_cursor.SetX(m_inputText.findCharacterPos(m_cursorIndex).x);
 }
-
-/*
- void Console::HandleEvent(EventDetails* l_details)
- {
- if(m_show)
- {
- if(l_details-> == sf::Event::TextEntered)
- {
- std::cout << "here 3" <<std::endl;
- if (l_event.text.unicode > 31
- && l_event.text.unicode < 127
- && m_inputBuffer.size() < m_maxBufferLength)
- {
- m_inputBuffer += static_cast<char>(l_event.text.unicode);
- UpdateText();
- }
- }
- 
- else if(l_event.type == sf::Event::KeyPressed)
- {
- std::cout << "here 4" <<std::endl;
- switch(l_event.key.code)
- {
- case sf::Keyboard::BackSpace:
- if(!m_inputBuffer.empty()) { m_inputBuffer.pop_back(); }
- UpdateText();
- break;
- case sf::Keyboard::Return:
- ParseCommand();
- break;
- }
- }
- }
- }
- */
-
 
 void Console::Print(const std::string& l_str)
 {
@@ -313,7 +342,7 @@ void Console::Print(const std::string& l_str)
         m_outputBuffer.pop_front();
     }
     
-    if(m_isOpen){
+    if(m_state == ConsoleState::Open){
         UpdateText();
     }
 }
@@ -352,6 +381,9 @@ void Console::ParseCommand()
         m_InputCommandsIndex = m_inputCommands.size();
         
         m_inputBuffer.clear();
+        m_cursorIndex = 0;
+        m_cursor.SetX(m_inputText.getPosition().x);
+        
         UpdateText();
     }
 }
@@ -381,3 +413,5 @@ std::vector<std::string> Console::Tokenize(const std::string& l_input, char l_de
     
     return out;
 }
+
+

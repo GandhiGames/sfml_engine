@@ -26,7 +26,9 @@ public:
     void Update(const sf::Time &l_time);
     void Draw();
     
-    void MouseClick(EventDetails *l_details);
+    void MenuSelectionUp(EventDetails* l_details);
+    void MenuSelectionDown(EventDetails* l_details);
+    void ValidateSelection(EventDetails* l_details);
     
 private:
     sf::Text m_text;
@@ -39,6 +41,10 @@ private:
     
     sf::RectangleShape m_rects[3];
     sf::Text m_labels[3];
+    
+    sf::Uint8 m_selectedIndex;
+    
+    void IncrementSelect(const sf::Int8& l_increment);
     
 };
 

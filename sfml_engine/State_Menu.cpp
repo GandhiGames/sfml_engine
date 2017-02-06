@@ -9,26 +9,29 @@
 #include "State_Menu.hpp"
 #include "StateManager.hpp"
 
-State_Menu::State_Menu(StateManager &l_stateManager):BaseState(l_stateManager){}
+State_Menu::State_Menu(StateManager& l_stateManager):BaseState(l_stateManager){}
 
 State_Menu::~State_Menu(){}
 
+//TODO: use resource manager to load fonts.
 void State_Menu::OnCreate()
 {
     m_font.loadFromFile(resourcePath() + "media/Fonts/arial.ttf");
     m_text.setFont(m_font);
     m_text.setString(sf::String("Main Menu"));
-    m_text.setCharacterSize(18);
+    m_text.setCharacterSize(24);
     
     sf::FloatRect textRect = m_text.getLocalBounds();
     m_text.setOrigin(textRect.left + textRect.width / 2.0f,
                      textRect.top + textRect.height / 2.0f);
     
-    m_text.setPosition(400,100);
+    const sf::Vector2u& windSize = m_stateManager.GetContext().GetWindow()->GetRenderWindow()->getSize();
+    
+    m_text.setPosition(windSize.x * 0.5, 100);
     m_text.setFillColor(sf::Color::Black);
     
-    m_buttonSize = sf::Vector2f(300.0f,32.0f);
-    m_buttonPos = sf::Vector2f(400,200);
+    m_buttonSize = sf::Vector2f(300.0f, 32.0f);
+    m_buttonPos = sf::Vector2f(windSize.x * 0.5, 200);
     m_buttonPadding = 4; // 4px.
     
     std::string str[3];
@@ -47,7 +50,7 @@ void State_Menu::OnCreate()
         
         m_labels[i].setFont(m_font);
         m_labels[i].setString(sf::String(str[i]));
-        m_labels[i].setCharacterSize(12);
+        m_labels[i].setCharacterSize(16);
         
         sf::FloatRect rect = m_labels[i].getLocalBounds();
         m_labels[i].setOrigin(rect.left + rect.width / 2.0f,
@@ -56,14 +59,23 @@ void State_Menu::OnCreate()
         m_labels[i].setPosition(buttonPosition);
     }
 
-
+    m_selectedIndex = 0;
+    m_labels[m_selectedIndex].setFillColor(sf::Color::Black);
+    m_labels[m_selectedIndex].setStyle(sf::Text::Bold);
     
-    GetStateManager().GetContext().GetEventManager()->AddCallback(StateType::MainMenu, "Mouse_left", &State_Menu::MouseClick, this);
+    EventManager* evtMgr = GetStateManager().GetContext().GetEventManager();
+    evtMgr->AddCallback(StateType::MainMenu, "Key_Up", &State_Menu::MenuSelectionUp, this);
+    evtMgr->AddCallback(StateType::MainMenu, "Key_Down", &State_Menu::MenuSelectionDown, this);
+    evtMgr->AddCallback(StateType::MainMenu, "Key_Return", &State_Menu::ValidateSelection, this);
+    
 }
 
 void State_Menu::OnDestroy()
 {
-    GetStateManager().GetContext().GetEventManager()->RemoveCallback(StateType::MainMenu, "Mouse_left");
+    EventManager* evtMgr = GetStateManager().GetContext().GetEventManager();
+    evtMgr->RemoveCallback(StateType::MainMenu, "Key_Up");
+    evtMgr->RemoveCallback(StateType::MainMenu, "Key_Down");
+    evtMgr->RemoveCallback(StateType::MainMenu, "Key_Return");
 }
 
 void State_Menu::Activate()
@@ -96,25 +108,44 @@ void State_Menu::Draw()
     }
 }
 
-void State_Menu::MouseClick(EventDetails *l_details)
+void State_Menu::MenuSelectionUp(EventDetails* l_details)
 {
-    sf::Vector2i mousePos = l_details->GetMousePos();
-    
-    float halfX = m_buttonSize.x / 2.0f;
-    float halfY = m_buttonSize.y / 2.0f;
-    for(int i = 0; i < 3; ++i){
-        if(mousePos.x >= m_rects[i].getPosition().x - halfX &&
-           mousePos.x <= m_rects[i].getPosition().x + halfX &&
-           mousePos.y >= m_rects[i].getPosition().y - halfY &&
-           mousePos.y <= m_rects[i].getPosition().y + halfY)
-        {
-            if(i == 0){
-                GetStateManager().SwitchTo(StateType::Game);
-            } else if(i == 1){
-                // Credits state.
-            } else if(i == 2){
-                GetStateManager().GetContext().GetWindow()->Close();
-            }
-        }
+    IncrementSelect(-1);
+}
+
+void State_Menu::MenuSelectionDown(EventDetails* l_details)
+{
+    IncrementSelect(1);
+}
+
+void State_Menu::ValidateSelection(EventDetails* l_details)
+{
+    if(m_selectedIndex == 0) {
+        m_stateManager.SwitchTo(StateType::Game);
+    } else if (m_selectedIndex == 1) {
+        // Load info.
+    } else if (m_selectedIndex == 2) {
+        m_stateManager.GetContext().GetWindow()->Close();
     }
+}
+
+void State_Menu::IncrementSelect(const sf::Int8& l_increment)
+{
+    assert(l_increment == -1 || l_increment == 1);
+    
+    m_labels[m_selectedIndex].setStyle(sf::Text::Regular);
+    m_labels[m_selectedIndex].setFillColor(sf::Color::White);
+    
+    if(l_increment < 0){
+        if(m_selectedIndex > 0) {
+            m_selectedIndex += l_increment;
+        } else {
+            m_selectedIndex = 2;
+        }
+    }else{
+        m_selectedIndex = (m_selectedIndex + l_increment) % 3;
+    }
+    
+    m_labels[m_selectedIndex].setFillColor(sf::Color::Black);
+    m_labels[m_selectedIndex].setStyle(sf::Text::Bold);
 }

@@ -9,7 +9,7 @@
 #include "State_Console.hpp"
 #include "StateManager.hpp"
 
-State_Console::State_Console(StateManager& l_stateManager) : BaseState(l_stateManager), m_console(l_stateManager.GetContext().GetWindow()->GetRenderWindow()){}
+State_Console::State_Console(StateManager& l_stateManager) : BaseState(l_stateManager){}
 
 State_Console::~State_Console(){}
 
@@ -18,17 +18,43 @@ void State_Console::OnCreate()
     SetTrancendent(true);
     SetTransparent(true);
     
-    m_stateManager.GetContext().SetConsole(&m_console);
+    m_console = m_stateManager.GetContext().GetConsole();
     
+    m_console->Add("get_player", [this](std::vector<std::string> l) -> std::string{
+        if(l.size() > 0){
+            if(l[0] == "-help"){
+                return "get_player: -make 'jump' 'attack'";
+            }else if(l.size() > 1 && l[0] == "-make"){
+                
+                Character* player = (Character*)GetStateManager().GetContext().GetEntityManager()->Find("Player");
+                
+                if(player){
+                    if(l[1] == "jump"){
+                        player->Jump();
+                        return "get_player: character jumped!";
+                    } else if(l[1] == "attack"){
+                        player->Attack();
+                        return "get_player: character attacked!";
+                    }
+                }else{
+                    return "get_player:player noy found";
+                }
+            }
+        }
+        
+        return "get_player: invalid parameters";
+        
+    });
+
     EventManager* evMgr = m_stateManager.GetContext().GetEventManager();
-    
-    
     evMgr->AddCallback(StateType::Console, "Key_Tilde", &State_Console::Close, this);
-    evMgr->AddCallback(StateType::Console, "Text_Entered", &Console::HandleTextInput, &m_console);
-    evMgr->AddCallback(StateType::Console, "Key_Return", &Console::ValidateInput, &m_console);
-    evMgr->AddCallback(StateType::Console, "Key_Backspace", &Console::Backspace, &m_console);
-    evMgr->AddCallback(StateType::Console, "Key_Up", &Console::CycleInputUp, &m_console);
-    evMgr->AddCallback(StateType::Console, "Key_Down", &Console::CycleInputDown, &m_console);
+    evMgr->AddCallback(StateType::Console, "Text_Entered", &Console::HandleTextInput, m_console);
+    evMgr->AddCallback(StateType::Console, "Key_Return", &Console::ValidateInput, m_console);
+    evMgr->AddCallback(StateType::Console, "Key_Backspace", &Console::Backspace, m_console);
+    evMgr->AddCallback(StateType::Console, "Key_Up", &Console::CycleInputUp, m_console);
+    evMgr->AddCallback(StateType::Console, "Key_Down", &Console::CycleInputDown, m_console);
+    evMgr->AddCallback(StateType::Console, "Key_Left", &Console::MoveCursorLeft, m_console);
+    evMgr->AddCallback(StateType::Console, "Key_Right", &Console::MoveCursorRight, m_console);
 }
 
 void State_Console::OnDestroy()
@@ -39,34 +65,35 @@ void State_Console::OnDestroy()
     evMgr->RemoveCallback(StateType::Console, "Key_Return");
     evMgr->RemoveCallback(StateType::Console, "Key_Up");
     evMgr->RemoveCallback(StateType::Console, "Key_Down");
-    
-    m_stateManager.GetContext().SetConsole(nullptr);
+    evMgr->RemoveCallback(StateType::Console, "Key_Left");
+    evMgr->RemoveCallback(StateType::Console, "Key_Right");
+
 }
 
 void State_Console::Activate()
 {
     // Start showing console
     
-    m_console.Open();
+    m_stateManager.GetContext().GetConsole()->Open(0.5, 1800);
 }
 
 void State_Console::Deactivate()
 {
-
+   
 }
 
 void State_Console::Close(EventDetails* l_details)
 {
-    m_console.Close();
+     m_stateManager.GetContext().GetConsole()->Close(2200);
 }
 
 void State_Console::Update(const sf::Time& l_time)
 {
     // Update console loc
     
-    m_console.Update(l_time.asSeconds());
+    m_console->Update(l_time.asSeconds());
     
-    if(!m_console.IsOpen()){
+    if(!m_console->IsOpen()){
         m_stateManager.SwitchTo(StateType::Game);
     }
 }
@@ -77,7 +104,7 @@ void State_Console::Draw()
     
 
     
-    m_console.Draw(wind);
+    m_console->Draw(wind);
 
 }
 

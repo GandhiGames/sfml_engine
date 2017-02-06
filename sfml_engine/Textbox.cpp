@@ -70,6 +70,8 @@ void Textbox::Render(sf::RenderWindow* l_window)
     m_content.setString(l_content);
     l_window->draw(m_background);
     l_window->draw(m_content);
+    
+    
 }
 
 void Textbox::Add(std::string l_message)

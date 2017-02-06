@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		66BEB9251E48D92800654885 /* ConsoleCursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66BEB9231E48D92800654885 /* ConsoleCursor.cpp */; };
 		66CFE4211E47C8C4009333F1 /* Console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66CFE41F1E47C8C4009333F1 /* Console.cpp */; };
 		66CFE4241E48788B009333F1 /* State_Console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66CFE4221E48788B009333F1 /* State_Console.cpp */; };
 		D6090D1D1C8617BF00947243 /* StateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6090D1B1C8617BF00947243 /* StateManager.cpp */; };
@@ -39,6 +40,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		66BEB9231E48D92800654885 /* ConsoleCursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConsoleCursor.cpp; sourceTree = "<group>"; };
+		66BEB9241E48D92800654885 /* ConsoleCursor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConsoleCursor.hpp; sourceTree = "<group>"; };
 		66CFE41F1E47C8C4009333F1 /* Console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Console.cpp; sourceTree = "<group>"; };
 		66CFE4201E47C8C4009333F1 /* Console.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Console.hpp; sourceTree = "<group>"; };
 		66CFE4221E48788B009333F1 /* State_Console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State_Console.cpp; sourceTree = "<group>"; };
@@ -117,6 +120,8 @@
 			children = (
 				66CFE41F1E47C8C4009333F1 /* Console.cpp */,
 				66CFE4201E47C8C4009333F1 /* Console.hpp */,
+				66BEB9231E48D92800654885 /* ConsoleCursor.cpp */,
+				66BEB9241E48D92800654885 /* ConsoleCursor.hpp */,
 			);
 			name = Console;
 			sourceTree = "<group>";
@@ -407,6 +412,7 @@
 				D6C50BC91C7D152E00C2CCBC /* main.cpp in Sources */,
 				66CFE4211E47C8C4009333F1 /* Console.cpp in Sources */,
 				D6842DDE1C7D161F00691541 /* Window.cpp in Sources */,
+				66BEB9251E48D92800654885 /* ConsoleCursor.cpp in Sources */,
 				66CFE4241E48788B009333F1 /* State_Console.cpp in Sources */,
 				D6810F2B1C82157300A603C5 /* Textbox.cpp in Sources */,
 				D68D9E401C938CC80094CF43 /* Player.cpp in Sources */,

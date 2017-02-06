@@ -18,6 +18,10 @@
 #include <list>
 #include <sstream>
 #include "Window.hpp"
+#include "ConsoleCursor.hpp"
+#include <assert.h>
+
+
 
 typedef std::function<std::string(std::vector<std::string>&)> Command;
 
@@ -34,36 +38,45 @@ public:
     void ValidateInput(EventDetails* l_details);
     void CycleInputUp(EventDetails* l_details);
     void CycleInputDown(EventDetails* l_details);
+    void MoveCursorLeft(EventDetails* l_details);
+    void MoveCursorRight(EventDetails* l_details);
     
     void Draw(sf::RenderWindow* l_wind);
     
-    void Open();
+    void Open(const float& l_screenSize, const float& l_moveInPixelsPerSec);
     
-    void Close();
+    void Close(const float& l_movePixelsPerSec);
     
     void Update(const float& l_dt);
     
     bool IsOpen();
  
 private:
+    enum class ConsoleState {None = 0, Open, Opening, Closing, Closed};
+    
+    void Build(const float& l_screenSize);
+    void MoveConsoleVertical(const float& l_amount);
+    void ResetConsolePosition(const ConsoleState& l_desiredState);
     void Purge();
     void UpdateText();
     void ParseCommand();
     void Print(const std::string& l_str);
     std::vector<std::string> Tokenize(const std::string& l_input, char l_delim);
     void UpdateTextFromCurrentCommand();
+    void DoMovement(const float& l_moveAmount, const ConsoleState& l_goToSate);
     
+   
+    ConsoleState m_state;
+    ConsoleCursor m_cursor;
     float m_percentScreen;
-    float m_moveInPixelsPerSec;
-    float m_moveOutPixelsPerSec;
+    float m_movePixelsPerSec;
     float m_accumulatedMove;
     float m_moveOffset;
     sf::Uint16 m_xOffset;
-    bool m_shouldOpen;
-    bool m_shouldClose;
-    bool m_isOpen;
     int m_maxBufferLength;
     int m_maxBufferLines;
+    sf::Vector2u m_screenSize;
+    sf::Uint8 m_cursorIndex;
     sf::Uint8 m_characterSize;
     sf::Uint8 m_commandCacheSize;
     sf::Int8 m_InputCommandsIndex;

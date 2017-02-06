@@ -28,9 +28,9 @@ public:
     void Draw();
     
     void Close(EventDetails* l_details);
-    
+
 private:
-    Console m_console;
+    Console* m_console;
 };
 
 #endif /* State_Console_hpp */
