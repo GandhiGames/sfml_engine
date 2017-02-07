@@ -20,6 +20,7 @@ void State_Console::OnCreate()
     
     m_console = m_stateManager.GetContext().GetConsole();
     
+    /*
     m_console->Add("get_player", [this](std::vector<std::string> l) -> std::string{
         if(l.size() > 0){
             if(l[0] == "help"){
@@ -45,18 +46,19 @@ void State_Console::OnCreate()
         return "get_player: invalid parameters";
         
     });
+     */
 
     EventManager* evMgr = m_stateManager.GetContext().GetEventManager();
     evMgr->AddCallback(StateType::Console, "Key_Tilde", &State_Console::Close, this);
     evMgr->AddCallback(StateType::Console, "Text_Entered", &Console::HandleTextInput, m_console);
     evMgr->AddCallback(StateType::Console, "Key_Return", &Console::ValidateInput, m_console);
     evMgr->AddCallback(StateType::Console, "Key_Backspace", &Console::Backspace, m_console);
-   // evMgr->AddCallback(StateType::Console, "Key_Up", &Console::CycleInputUp, m_console);
-    //evMgr->AddCallback(StateType::Console, "Key_Down", &Console::CycleInputDown, m_console);
+    evMgr->AddCallback(StateType::Console, "Key_Up", &Console::CycleInputUp, m_console);
+    evMgr->AddCallback(StateType::Console, "Key_Down", &Console::CycleInputDown, m_console);
     evMgr->AddCallback(StateType::Console, "Key_Left", &Console::MoveCursorLeft, m_console);
     evMgr->AddCallback(StateType::Console, "Key_Right", &Console::MoveCursorRight, m_console);
-    evMgr->AddCallback(StateType::Console, "Key_Up", &Console::ScrollOutputUp, m_console);
-    evMgr->AddCallback(StateType::Console, "Key_Down", &Console::ScrollOutputDown, m_console);
+    evMgr->AddCallback(StateType::Console, "Key_PageUp", &Console::ScrollOutputUp, m_console);
+    evMgr->AddCallback(StateType::Console, "Key_PageDown", &Console::ScrollOutputDown, m_console);
     //evMgr->AddCallback(StateType::Console, "Key_Shift", &State_Console::OpenFull, this);
 }
 

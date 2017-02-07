@@ -21,7 +21,7 @@
 #include "Window.hpp"
 #include "ConsoleCursor.hpp"
 #include "ConsoleScrollbar.hpp"
-
+#include "ConsoleCommand.hpp"
 
 
 typedef std::function<std::string(std::vector<std::string>&)> Command;
@@ -31,7 +31,8 @@ public:
     Console(sf::RenderWindow* wind);
     ~Console();
     
-    void Add(const std::string& l_name, Command l_cmd);
+    void Add(const std::string& l_name, std::function<std::string(std::vector<std::string>& func)> l_func, sf::Uint8 l_minArguements, sf::Uint8 l_maxArguements,
+             const sf::String& l_help);
     void Remove(const std::string& l_name);
     
     void HandleTextInput(EventDetails* l_details);
@@ -93,14 +94,13 @@ private:
     sf::Text m_inputText;
     sf::Text m_outputText;
     sf::Text m_inputPreText;
-    std::map<std::string, Command> m_commands;
+    std::map<std::string, ConsoleCommand> m_commands;
     std::string m_inputBuffer;
     std::vector<std::string> m_outputBuffer;
     sf::Font m_textFont;
     sf::RectangleShape m_backgroundOut;
     sf::RectangleShape m_backgroundIn;
     std::vector<std::string> m_inputCommands;
-    sf::Shader m_outline;
     
 };
 

@@ -11,10 +11,7 @@
 //TODO: create correct resource request for font.
 //TODO: create correct resource request for shader.
 Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
-{
-    
-    m_outline.loadFromFile(resourcePath() + "media/Shaders/FontShader", sf::Shader::Type::Fragment);
-    
+{    
     m_screenSize = l_wind->getSize();
     m_characterSize = 14;
     m_maxBufferLength = 30;
@@ -46,12 +43,6 @@ Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
     
     Command listCommands = [this](std::vector<std::string> l) -> std::string
     {
-        
-        if(l.size() > 0 && l[0] == "help") {
-            return "ls: lists all available commands";
-            
-        }
-        
         Print("commands:");
         
         Print("<comand_name> 'help' : sometimes provides useful info");
@@ -63,8 +54,9 @@ Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
         return std::to_string(m_commands.size()) + " commands found.";
         
     };
-    Add("ls", listCommands);
+    Add("ls", listCommands, 0, 0, "lists all available commands");
     
+    /*
     Command clear = [this](std::vector<std::string> l) -> std::string
     {
         if(l.size() > 0 && l[0] == "help"){
@@ -105,7 +97,7 @@ Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
         
     };
     Add("fill", fillScreen);
-
+*/
 }
 
 Console::~Console()
@@ -170,7 +162,7 @@ void Console::Draw(sf::RenderWindow* l_wind)
     l_wind->draw(m_backgroundIn);
     
     l_wind->draw(m_inputPreText);
-    l_wind->draw(m_inputText, &m_outline);
+    l_wind->draw(m_inputText);
     l_wind->draw(m_outputText);
     
     if(m_state == ConsoleState::Open){
@@ -248,10 +240,12 @@ bool Console::IsOpen()
     return m_state != ConsoleState::Closed;
 }
 
-void Console::Add(const std::string& l_name, Command l_cmd)
+void Console::Add(const std::string& l_name, std::function<std::string(std::vector<std::string>& func)> l_func, sf::Uint8 l_minArguements, sf::Uint8 l_maxArguements, const sf::String& l_help)
 {
     if(m_commands.find(l_name) == m_commands.end()){
-        m_commands.insert(std::make_pair(l_name, l_cmd));
+        ConsoleCommand cmd(l_func, l_minArguements, l_maxArguements, l_help);
+        
+        m_commands.insert(std::make_pair(l_name, cmd));
     }
 }
 
@@ -464,10 +458,28 @@ void Console::ParseCommand()
 {
     if(!m_inputBuffer.empty()){
         std::vector<std::string> commands = Tokenize(m_inputBuffer, ' ');
+        
         const auto c = m_commands.find(commands[0]);
+        
         if(c != m_commands.end()){
+            if((commands.size() - 1) < c->second.GetMinArguementCount()){
+                Print(commands[0] + ": requires at least " + std::to_string(c->second.GetMinArguementCount()) + " arguements");
+                return;
+            }
+            
+            if((commands.size() - 1) > c->second.GetMaxArguementCount()){
+                Print(commands[0] + ": requires at most " + std::to_string(c->second.GetMaxArguementCount()) + " arguements");
+                return;
+            }
+            
+            if(commands.size() > 1 && commands[1] == "help")
+            {
+                Print(c->second.HelpOutput());
+                return;
+            }
+            
             commands.erase(commands.begin());
-            std::string result = c->second(commands);
+            std::string result = c->second.Run(commands);
             if(!result.empty()) { Print(result); }
         }else{
             Print(commands[0] + ": command not found");
