@@ -31,7 +31,10 @@ public:
     Console(sf::RenderWindow* wind);
     ~Console();
     
-    void Add(const std::string& l_name, std::function<std::string(std::vector<std::string>& func)> l_func, sf::Uint8 l_minArguements, sf::Uint8 l_maxArguements,
+    void Add(const std::string& l_name,
+             const std::function<std::string(std::vector<std::string>&)>& l_func,
+             const sf::Uint8& l_minArguements,
+             const sf::Uint8& l_maxArguements,
              const sf::String& l_help);
     void Remove(const std::string& l_name);
     

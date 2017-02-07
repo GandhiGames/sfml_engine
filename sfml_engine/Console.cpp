@@ -47,48 +47,44 @@ Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
         
         Print("<comand_name> 'help' : sometimes provides useful info");
         
+        Print("");
+        
         for(const auto& i : m_commands) {
-            Print(i.first);
+            
+            if(i.second.HelpOutput().isEmpty()){
+                Print(i.first);
+            }else{
+                Print(i.first + ": " + i.second.HelpOutput());
+            }
         }
+        
+        Print("");
         
         return std::to_string(m_commands.size()) + " commands found.";
         
     };
     Add("ls", listCommands, 0, 0, "lists all available commands");
     
-    /*
+    
     Command clear = [this](std::vector<std::string> l) -> std::string
     {
-        if(l.size() > 0 && l[0] == "help"){
-            return "clear: clears screen";
-        }
-        
         Purge();
 
         return "";
-        
     };
-    Add("clear", clear);
+    Add("cls", clear, 0, 0, "clears screen");
     
     Command exit = [this](std::vector<std::string> l) -> std::string
     {
-        if(l.size() > 0 && l[0] == "help") {
-            return "exit: closes console";
-        }
-        
         Close(m_movePixelsPerSec);
 
         return "";
         
     };
-    Add("exit", exit);
+    Add("exit", exit, 0, 0, "exit: closes console");
     
     Command fillScreen = [this](std::vector<std::string> l) -> std::string
     {
-        if(l.size() > 0 && l[0] == "help") {
-            return "fs: fills output buffer";
-        }
-        
         for (int i = 0; i < m_maxBufferLines; i++) {
             Print(std::to_string(i));
         }
@@ -96,8 +92,8 @@ Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
         return "";
         
     };
-    Add("fill", fillScreen);
-*/
+    Add("fs", fillScreen, 0, 0, "fills output buffer");
+
 }
 
 Console::~Console()
@@ -240,7 +236,7 @@ bool Console::IsOpen()
     return m_state != ConsoleState::Closed;
 }
 
-void Console::Add(const std::string& l_name, std::function<std::string(std::vector<std::string>& func)> l_func, sf::Uint8 l_minArguements, sf::Uint8 l_maxArguements, const sf::String& l_help)
+void Console::Add(const std::string& l_name, const std::function<std::string(std::vector<std::string>&)>& l_func, const sf::Uint8& l_minArguements, const sf::Uint8& l_maxArguements, const sf::String& l_help)
 {
     if(m_commands.find(l_name) == m_commands.end()){
         ConsoleCommand cmd(l_func, l_minArguements, l_maxArguements, l_help);
@@ -462,25 +458,34 @@ void Console::ParseCommand()
         const auto c = m_commands.find(commands[0]);
         
         if(c != m_commands.end()){
-            if((commands.size() - 1) < c->second.GetMinArguementCount()){
-                Print(commands[0] + ": requires at least " + std::to_string(c->second.GetMinArguementCount()) + " arguements");
-                return;
-            }
             
-            if((commands.size() - 1) > c->second.GetMaxArguementCount()){
-                Print(commands[0] + ": requires at most " + std::to_string(c->second.GetMaxArguementCount()) + " arguements");
-                return;
+            if(commands.size() > 1 && commands[1] == "help"){
+                if(c->second.HelpOutput().isEmpty()){
+                    Print(commands[0] + ": help not found");
+                }else{
+                    Print(commands[0] + ": " + c->second.HelpOutput());
+                }
+            }else{
+                
+                bool runCommand = true;
+                
+                if((commands.size() - 1) < c->second.GetMinArguementCount()){
+                    Print(commands[0] + ": requires at least " + std::to_string(c->second.GetMinArguementCount()) + " arguements");
+                    runCommand = false;
+                }
+                
+                if((commands.size() - 1) > c->second.GetMaxArguementCount()){
+                    Print(commands[0] + ": requires at most " + std::to_string(c->second.GetMaxArguementCount()) + " arguements");
+                    runCommand = false;
+                }
+                
+                if(runCommand){
+                    std::string cmdName = commands[0];
+                    commands.erase(commands.begin());
+                    std::string result = c->second.Run(commands);
+                    if(!result.empty()) { Print(cmdName + ": " + result); }
+                }
             }
-            
-            if(commands.size() > 1 && commands[1] == "help")
-            {
-                Print(c->second.HelpOutput());
-                return;
-            }
-            
-            commands.erase(commands.begin());
-            std::string result = c->second.Run(commands);
-            if(!result.empty()) { Print(result); }
         }else{
             Print(commands[0] + ": command not found");
         }

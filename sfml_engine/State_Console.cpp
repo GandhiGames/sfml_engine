@@ -20,33 +20,28 @@ void State_Console::OnCreate()
     
     m_console = m_stateManager.GetContext().GetConsole();
     
-    /*
     m_console->Add("get_player", [this](std::vector<std::string> l) -> std::string{
-        if(l.size() > 0){
-            if(l[0] == "help"){
-                return "get_player: make 'jump' 'attack'";
-            }else if(l.size() > 1 && l[0] == "make"){
-                
-                Character* player = (Character*)GetStateManager().GetContext().GetEntityManager()->Find("Player");
-                
-                if(player){
-                    if(l[1] == "jump"){
-                        player->Jump();
-                        return "get_player: character jumped!";
-                    } else if(l[1] == "attack"){
-                        player->Attack();
-                        return "get_player: character attacked!";
-                    }
-                }else{
-                    return "get_player:player noy found";
+        if(l[0] == "make"){
+            
+            Character* player = (Character*)GetStateManager().GetContext().GetEntityManager()->Find("Player");
+            
+            if(player){
+                if(l[1] == "jump"){
+                    player->Jump();
+                    return "character jumped!";
+                } else if(l[1] == "attack"){
+                    player->Attack();
+                    return "character attacked!";
                 }
+            }else{
+                return "player not found";
             }
+            
         }
         
         return "get_player: invalid parameters";
         
-    });
-     */
+    }, 2, 2, "make 'jump' 'attack'");
 
     EventManager* evMgr = m_stateManager.GetContext().GetEventManager();
     evMgr->AddCallback(StateType::Console, "Key_Tilde", &State_Console::Close, this);
