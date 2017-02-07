@@ -20,7 +20,7 @@
 #include <assert.h>
 #include "Window.hpp"
 #include "ConsoleCursor.hpp"
-
+#include "ConsoleScrollbar.hpp"
 
 
 
@@ -37,8 +37,13 @@ public:
     void HandleTextInput(EventDetails* l_details);
     void Backspace(EventDetails* l_details);
     void ValidateInput(EventDetails* l_details);
+    
     void CycleInputUp(EventDetails* l_details);
     void CycleInputDown(EventDetails* l_details);
+    
+    void ScrollOutputUp(EventDetails* l_details);
+    void ScrollOutputDown(EventDetails* l_details);
+    
     void MoveCursorLeft(EventDetails* l_details);
     void MoveCursorRight(EventDetails* l_details);
     
@@ -70,13 +75,16 @@ private:
    
     ConsoleState m_state;
     ConsoleCursor m_cursor;
+    ConsoleScrollbar m_scrollbar;
     float m_percentScreen;
     float m_movePixelsPerSec;
     float m_accumulatedMove;
     float m_moveOffset;
     sf::Uint16 m_xOffset;
-    int m_maxBufferLength;
-    int m_maxBufferLines;
+    sf::Uint16 m_maxBufferLength;
+    sf::Uint16 m_maxBufferLines;
+    sf::Uint16 m_maxLinesOnScreen;
+    sf::Uint16 m_currentViewLineIndex;
     sf::Vector2u m_screenSize;
     sf::Uint8 m_cursorIndex;
     sf::Uint8 m_characterSize;
@@ -87,7 +95,7 @@ private:
     sf::Text m_inputPreText;
     std::map<std::string, Command> m_commands;
     std::string m_inputBuffer;
-    std::list<std::string> m_outputBuffer;
+    std::vector<std::string> m_outputBuffer;
     sf::Font m_textFont;
     sf::RectangleShape m_backgroundOut;
     sf::RectangleShape m_backgroundIn;

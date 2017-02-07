@@ -55,6 +55,8 @@ void State_Console::OnCreate()
     evMgr->AddCallback(StateType::Console, "Key_Down", &Console::CycleInputDown, m_console);
     evMgr->AddCallback(StateType::Console, "Key_Left", &Console::MoveCursorLeft, m_console);
     evMgr->AddCallback(StateType::Console, "Key_Right", &Console::MoveCursorRight, m_console);
+    evMgr->AddCallback(StateType::Console, "Key_PageUp", &Console::ScrollOutputUp, m_console);
+    evMgr->AddCallback(StateType::Console, "Key_PageDown", &Console::ScrollOutputDown, m_console);
     //evMgr->AddCallback(StateType::Console, "Key_Shift", &State_Console::OpenFull, this);
 }
 
@@ -68,6 +70,8 @@ void State_Console::OnDestroy()
     evMgr->RemoveCallback(StateType::Console, "Key_Down");
     evMgr->RemoveCallback(StateType::Console, "Key_Left");
     evMgr->RemoveCallback(StateType::Console, "Key_Right");
+    evMgr->RemoveCallback(StateType::Console, "Key_PageUp");
+    evMgr->RemoveCallback(StateType::Console, "Key_PageDown");
     //evMgr->RemoveCallback(StateType::Console, "Key_Shift");
 }
 

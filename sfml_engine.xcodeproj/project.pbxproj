@@ -10,6 +10,7 @@
 		66BEB9251E48D92800654885 /* ConsoleCursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66BEB9231E48D92800654885 /* ConsoleCursor.cpp */; };
 		66CFE4211E47C8C4009333F1 /* Console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66CFE41F1E47C8C4009333F1 /* Console.cpp */; };
 		66CFE4241E48788B009333F1 /* State_Console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66CFE4221E48788B009333F1 /* State_Console.cpp */; };
+		66FBE6641E4A1FFA00A9B8D5 /* ConsoleScrollbar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66FBE6621E4A1FFA00A9B8D5 /* ConsoleScrollbar.cpp */; };
 		D6090D1D1C8617BF00947243 /* StateManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6090D1B1C8617BF00947243 /* StateManager.cpp */; };
 		D6314CBF1C8B9186002C041C /* TextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6314CBD1C8B9186002C041C /* TextureManager.cpp */; };
 		D6314CC31C8B992B002C041C /* SpriteSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6314CC11C8B992B002C041C /* SpriteSheet.cpp */; };
@@ -46,6 +47,8 @@
 		66CFE4201E47C8C4009333F1 /* Console.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Console.hpp; sourceTree = "<group>"; };
 		66CFE4221E48788B009333F1 /* State_Console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State_Console.cpp; sourceTree = "<group>"; };
 		66CFE4231E48788B009333F1 /* State_Console.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = State_Console.hpp; sourceTree = "<group>"; };
+		66FBE6621E4A1FFA00A9B8D5 /* ConsoleScrollbar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConsoleScrollbar.cpp; sourceTree = "<group>"; };
+		66FBE6631E4A1FFA00A9B8D5 /* ConsoleScrollbar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConsoleScrollbar.hpp; sourceTree = "<group>"; };
 		D6090D1B1C8617BF00947243 /* StateManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateManager.cpp; sourceTree = "<group>"; };
 		D6090D1C1C8617BF00947243 /* StateManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StateManager.hpp; sourceTree = "<group>"; };
 		D6090D1E1C8632E700947243 /* BaseState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseState.h; sourceTree = "<group>"; };
@@ -122,6 +125,8 @@
 				66CFE4201E47C8C4009333F1 /* Console.hpp */,
 				66BEB9231E48D92800654885 /* ConsoleCursor.cpp */,
 				66BEB9241E48D92800654885 /* ConsoleCursor.hpp */,
+				66FBE6621E4A1FFA00A9B8D5 /* ConsoleScrollbar.cpp */,
+				66FBE6631E4A1FFA00A9B8D5 /* ConsoleScrollbar.hpp */,
 			);
 			name = Console;
 			sourceTree = "<group>";
@@ -419,6 +424,7 @@
 				D68D9E3C1C9372BE0094CF43 /* Character.cpp in Sources */,
 				D6090D1D1C8617BF00947243 /* StateManager.cpp in Sources */,
 				D6C50BC61C7D152E00C2CCBC /* ResourcePath.mm in Sources */,
+				66FBE6641E4A1FFA00A9B8D5 /* ConsoleScrollbar.cpp in Sources */,
 				D6A0B6181C8E2BA400148032 /* Map.cpp in Sources */,
 				D68D9E431C938F430094CF43 /* Enemy.cpp in Sources */,
 				D6810F341C8376CD00A603C5 /* EventManager.cpp in Sources */,

@@ -15,10 +15,12 @@ Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
     m_screenSize = l_wind->getSize();
     m_characterSize = 14;
     m_maxBufferLength = 30;
+    m_maxBufferLines = 40;
     m_commandCacheSize = 10;
     m_xOffset = m_screenSize.x * 0.05;
     m_state = ConsoleState::None;
     m_cursorIndex = 0;
+    m_currentViewLineIndex = 0;
     
     m_backgroundOut.setFillColor(sf::Color(90, 90, 90, 180));
     m_backgroundIn.setFillColor(sf::Color(90, 90, 90, 180));
@@ -36,7 +38,7 @@ Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
     m_inputPreText.setFillColor(sf::Color::White);
     
     m_cursor.SetSize(sf::Vector2f(m_characterSize * 0.5f, m_characterSize));
-    
+
     
     Command listCommands = [this](std::vector<std::string> l) -> std::string
     {
@@ -85,7 +87,20 @@ Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
     };
     Add("exit", exit);
     
-   
+    Command fillScreen = [this](std::vector<std::string> l) -> std::string
+    {
+        if(l.size() > 0 && l[0] == "help") {
+            return "fs: fills output buffer";
+        }
+        
+        for (int i = 0; i < m_maxBufferLines; i++) {
+            Print(std::to_string(i));
+        }
+        
+        return "";
+        
+    };
+    Add("fill", fillScreen);
 
 }
 
@@ -98,11 +113,13 @@ void Console::Build(const float& l_screenSize)
 {
     m_percentScreen = l_screenSize;
     m_moveOffset = m_screenSize.y * m_percentScreen;
-    m_maxBufferLines = (m_moveOffset / (m_characterSize + 3)) - 1;
+    m_maxLinesOnScreen = (m_moveOffset / (m_characterSize + 3)) - 1;
     
     m_backgroundIn.setSize(sf::Vector2f(m_screenSize.x - m_xOffset * 2, m_characterSize * 2));
     m_backgroundOut.setSize(sf::Vector2f(m_screenSize.x - m_xOffset * 2, m_moveOffset));
     
+    m_scrollbar.SetSize(sf::Vector2f(20, m_backgroundOut.getSize().y), sf::Vector2f(20, 40));
+
 }
 
 void Console::Open(const float& l_screenSize, const float& l_movePixelsPerSec)
@@ -151,6 +168,7 @@ void Console::Draw(sf::RenderWindow* l_wind)
     
     if(m_state == ConsoleState::Open){
         m_cursor.Draw(l_wind);
+        m_scrollbar.Draw(l_wind);
     }
 }
 
@@ -315,6 +333,36 @@ void Console::CycleInputDown(EventDetails* l_details)
     }
 }
 
+void Console::ScrollOutputUp(EventDetails* l_details)
+{
+    if(m_outputBuffer.size() < m_maxLinesOnScreen){ return; }
+    
+    m_currentViewLineIndex += 2;
+    
+    if(m_currentViewLineIndex > m_outputBuffer.size()){
+        m_currentViewLineIndex = m_outputBuffer.size();
+    }
+    
+    UpdateTextOutput();
+}
+
+void Console::ScrollOutputDown(EventDetails* l_details)
+{
+    if(m_outputBuffer.size() < m_maxLinesOnScreen){ return; }
+    
+    m_currentViewLineIndex -= 2;
+    
+    if(m_currentViewLineIndex < 0){
+        m_currentViewLineIndex = 0;
+    }
+    
+    if(m_currentViewLineIndex < m_maxLinesOnScreen){
+        m_currentViewLineIndex = m_maxLinesOnScreen;
+    }
+    
+    UpdateTextOutput();
+}
+
 void Console::MoveCursorLeft(EventDetails* l_details)
 {
     if(m_cursorIndex > 0){
@@ -348,8 +396,11 @@ void Console::Print(const std::string& l_str)
     m_outputBuffer.push_back(l_str);
     
     if(m_outputBuffer.size() > m_maxBufferLines){
-        m_outputBuffer.pop_front();
+        m_outputBuffer.erase(m_outputBuffer.begin());
+       // m_outputBuffer.pop_front();
     }
+    
+    m_currentViewLineIndex = m_outputBuffer.size();
     
     if(m_state == ConsoleState::Open){
         UpdateTextOutput();
@@ -359,17 +410,31 @@ void Console::Print(const std::string& l_str)
 void Console::UpdateTextInput()
 {
     m_inputText.setString(m_inputBuffer);
-   
 }
 
 void Console::UpdateTextOutput()
 {
+    if(m_outputBuffer.size() == 0){ return; }
+    
     //std::string output;
     std::stringstream ss;
     
+    sf::Int32 start = m_currentViewLineIndex - m_maxLinesOnScreen;
+    if(start < 0){
+        start = 0;
+    }
+    
+    std::cout << "start " << start << "end " << m_currentViewLineIndex<< std::endl;
+    
+    for (int i = start; i < m_currentViewLineIndex; i++) {
+        ss << m_outputBuffer[i] << "\n";
+    }
+    
+    /*
     for(const auto& s : m_outputBuffer){
         ss << s << "\n";
     }
+     */
     
     m_outputText.setString(ss.str());
     
@@ -403,7 +468,7 @@ void Console::ParseCommand()
         m_cursor.SetX(m_inputText.getPosition().x);
         
         UpdateTextInput();
-        UpdateTextOutput();
+        //UpdateTextOutput();
     }
 }
 
