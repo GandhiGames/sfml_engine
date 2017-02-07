@@ -10,16 +10,19 @@
 #define ConsoleScrollbar_hpp
 
 #include <SFML/Graphics.hpp>
+#include <assert.h>
+#include <iostream>
 
 class ConsoleScrollbar{
 public:
     ConsoleScrollbar();
     ~ConsoleScrollbar();
     
+    void Setup(const sf::Vector2f& l_topRight, const sf::Vector2f& l_size);
     
-    void SetSize(const sf::Vector2f& l_size, const sf::Vector2f& l_scrollSize);
     void Draw(sf::RenderWindow *l_wind);
 
+    void SetScrollPercent(const float& l_perc);
     
 private:
     sf::RectangleShape m_background;

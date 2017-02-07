@@ -100,6 +100,7 @@ private:
     sf::RectangleShape m_backgroundOut;
     sf::RectangleShape m_backgroundIn;
     std::vector<std::string> m_inputCommands;
+    sf::Shader m_outline;
     
 };
 

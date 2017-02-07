@@ -24,7 +24,7 @@ void State_Console::OnCreate()
         if(l.size() > 0){
             if(l[0] == "help"){
                 return "get_player: make 'jump' 'attack'";
-            }else if(l.size() > 1 && l[0] == "-make"){
+            }else if(l.size() > 1 && l[0] == "make"){
                 
                 Character* player = (Character*)GetStateManager().GetContext().GetEntityManager()->Find("Player");
                 
@@ -51,12 +51,12 @@ void State_Console::OnCreate()
     evMgr->AddCallback(StateType::Console, "Text_Entered", &Console::HandleTextInput, m_console);
     evMgr->AddCallback(StateType::Console, "Key_Return", &Console::ValidateInput, m_console);
     evMgr->AddCallback(StateType::Console, "Key_Backspace", &Console::Backspace, m_console);
-    evMgr->AddCallback(StateType::Console, "Key_Up", &Console::CycleInputUp, m_console);
-    evMgr->AddCallback(StateType::Console, "Key_Down", &Console::CycleInputDown, m_console);
+   // evMgr->AddCallback(StateType::Console, "Key_Up", &Console::CycleInputUp, m_console);
+    //evMgr->AddCallback(StateType::Console, "Key_Down", &Console::CycleInputDown, m_console);
     evMgr->AddCallback(StateType::Console, "Key_Left", &Console::MoveCursorLeft, m_console);
     evMgr->AddCallback(StateType::Console, "Key_Right", &Console::MoveCursorRight, m_console);
-    evMgr->AddCallback(StateType::Console, "Key_PageUp", &Console::ScrollOutputUp, m_console);
-    evMgr->AddCallback(StateType::Console, "Key_PageDown", &Console::ScrollOutputDown, m_console);
+    evMgr->AddCallback(StateType::Console, "Key_Up", &Console::ScrollOutputUp, m_console);
+    evMgr->AddCallback(StateType::Console, "Key_Down", &Console::ScrollOutputDown, m_console);
     //evMgr->AddCallback(StateType::Console, "Key_Shift", &State_Console::OpenFull, this);
 }
 

@@ -9,9 +9,12 @@
 #include "Console.hpp"
 
 //TODO: create correct resource request for font.
-//TODO: add scrollbar for output - control by keyboard?
+//TODO: create correct resource request for shader.
 Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
 {
+    
+    m_outline.loadFromFile(resourcePath() + "media/Shaders/FontShader", sf::Shader::Type::Fragment);
+    
     m_screenSize = l_wind->getSize();
     m_characterSize = 14;
     m_maxBufferLength = 30;
@@ -21,6 +24,7 @@ Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
     m_state = ConsoleState::None;
     m_cursorIndex = 0;
     m_currentViewLineIndex = 0;
+    m_percentScreen = 0;
     
     m_backgroundOut.setFillColor(sf::Color(90, 90, 90, 180));
     m_backgroundIn.setFillColor(sf::Color(90, 90, 90, 180));
@@ -115,11 +119,12 @@ void Console::Build(const float& l_screenSize)
     m_moveOffset = m_screenSize.y * m_percentScreen;
     m_maxLinesOnScreen = (m_moveOffset / (m_characterSize + 3)) - 1;
     
-    m_backgroundIn.setSize(sf::Vector2f(m_screenSize.x - m_xOffset * 2, m_characterSize * 2));
-    m_backgroundOut.setSize(sf::Vector2f(m_screenSize.x - m_xOffset * 2, m_moveOffset));
+    const float width = m_screenSize.x - m_xOffset * 2;
     
-    m_scrollbar.SetSize(sf::Vector2f(20, m_backgroundOut.getSize().y), sf::Vector2f(20, 40));
-
+    m_backgroundIn.setSize(sf::Vector2f(width, m_characterSize * 2));
+    m_backgroundOut.setSize(sf::Vector2f(width, m_moveOffset));
+    
+    m_scrollbar.Setup(sf::Vector2f(width + m_xOffset, m_backgroundOut.getPosition().y), sf::Vector2f(25, m_backgroundOut.getSize().y - m_backgroundIn.getSize().y));
 }
 
 void Console::Open(const float& l_screenSize, const float& l_movePixelsPerSec)
@@ -132,6 +137,8 @@ void Console::Open(const float& l_screenSize, const float& l_movePixelsPerSec)
         Build(l_screenSize);
 
         ResetConsolePosition(ConsoleState::Closed);
+        
+
         
         sizeChanged = true;
     }
@@ -163,12 +170,15 @@ void Console::Draw(sf::RenderWindow* l_wind)
     l_wind->draw(m_backgroundIn);
     
     l_wind->draw(m_inputPreText);
-    l_wind->draw(m_inputText);
+    l_wind->draw(m_inputText, &m_outline);
     l_wind->draw(m_outputText);
     
     if(m_state == ConsoleState::Open){
         m_cursor.Draw(l_wind);
-        m_scrollbar.Draw(l_wind);
+        
+        if(m_outputBuffer.size() > m_maxLinesOnScreen){
+            m_scrollbar.Draw(l_wind);
+        }
     }
 }
 
@@ -319,7 +329,7 @@ void Console::CycleInputDown(EventDetails* l_details)
         m_InputCommandsIndex++;
         
         if(m_InputCommandsIndex > m_inputCommands.size() - 1){
-            m_InputCommandsIndex = m_inputCommands.size() - 1;
+            m_InputCommandsIndex = m_inputCommands.size();
             
             m_inputBuffer.erase();
             
@@ -335,7 +345,7 @@ void Console::CycleInputDown(EventDetails* l_details)
 
 void Console::ScrollOutputUp(EventDetails* l_details)
 {
-    if(m_outputBuffer.size() < m_maxLinesOnScreen){ return; }
+    if(m_outputBuffer.size() < m_maxLinesOnScreen || m_currentViewLineIndex == m_outputBuffer.size()){ return; }
     
     m_currentViewLineIndex += 2;
     
@@ -343,24 +353,36 @@ void Console::ScrollOutputUp(EventDetails* l_details)
         m_currentViewLineIndex = m_outputBuffer.size();
     }
     
+    
+    m_scrollbar.SetScrollPercent((((float)m_currentViewLineIndex - m_maxLinesOnScreen) / (m_outputBuffer.size() - m_maxLinesOnScreen)) * 100.0);
+    
+    
+   
+    
+  
+    
+   // std::cout << std::to_string(((float)m_currentViewLineIndex / (float)m_outputBuffer.size()) * 100.0) << " ";
+    
     UpdateTextOutput();
 }
 
 void Console::ScrollOutputDown(EventDetails* l_details)
 {
-    if(m_outputBuffer.size() < m_maxLinesOnScreen){ return; }
+    if(m_outputBuffer.size() < m_maxLinesOnScreen || m_currentViewLineIndex == 0){ return; }
     
+
     m_currentViewLineIndex -= 2;
-    
-    if(m_currentViewLineIndex < 0){
-        m_currentViewLineIndex = 0;
-    }
+
     
     if(m_currentViewLineIndex < m_maxLinesOnScreen){
         m_currentViewLineIndex = m_maxLinesOnScreen;
     }
+
+     m_scrollbar.SetScrollPercent((((float)m_currentViewLineIndex - m_maxLinesOnScreen) / (m_outputBuffer.size() - m_maxLinesOnScreen)) * 100.0);
     
+
     UpdateTextOutput();
+    
 }
 
 void Console::MoveCursorLeft(EventDetails* l_details)
@@ -397,7 +419,6 @@ void Console::Print(const std::string& l_str)
     
     if(m_outputBuffer.size() > m_maxBufferLines){
         m_outputBuffer.erase(m_outputBuffer.begin());
-       // m_outputBuffer.pop_front();
     }
     
     m_currentViewLineIndex = m_outputBuffer.size();
@@ -414,7 +435,10 @@ void Console::UpdateTextInput()
 
 void Console::UpdateTextOutput()
 {
-    if(m_outputBuffer.size() == 0){ return; }
+    if(m_outputBuffer.size() == 0){
+        m_outputText.setString("");
+        return;
+    }
     
     //std::string output;
     std::stringstream ss;
@@ -424,17 +448,11 @@ void Console::UpdateTextOutput()
         start = 0;
     }
     
-    std::cout << "start " << start << "end " << m_currentViewLineIndex<< std::endl;
-    
     for (int i = start; i < m_currentViewLineIndex; i++) {
         ss << m_outputBuffer[i] << "\n";
     }
     
-    /*
-    for(const auto& s : m_outputBuffer){
-        ss << s << "\n";
-    }
-     */
+    
     
     m_outputText.setString(ss.str());
     
@@ -468,7 +486,6 @@ void Console::ParseCommand()
         m_cursor.SetX(m_inputText.getPosition().x);
         
         UpdateTextInput();
-        //UpdateTextOutput();
     }
 }
 
@@ -480,7 +497,7 @@ void Console::Purge()
     }
 }
 
-//TODO: implement boost as tokenizer.
+//TODO: implement boost as tokenizer?
 std::vector<std::string> Console::Tokenize(const std::string& l_input, char l_delim)
 {
     std::vector<std::string> out;
