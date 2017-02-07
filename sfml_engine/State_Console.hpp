@@ -27,9 +27,13 @@ public:
     void Update(const sf::Time &l_time);
     void Draw();
     
+    void OpenFull(EventDetails* l_details);
     void Close(EventDetails* l_details);
 
 private:
+    void OpenHalf();
+
+    
     Console* m_console;
 };
 

@@ -17,9 +17,10 @@
 #include <map>
 #include <list>
 #include <sstream>
+#include <assert.h>
 #include "Window.hpp"
 #include "ConsoleCursor.hpp"
-#include <assert.h>
+
 
 
 
@@ -58,7 +59,8 @@ private:
     void MoveConsoleVertical(const float& l_amount);
     void ResetConsolePosition(const ConsoleState& l_desiredState);
     void Purge();
-    void UpdateText();
+    void UpdateTextInput();
+    void UpdateTextOutput();
     void ParseCommand();
     void Print(const std::string& l_str);
     std::vector<std::string> Tokenize(const std::string& l_input, char l_delim);

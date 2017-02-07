@@ -41,14 +41,14 @@ Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
     Command listCommands = [this](std::vector<std::string> l) -> std::string
     {
         
-        if(l.size() > 0 && l[0] == "-help") {
-            return "list_commands: lists all available commands";
+        if(l.size() > 0 && l[0] == "help") {
+            return "ls: lists all available commands";
             
         }
         
         Print("commands:");
         
-        Print("<comand_name> -help: sometimes provides useful info");
+        Print("<comand_name> 'help' : sometimes provides useful info");
         
         for(const auto& i : m_commands) {
             Print(i.first);
@@ -57,11 +57,11 @@ Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
         return std::to_string(m_commands.size()) + " commands found.";
         
     };
-    Add("list_commands", listCommands);
+    Add("ls", listCommands);
     
     Command clear = [this](std::vector<std::string> l) -> std::string
     {
-        if(l.size() > 0 && l[0] == "-help"){
+        if(l.size() > 0 && l[0] == "help"){
             return "clear: clears screen";
         }
         
@@ -74,7 +74,7 @@ Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
     
     Command exit = [this](std::vector<std::string> l) -> std::string
     {
-        if(l.size() > 0 && l[0] == "-help") {
+        if(l.size() > 0 && l[0] == "help") {
             return "exit: closes console";
         }
         
@@ -109,19 +109,27 @@ void Console::Open(const float& l_screenSize, const float& l_movePixelsPerSec)
 {
     assert(l_screenSize > 0 && l_screenSize <= 1);
     
+    bool sizeChanged = false;
+    
     if(m_percentScreen != l_screenSize){
         Build(l_screenSize);
+
         ResetConsolePosition(ConsoleState::Closed);
+        
+        sizeChanged = true;
     }
     
-    m_movePixelsPerSec = l_movePixelsPerSec;
+    if (sizeChanged || !IsOpen()){
     
-    m_inputBuffer.erase();
-    UpdateText();
-    
-    m_accumulatedMove = 0;
-
-    m_state = ConsoleState::Opening;
+        m_movePixelsPerSec = l_movePixelsPerSec;
+        
+        m_inputBuffer.erase();
+        UpdateTextInput();
+        
+        m_accumulatedMove = 0;
+        
+        m_state = ConsoleState::Opening;
+    }
    
 }
 
@@ -199,7 +207,8 @@ void Console::ResetConsolePosition(const ConsoleState& l_desiredState)
     
     m_inputText.setPosition(m_xOffset + m_characterSize,
                             m_backgroundIn.getPosition().y + (m_backgroundIn.getSize().y * 0.5) - (m_characterSize * 0.5));
-    m_outputText.setPosition(m_xOffset + m_characterSize, m_backgroundOut.getPosition().y + 5);
+    
+    
     
     m_inputPreText.setPosition(m_xOffset + m_inputPreText.getLocalBounds().width * 0.2, m_backgroundIn.getPosition().y + (m_backgroundIn.getSize().y * 0.5) - (m_characterSize * 0.5));
     
@@ -242,7 +251,7 @@ void Console::HandleTextInput(EventDetails* l_details)
             
             m_cursorIndex++;
 
-            UpdateText();
+            UpdateTextInput();
         }
         
     }
@@ -265,7 +274,7 @@ void Console::Backspace(EventDetails* l_details)
  
             m_cursor.SetX(m_inputText.findCharacterPos(m_cursorIndex).x);
             
-            UpdateText();
+            UpdateTextInput();
         }
     }
 }
@@ -299,7 +308,7 @@ void Console::CycleInputDown(EventDetails* l_details)
             m_cursorIndex = 0;
             m_cursor.SetX(m_inputText.getPosition().x);
             
-            UpdateText();
+            UpdateTextInput();
         } else{
             UpdateTextFromCurrentCommand();
         }
@@ -329,7 +338,7 @@ void Console::UpdateTextFromCurrentCommand()
     m_inputBuffer = m_inputCommands[m_InputCommandsIndex];
     m_cursorIndex = m_inputBuffer.size();
     
-    UpdateText();
+    UpdateTextInput();
     
     m_cursor.SetX(m_inputText.findCharacterPos(m_cursorIndex).x);
 }
@@ -343,20 +352,29 @@ void Console::Print(const std::string& l_str)
     }
     
     if(m_state == ConsoleState::Open){
-        UpdateText();
+        UpdateTextOutput();
     }
 }
 
-void Console::UpdateText()
+void Console::UpdateTextInput()
 {
     m_inputText.setString(m_inputBuffer);
+   
+}
+
+void Console::UpdateTextOutput()
+{
+    //std::string output;
+    std::stringstream ss;
     
-    std::string output;
     for(const auto& s : m_outputBuffer){
-        output += s + "\n";
+        ss << s << "\n";
     }
     
-    m_outputText.setString(output);
+    m_outputText.setString(ss.str());
+    
+    m_outputText.setPosition(m_xOffset + m_characterSize,
+                             m_backgroundOut.getPosition().y + m_backgroundOut.getSize().y - m_outputText.getLocalBounds().height - m_backgroundIn.getSize().y);
 }
 
 void Console::ParseCommand()
@@ -384,7 +402,8 @@ void Console::ParseCommand()
         m_cursorIndex = 0;
         m_cursor.SetX(m_inputText.getPosition().x);
         
-        UpdateText();
+        UpdateTextInput();
+        UpdateTextOutput();
     }
 }
 
@@ -392,7 +411,7 @@ void Console::Purge()
 {
     if(!m_outputBuffer.empty()){
         m_outputBuffer.clear();
-        UpdateText();
+        UpdateTextOutput();
     }
 }
 

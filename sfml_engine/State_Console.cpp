@@ -22,8 +22,8 @@ void State_Console::OnCreate()
     
     m_console->Add("get_player", [this](std::vector<std::string> l) -> std::string{
         if(l.size() > 0){
-            if(l[0] == "-help"){
-                return "get_player: -make 'jump' 'attack'";
+            if(l[0] == "help"){
+                return "get_player: make 'jump' 'attack'";
             }else if(l.size() > 1 && l[0] == "-make"){
                 
                 Character* player = (Character*)GetStateManager().GetContext().GetEntityManager()->Find("Player");
@@ -55,6 +55,7 @@ void State_Console::OnCreate()
     evMgr->AddCallback(StateType::Console, "Key_Down", &Console::CycleInputDown, m_console);
     evMgr->AddCallback(StateType::Console, "Key_Left", &Console::MoveCursorLeft, m_console);
     evMgr->AddCallback(StateType::Console, "Key_Right", &Console::MoveCursorRight, m_console);
+    //evMgr->AddCallback(StateType::Console, "Key_Shift", &State_Console::OpenFull, this);
 }
 
 void State_Console::OnDestroy()
@@ -67,14 +68,14 @@ void State_Console::OnDestroy()
     evMgr->RemoveCallback(StateType::Console, "Key_Down");
     evMgr->RemoveCallback(StateType::Console, "Key_Left");
     evMgr->RemoveCallback(StateType::Console, "Key_Right");
-
+    //evMgr->RemoveCallback(StateType::Console, "Key_Shift");
 }
 
 void State_Console::Activate()
 {
     // Start showing console
     
-    m_stateManager.GetContext().GetConsole()->Open(0.5, 1800);
+    OpenHalf();
 }
 
 void State_Console::Deactivate()
@@ -106,6 +107,16 @@ void State_Console::Draw()
     
     m_console->Draw(wind);
 
+}
+
+void State_Console::OpenHalf()
+{
+    m_stateManager.GetContext().GetConsole()->Open(0.5, 1800);
+}
+
+void State_Console::OpenFull(EventDetails* l_details)
+{
+    m_stateManager.GetContext().GetConsole()->Open(0.9, 1800);
 }
 
 
