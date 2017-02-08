@@ -14,7 +14,7 @@ Game::Game():
         m_debugText(m_fontManager)
 {
     m_clock.restart();
-    srand(time(nullptr));
+    srand((unsigned)time(nullptr));
     
     m_context.SetWindow(&m_window);
     m_context.SetEventManager(m_window.GetEventManager());

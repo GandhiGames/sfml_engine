@@ -16,7 +16,6 @@
 #include "Direction.h"
 #include "AnimDirectional.hpp"
 
-using Animations = std::unordered_map<std::string, AnimBase*>;
 
 class SpriteSheet {
 public:
@@ -51,7 +50,7 @@ private:
     Direction m_direction;
     
     std::string m_animType;
-    Animations m_animations;
+    std::unordered_map<std::string, AnimBase*> m_animations;
     AnimBase *m_animationCurrent;
     
     TextureManager& m_textureManager;

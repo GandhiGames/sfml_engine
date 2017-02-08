@@ -204,7 +204,7 @@ void EventManager::LoadBindings()
             keystream >> keyval;
             
             const int start = 0;
-            const int end = keyval.find(delimiter);
+            const unsigned long end = keyval.find(delimiter);
             if (end == std::string::npos) {
                 //delete bind;
                 //bind = nullptr;
