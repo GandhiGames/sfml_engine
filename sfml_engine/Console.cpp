@@ -10,7 +10,7 @@
 
 //TODO: create correct resource request for font.
 //TODO: create correct resource request for shader.
-Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
+Console::Console(sf::RenderWindow* l_wind, FontManager& l_fontManager) : m_cursor(0.6), m_fontManager(l_fontManager)
 {    
     m_screenSize = l_wind->getSize();
     m_characterSize = 14;
@@ -26,14 +26,17 @@ Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
     m_backgroundOut.setFillColor(sf::Color(90, 90, 90, 180));
     m_backgroundIn.setFillColor(sf::Color(90, 90, 90, 180));
     
-    m_textFont.loadFromFile(resourcePath() + "media/Fonts/arial.ttf");
-    m_inputText.setFont(m_textFont);
+    if(m_fontManager.RequireResource("Default")){
+        m_textFont = m_fontManager.GetResource("Default");
+    }
+ 
+    m_inputText.setFont(*m_textFont);
     m_inputText.setCharacterSize(m_characterSize);
     m_inputText.setFillColor(sf::Color::Black);
-    m_outputText.setFont(m_textFont);
+    m_outputText.setFont(*m_textFont);
     m_outputText.setCharacterSize(m_characterSize);
     m_outputText.setFillColor(sf::Color::Black);
-    m_inputPreText.setFont(m_textFont);
+    m_inputPreText.setFont(*m_textFont);
     m_inputPreText.setString(">");
     m_inputPreText.setCharacterSize(m_characterSize);
     m_inputPreText.setFillColor(sf::Color::White);
@@ -98,7 +101,7 @@ Console::Console(sf::RenderWindow* l_wind) : m_cursor(0.6)
 
 Console::~Console()
 {
-    // what do i need to remove?
+    m_fontManager.ReleaseResource("Default");
 }
 
 void Console::Build(const float& l_screenSize)
@@ -265,7 +268,7 @@ void Console::HandleTextInput(EventDetails* l_details)
 
             m_inputBuffer.insert(m_inputBuffer.begin() + m_cursorIndex, static_cast<char>(textEntered));
             
-            m_cursor.SetX(m_inputText.findCharacterPos(m_cursorIndex).x + m_textFont.getGlyph(m_inputBuffer[m_cursorIndex], m_characterSize, false).bounds.width);
+            m_cursor.SetX(m_inputText.findCharacterPos(m_cursorIndex).x + m_textFont->getGlyph(m_inputBuffer[m_cursorIndex], m_characterSize, false).bounds.width);
             
             m_cursorIndex++;
 

@@ -20,7 +20,7 @@ using Animations = std::unordered_map<std::string, AnimBase*>;
 
 class SpriteSheet {
 public:
-    SpriteSheet(TextureManager &l_textManager);
+    SpriteSheet(TextureManager& l_textManager);
     ~SpriteSheet();
     
     void CropSprite(const sf::IntRect &l_rect);
@@ -54,7 +54,7 @@ private:
     Animations m_animations;
     AnimBase *m_animationCurrent;
     
-    TextureManager &m_textureManager;
+    TextureManager& m_textureManager;
 };
 
 #endif /* SpriteSheet_hpp */

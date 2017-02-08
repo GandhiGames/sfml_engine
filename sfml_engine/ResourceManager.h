@@ -45,24 +45,39 @@ public:
         return (res ? res->first : nullptr);
     }
     
-    const std::string &GetPath(const std::string &l_id)
+    const std::string &GetPath(const std::string& l_id)
     {
         auto path = m_paths.find(l_id);
         return (path != m_paths.end() ? path->second : "");
     }
     
-    bool RequireResource(const std::string &l_id)
+    bool RequireResource(const std::string& l_id)
     {
         auto res = Find(l_id);
         if(res){
             ++res->second;
             return true;
         }
+        
         auto path = m_paths.find(l_id);
-        if (path == m_paths.end()){ return false; }
+        
+        if(m_paths.size() > 0){
+                       std::cout << "retrieved:" << std::endl;
+            for ( auto it = m_paths.begin(); it != m_paths.end(); ++it ){
+                std::cout << it->first << " " << it->second << std::endl;
+            }
+        }
+        
+        if (path == m_paths.end()){
+            std::cout << "path not found: " << l_id << std::endl;
+            return false;
+        }
+        
         T* resource = Load(path->second);
         if (!resource){ return false; }
+        
         m_resources.emplace(l_id, std::make_pair(resource, 1));
+        
         return true;
     }
     
@@ -105,19 +120,38 @@ private:
     {
         std::ifstream paths;
         paths.open(resourcePath() + l_pathFile);
+        
+      
+    
         if(paths.is_open()){
             std::string line;
             while(std::getline(paths,line)){
+
                 std::stringstream keystream(line);
                 std::string pathName;
                 std::string path;
                 keystream >> pathName;
                 keystream >> path;
-                m_paths.emplace(pathName,path);
+                
+                if(pathName.empty() || path.empty()){
+                    std::cerr << "Error in file: " << l_pathFile << std::endl;
+                }else{
+                    m_paths.emplace(pathName, path);
+                }
+                
             }
             paths.close();
+            
+            if(l_pathFile == "fonts.cfg"){
+                 std::cout << "added:" << std::endl;
+                for ( auto it = m_paths.begin(); it != m_paths.end(); ++it ){
+                    std::cout << it->first << " " << it->second << std::endl;
+                }
+            }
+            
             return;
         }
+        
         printf("! Failed loading the path file: %s\n",l_pathFile.c_str());
     }
 };

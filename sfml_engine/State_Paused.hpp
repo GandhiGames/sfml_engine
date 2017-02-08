@@ -29,7 +29,6 @@ public:
     void UnPause(EventDetails *l_details);
     
 private:
-    sf::Font m_font;
     sf::Text m_text;
     sf::RectangleShape m_rect;
 };

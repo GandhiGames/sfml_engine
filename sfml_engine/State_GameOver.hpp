@@ -25,7 +25,6 @@ public:
     void Update(const sf::Time& l_time);
     void Draw();
 private:
-    sf::Font m_font;
     sf::Text m_text;
     float m_elapsed;
 };

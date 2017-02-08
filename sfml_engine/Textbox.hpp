@@ -13,14 +13,15 @@
 #include <vector>
 #include <string>
 #include "ResourcePath.hpp"
+#include "FontManager.hpp"
 
 class Textbox {
 public:
-    Textbox();
-    Textbox(int l_visible, int l_charSize, int l_width, const sf::Vector2f & l_screenPos);
+    Textbox(FontManager& l_fontManager);
+    Textbox(int l_visible, int l_charSize, int l_width, const sf::Vector2f & l_screenPos, FontManager& l_fontManager);
     ~Textbox();
 
-    void Setup(int l_visible, int l_charSize, int l_width, const sf::Vector2f & l_screenPos);
+    void Setup(int l_visible, int l_charSize, int l_width, const sf::Vector2f & l_screenPos, FontManager& l_fontManager);
     
     void Add(std::string l_message);
     void Clear();
@@ -42,7 +43,6 @@ private:
     int m_numLinesVisible;
     
     sf::RectangleShape m_background;
-    sf::Font m_font;
     sf::Text m_content;
     sf::View m_view;
 };

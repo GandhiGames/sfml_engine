@@ -22,13 +22,14 @@
 #include "ConsoleCursor.hpp"
 #include "ConsoleScrollbar.hpp"
 #include "ConsoleCommand.hpp"
+#include "FontManager.hpp"
 
 
 typedef std::function<std::string(std::vector<std::string>&)> Command;
 
 class Console {
 public:
-    Console(sf::RenderWindow* wind);
+    Console(sf::RenderWindow* wind, FontManager& l_fontManager);
     ~Console();
     
     void Add(const std::string& l_name,
@@ -77,6 +78,7 @@ private:
     void DoMovement(const float& l_moveAmount, const ConsoleState& l_goToSate);
     
    
+    FontManager& m_fontManager;
     ConsoleState m_state;
     ConsoleCursor m_cursor;
     ConsoleScrollbar m_scrollbar;
@@ -100,7 +102,7 @@ private:
     std::map<std::string, ConsoleCommand> m_commands;
     std::string m_inputBuffer;
     std::vector<std::string> m_outputBuffer;
-    sf::Font m_textFont;
+    const sf::Font* m_textFont;
     sf::RectangleShape m_backgroundOut;
     sf::RectangleShape m_backgroundIn;
     std::vector<std::string> m_inputCommands;

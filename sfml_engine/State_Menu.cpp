@@ -16,8 +16,13 @@ State_Menu::~State_Menu(){}
 //TODO: use resource manager to load fonts.
 void State_Menu::OnCreate()
 {
-    m_font.loadFromFile(resourcePath() + "media/Fonts/arial.ttf");
-    m_text.setFont(m_font);
+    
+    FontManager* fntMngr = GetStateManager().GetContext().GetFontManager();
+    
+    if(fntMngr->RequireResource("Default")){
+        m_text.setFont(*fntMngr->GetResource("Default"));
+    }
+    
     m_text.setString(sf::String("Main Menu"));
     m_text.setCharacterSize(24);
     
@@ -48,7 +53,7 @@ void State_Menu::OnCreate()
         m_rects[i].setOrigin(m_buttonSize.x / 2.0f, m_buttonSize.y / 2.0f);
         m_rects[i].setPosition(buttonPosition);
         
-        m_labels[i].setFont(m_font);
+        m_labels[i].setFont(*GetStateManager().GetContext().GetFontManager()->GetResource("Default"));
         m_labels[i].setString(sf::String(str[i]));
         m_labels[i].setCharacterSize(16);
         
@@ -76,6 +81,8 @@ void State_Menu::OnDestroy()
     evtMgr->RemoveCallback(StateType::MainMenu, "Key_Up");
     evtMgr->RemoveCallback(StateType::MainMenu, "Key_Down");
     evtMgr->RemoveCallback(StateType::MainMenu, "Key_Return");
+    
+    GetStateManager().GetContext().GetFontManager()->ReleaseResource("Default");
 }
 
 void State_Menu::Activate()

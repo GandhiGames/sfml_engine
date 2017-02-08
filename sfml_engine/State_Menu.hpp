@@ -32,7 +32,6 @@ public:
     
 private:
     sf::Text m_text;
-    sf::Font m_font;
     
     sf::Vector2f m_buttonSize;
     sf::Vector2f m_buttonPos;

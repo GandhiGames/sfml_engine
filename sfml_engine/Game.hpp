@@ -39,10 +39,10 @@ private:
     Window m_window;
     EntityManager m_entityManager;
     TextureManager m_textureManager;
+    FontManager m_fontManager;
     StateManager m_stateManager;
     DebugOverlay m_debugOverlay;
     Textbox m_debugText;
-    Console m_console;
 };
 
 #endif /* Game_hpp */

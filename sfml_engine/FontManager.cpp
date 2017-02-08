@@ -8,7 +8,7 @@
 
 #include "FontManager.hpp"
 
-FontManager::FontManager():ResourceManager("textures.cfg"){}
+FontManager::FontManager():ResourceManager("fonts.cfg"){}
 
 sf::Font* FontManager::Load(const std::string& l_path)
 {
@@ -19,5 +19,6 @@ sf::Font* FontManager::Load(const std::string& l_path)
         font = nullptr;
         std::cerr << "! Failed to load font: " << l_path << std::endl;
     }
+
     return font;
 }

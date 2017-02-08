@@ -11,7 +11,7 @@
 Game::Game():
     m_window("engine_test", sf::Vector2u(800, 600)),m_stateManager(m_context),
         m_entityManager(&m_context, 100),
-        m_console(m_window.GetRenderWindow())
+        m_debugText(m_fontManager)
 {
     m_clock.restart();
     srand(time(nullptr));
@@ -19,11 +19,11 @@ Game::Game():
     m_context.SetWindow(&m_window);
     m_context.SetEventManager(m_window.GetEventManager());
     m_context.SetTextureManager(&m_textureManager);
+    m_context.SetFontManager(&m_fontManager);
     m_context.SetEntityManager(&m_entityManager);
     m_debugOverlay.SetDebug(true);
     m_context.SetDebugOverlay(&m_debugOverlay);
     m_context.SetDebugText(&m_debugText);
-    m_context.SetConsole(&m_console);
     
     m_stateManager.SwitchTo(StateType::Intro);
 }

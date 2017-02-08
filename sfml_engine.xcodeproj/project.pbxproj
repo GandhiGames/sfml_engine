@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		667D8BA51E4B68B900484517 /* fonts.cfg in Resources */ = {isa = PBXBuildFile; fileRef = 667D8BA41E4B68B900484517 /* fonts.cfg */; };
 		66A511E51E4B673600AC429A /* FontManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66A511E31E4B673600AC429A /* FontManager.cpp */; };
 		66BEB9251E48D92800654885 /* ConsoleCursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66BEB9231E48D92800654885 /* ConsoleCursor.cpp */; };
 		66CFE4211E47C8C4009333F1 /* Console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66CFE41F1E47C8C4009333F1 /* Console.cpp */; };
@@ -27,7 +28,6 @@
 		D68D9E401C938CC80094CF43 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D68D9E3E1C938CC80094CF43 /* Player.cpp */; };
 		D68D9E431C938F430094CF43 /* Enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D68D9E411C938F430094CF43 /* Enemy.cpp */; };
 		D6A0B6051C8E16C500148032 /* AnimDirectional.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6A0B6031C8E16C500148032 /* AnimDirectional.cpp */; };
-		D6A0B6101C8E1C8D00148032 /* keys.cfg.txt in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60C1C8E1C8D00148032 /* keys.cfg.txt */; };
 		D6A0B6111C8E1C8D00148032 /* media in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60D1C8E1C8D00148032 /* media */; };
 		D6A0B6121C8E1C8D00148032 /* textures.cfg in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60E1C8E1C8D00148032 /* textures.cfg */; };
 		D6A0B6131C8E1C8D00148032 /* tiles.cfg in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60F1C8E1C8D00148032 /* tiles.cfg */; };
@@ -42,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		667D8BA41E4B68B900484517 /* fonts.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fonts.cfg; sourceTree = "<group>"; };
 		66A511E31E4B673600AC429A /* FontManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontManager.cpp; sourceTree = "<group>"; };
 		66A511E41E4B673600AC429A /* FontManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FontManager.hpp; sourceTree = "<group>"; };
 		66BEB9231E48D92800654885 /* ConsoleCursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConsoleCursor.cpp; sourceTree = "<group>"; };
@@ -89,7 +90,6 @@
 		D68D9E421C938F430094CF43 /* Enemy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Enemy.hpp; sourceTree = "<group>"; };
 		D6A0B6031C8E16C500148032 /* AnimDirectional.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimDirectional.cpp; sourceTree = "<group>"; };
 		D6A0B6041C8E16C500148032 /* AnimDirectional.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AnimDirectional.hpp; sourceTree = "<group>"; };
-		D6A0B60C1C8E1C8D00148032 /* keys.cfg.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = keys.cfg.txt; sourceTree = "<group>"; };
 		D6A0B60D1C8E1C8D00148032 /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; path = media; sourceTree = "<group>"; };
 		D6A0B60E1C8E1C8D00148032 /* textures.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = textures.cfg; sourceTree = "<group>"; };
 		D6A0B60F1C8E1C8D00148032 /* tiles.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tiles.cfg; sourceTree = "<group>"; };
@@ -322,9 +322,9 @@
 		D6C50BCA1C7D152E00C2CCBC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D6A0B60C1C8E1C8D00148032 /* keys.cfg.txt */,
 				D6A0B60D1C8E1C8D00148032 /* media */,
 				D6A0B60E1C8E1C8D00148032 /* textures.cfg */,
+				667D8BA41E4B68B900484517 /* fonts.cfg */,
 				D6A0B60F1C8E1C8D00148032 /* tiles.cfg */,
 				D6B609F81C84FDD500E5B970 /* keys.cfg */,
 			);
@@ -388,9 +388,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6A0B6101C8E1C8D00148032 /* keys.cfg.txt in Resources */,
 				D6A0B6131C8E1C8D00148032 /* tiles.cfg in Resources */,
 				D6A0B6111C8E1C8D00148032 /* media in Resources */,
+				667D8BA51E4B68B900484517 /* fonts.cfg in Resources */,
 				D6B609F91C84FDD500E5B970 /* keys.cfg in Resources */,
 				D6A0B6121C8E1C8D00148032 /* textures.cfg in Resources */,
 			);

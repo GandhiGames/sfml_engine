@@ -19,16 +19,22 @@ void State_Intro::OnCreate()
     .GetWindow()->GetRenderWindow()->getSize();
     
     TextureManager* textureMgr = m_stateManager.GetContext().GetTextureManager();
+    
     textureMgr->RequireResource("Intro");
-    m_introSprite.setTexture(*textureMgr->GetResource("Intro"));
-    m_introSprite.setOrigin(textureMgr->GetResource("Intro")->getSize().x / 2.0f,
-                            textureMgr->GetResource("Intro")->getSize().y / 2.0f);
+    sf::Texture* introSprite = textureMgr->GetResource("Intro");
+    
+    m_introSprite.setTexture(*introSprite);
+    m_introSprite.setOrigin(introSprite->getSize().x / 2.0f,
+                            introSprite->getSize().y / 2.0f);
     
 	m_introSprite.setPosition(windowSize.x * 0.5f, windowSize.y * 0.5f);
     
     
-    m_font.loadFromFile(resourcePath() + "media/Fonts/arial.ttf");
-    m_text.setFont(m_font);
+    FontManager* fntMngr = GetStateManager().GetContext().GetFontManager();
+    
+    if(fntMngr->RequireResource("Default")){
+        m_text.setFont(*fntMngr->GetResource("Default"));
+    }
     m_text.setFillColor(sf::Color::Black);
     m_text.setString({ "Press SPACE to continue" });
     m_text.setCharacterSize(15);
@@ -43,10 +49,11 @@ void State_Intro::OnCreate()
 
 void State_Intro::OnDestroy()
 {
-    TextureManager* textureMgr = m_stateManager.GetContext().GetTextureManager();
-    textureMgr->ReleaseResource("Intro");
+    m_stateManager.GetContext().GetTextureManager()->ReleaseResource("Intro");
     
     GetStateManager().GetContext().GetEventManager()->RemoveCallback(StateType::Intro, "Intro_continue");
+    
+    GetStateManager().GetContext().GetFontManager()->ReleaseResource("Default");
 }
 
 void State_Intro::Draw()

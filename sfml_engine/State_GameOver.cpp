@@ -16,8 +16,13 @@ State_GameOver::~State_GameOver(){}
 
 void State_GameOver::OnCreate(){
     m_elapsed = 0;
-    m_font.loadFromFile(resourcePath() + "media/Fonts/arial.ttf");
-    m_text.setFont(m_font);
+    
+    FontManager* fntMngr = GetStateManager().GetContext().GetFontManager();
+    
+    if(fntMngr->RequireResource("Default")){
+        m_text.setFont(*fntMngr->GetResource("Default"));
+    }
+    
     m_text.setCharacterSize(16);
     m_text.setString("You beat the game! Congratulations!");
     m_text.setFillColor(sf::Color::White);
@@ -29,7 +34,10 @@ void State_GameOver::OnCreate(){
     m_stateManager.Remove(StateType::Game);
 }
 
-void State_GameOver::OnDestroy(){}
+void State_GameOver::OnDestroy()
+{
+    GetStateManager().GetContext().GetFontManager()->ReleaseResource("Default");
+}
 
 void State_GameOver::Activate(){}
 void State_GameOver::Deactivate(){}

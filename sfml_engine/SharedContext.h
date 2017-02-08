@@ -17,7 +17,6 @@
 #include "EntityManager.hpp"
 #include "DebugOverlay.h"
 #include "Textbox.hpp"
-#include "Console.hpp"
 
 class Map;
 
@@ -61,7 +60,7 @@ struct SharedContext {
         return m_fontManager;
     }
     
-    void SetTextureManager(FontManager* l_fontManager)
+    void SetFontManager(FontManager* l_fontManager)
     {
         m_fontManager = l_fontManager;
     }
@@ -106,16 +105,6 @@ struct SharedContext {
         m_debugText = l_textbox;
     }
     
-    Console* GetConsole()
-    {
-        return m_console;
-    }
-    
-    void SetConsole(Console* l_console)
-    {
-        m_console = l_console;
-    }
-    
 private:
     Window* m_window;
     EventManager* m_eventManager;
@@ -125,7 +114,6 @@ private:
     Map* m_map;
     DebugOverlay* m_debugOverlay;
     Textbox* m_debugText;
-    Console* m_console;
 };
 
 #endif /* SharedContext_h */

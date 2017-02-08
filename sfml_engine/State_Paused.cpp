@@ -17,8 +17,12 @@ void State_Paused::OnCreate()
 {
     SetTransparent(true);
     
-    m_font.loadFromFile(resourcePath() + "media/Fonts/arial.ttf");
-    m_text.setFont(m_font);
+    FontManager* fntMngr = GetStateManager().GetContext().GetFontManager();
+    
+    if(fntMngr->RequireResource("Default")){
+        m_text.setFont(*fntMngr->GetResource("Default"));
+    }
+    
     m_text.setFillColor(sf::Color::Black);
     m_text.setString(sf::String("PAUSED"));
     m_text.setCharacterSize(14);
@@ -44,6 +48,8 @@ void State_Paused::OnCreate()
 void State_Paused::OnDestroy()
 {
     GetStateManager().GetContext().GetEventManager()->RemoveCallback(StateType::Paused, "Key_P");
+    
+    GetStateManager().GetContext().GetFontManager()->ReleaseResource("Default");
 }
 
 void State_Paused::Activate(){}

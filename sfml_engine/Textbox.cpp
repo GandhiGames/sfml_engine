@@ -11,17 +11,16 @@
 
 const sf::Vector2f Textbox::OFFSET = sf::Vector2f(2.0f, 2.0f);
 const sf::Vector2f Textbox::DEFAULT_POSITION = sf::Vector2f(0, 0);
-const sf::String Textbox::DEFAULT_FONT =  "media/Fonts/arial.ttf";
 const sf::Color Textbox::DEFAULT_FONT_COLOUR = sf::Color::White;
 
-Textbox::Textbox()
+Textbox::Textbox(FontManager& l_fontManager)
 {
-    Setup(DEFAULT_LINES_VISIBLE, DEFAULT_CHAR_SIZE, DEFAULT_WIDTH, DEFAULT_POSITION);
+    Setup(DEFAULT_LINES_VISIBLE, DEFAULT_CHAR_SIZE, DEFAULT_WIDTH, DEFAULT_POSITION, l_fontManager);
 }
 
-Textbox::Textbox(int l_visible, int l_charSize, int l_width, const sf::Vector2f & l_screenPos)
+Textbox::Textbox(int l_visible, int l_charSize, int l_width, const sf::Vector2f & l_screenPos, FontManager& l_fontManager)
 {
-    Setup(l_visible, l_charSize, l_width, l_screenPos);
+    Setup(l_visible, l_charSize, l_width, l_screenPos, l_fontManager);
 }
 
 Textbox::~Textbox()
@@ -30,13 +29,14 @@ Textbox::~Textbox()
 }
 
 //TODO: create correct resource request for font.
-void Textbox::Setup(int l_visible, int l_charSize, int l_width, const sf::Vector2f &l_screenPos)
+void Textbox::Setup(int l_visible, int l_charSize, int l_width, const sf::Vector2f &l_screenPos, FontManager& l_fontManager)
 {
     m_numLinesVisible = l_visible;
     
-    
-    m_font.loadFromFile(resourcePath() + DEFAULT_FONT);
-    m_content.setFont(m_font);
+    if(l_fontManager.RequireResource("Default")){
+        m_content.setFont(*l_fontManager.GetResource("Default"));
+    }
+
     m_content.setString(" ");
     
     m_content.setCharacterSize(l_charSize);

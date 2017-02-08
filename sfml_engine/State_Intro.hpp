@@ -30,7 +30,6 @@ public:
     
 private:
     sf::Sprite m_introSprite;
-    sf::Font m_font;
     sf::Text m_text;
 };
 

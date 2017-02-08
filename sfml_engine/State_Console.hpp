@@ -34,7 +34,7 @@ private:
     void OpenHalf();
 
     
-    Console* m_console;
+    Console m_console;
 };
 
 #endif /* State_Console_hpp */
