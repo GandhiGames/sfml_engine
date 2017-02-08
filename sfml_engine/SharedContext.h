@@ -13,6 +13,7 @@
 #include "Window.hpp"
 #include "EventManager.hpp"
 #include "TextureManager.hpp"
+#include "FontManager.hpp"
 #include "EntityManager.hpp"
 #include "DebugOverlay.h"
 #include "Textbox.hpp"
@@ -53,6 +54,16 @@ struct SharedContext {
     void SetTextureManager(TextureManager *l_textureManager)
     {
         m_textureManager = l_textureManager;
+    }
+    
+    FontManager* GetFontManager()
+    {
+        return m_fontManager;
+    }
+    
+    void SetTextureManager(FontManager* l_fontManager)
+    {
+        m_fontManager = l_fontManager;
     }
     
     Map *GetMap()
@@ -109,6 +120,7 @@ private:
     Window* m_window;
     EventManager* m_eventManager;
     TextureManager* m_textureManager;
+    FontManager* m_fontManager;
     EntityManager* m_entityManager;
     Map* m_map;
     DebugOverlay* m_debugOverlay;

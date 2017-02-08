@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		66A511E51E4B673600AC429A /* FontManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66A511E31E4B673600AC429A /* FontManager.cpp */; };
 		66BEB9251E48D92800654885 /* ConsoleCursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66BEB9231E48D92800654885 /* ConsoleCursor.cpp */; };
 		66CFE4211E47C8C4009333F1 /* Console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66CFE41F1E47C8C4009333F1 /* Console.cpp */; };
 		66CFE4241E48788B009333F1 /* State_Console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66CFE4221E48788B009333F1 /* State_Console.cpp */; };
@@ -41,6 +42,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		66A511E31E4B673600AC429A /* FontManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontManager.cpp; sourceTree = "<group>"; };
+		66A511E41E4B673600AC429A /* FontManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FontManager.hpp; sourceTree = "<group>"; };
 		66BEB9231E48D92800654885 /* ConsoleCursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConsoleCursor.cpp; sourceTree = "<group>"; };
 		66BEB9241E48D92800654885 /* ConsoleCursor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConsoleCursor.hpp; sourceTree = "<group>"; };
 		66CFE41F1E47C8C4009333F1 /* Console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Console.cpp; sourceTree = "<group>"; };
@@ -211,6 +214,8 @@
 				D6314CBC1C8B4C29002C041C /* ResourceManager.h */,
 				D6314CBD1C8B9186002C041C /* TextureManager.cpp */,
 				D6314CBE1C8B9186002C041C /* TextureManager.hpp */,
+				66A511E31E4B673600AC429A /* FontManager.cpp */,
+				66A511E41E4B673600AC429A /* FontManager.hpp */,
 			);
 			name = "Resource Management";
 			sourceTree = "<group>";
@@ -437,6 +442,7 @@
 				D633D3A71C8C4C450054C097 /* AnimBase.cpp in Sources */,
 				D6C8D8C61C88DB080027F8DE /* State_Menu.cpp in Sources */,
 				D6C8D8CC1C88E8AF0027F8DE /* State_Paused.cpp in Sources */,
+				66A511E51E4B673600AC429A /* FontManager.cpp in Sources */,
 				D6DCDBC61C8F646F00A90A24 /* EntityBase.cpp in Sources */,
 				D63A58241C7D25AA00EC1C97 /* Game.cpp in Sources */,
 				D6314CBF1C8B9186002C041C /* TextureManager.cpp in Sources */,
