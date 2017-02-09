@@ -11,6 +11,7 @@
 
 #include <string>
 #include <SFML/Graphics.hpp>
+#include "Direction.h"
 
 class SpriteSheet;
 
@@ -25,20 +26,14 @@ public:
     void SetSpriteSheet(SpriteSheet* l_sheet);
     void SetFrame(int l_frame);
     void SetFrames(const std::vector<Frame>& l_frames);
-    //void SetStartFrame(Frame l_frame);
-    //void SetEndFrame(Frame l_frame);
-    //void SetFrameRow(Frame l_row);
     void SetActionStart(int l_frame);
     void SetActionEnd(int l_frame);
     void SetFrameTime(float l_time);
     void SetLooping(bool l_loop);
-    void SetName(const std::string &l_name);
+    void SetName(const std::string& l_name);
     
     SpriteSheet* GetSpriteSheet();
-    int GetFrame();
-    //Frame GetStartFrame();
-    //Frame GetEndFrame();
-    //Frame GetFrameRow();
+
     int GetActionStart();
     int GetActionEnd();
     float GetFrameTime();
@@ -46,13 +41,15 @@ public:
     bool IsLooping();
     bool IsPlaying();
     bool IsInAction();
-    std::string GetName();
+    const std::string& GetName();
     
     void Play();
     void Pause();
     void Stop();
     void Reset();
     
+    void SetAnimationDefaultDirection(const Direction& l_dir);
+
     virtual void Update(const float& l_dT);
     
     /*
@@ -66,17 +63,19 @@ public:
 protected:
     void FrameStep();
     void CropSprite();
+    int GetCurrentFrame();
    // virtual void ReadIn(std::stringstream& l_stream) = 0;
     
-    int m_frameCurrent;
+    sf::Uint8 m_frameCurrent;
     std::vector<Frame> m_frames;
-   //Frame m_frameRow;
+    std::vector<Frame> m_reverseFrames;
     int m_frameActionStart;
     int m_frameActionEnd;
     float m_frameTime; // amount of time each frame takes to finish.
     float m_elapsedTime;
     bool m_loop;
     bool m_playing;
+    Direction m_defaultDir;
     
     std::string m_name;
     

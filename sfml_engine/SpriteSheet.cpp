@@ -10,7 +10,7 @@
 
 SpriteSheet::SpriteSheet(TextureManager &l_textMgr)
 :m_textureManager(l_textMgr), m_animationCurrent(nullptr),
-m_spriteScale(1.f, 1.f), m_direction(Direction::Right){}
+m_spriteScale(1.f, 1.f), m_direction(Direction::Right), m_spriteSize(sf::Vector2f(0, 0)){}
 
 SpriteSheet::~SpriteSheet(){ ReleaseSheet(); }
 
@@ -24,29 +24,28 @@ void SpriteSheet::ReleaseSheet()
     }
 }
 
-sf::Vector2i SpriteSheet::GetSpriteSize()const{ return m_spriteSize; }
+
+const sf::Vector2i& SpriteSheet::GetSpriteSize()const{ return m_spriteSize; }
+
+
 sf::Vector2f SpriteSheet::GetSpritePosition()const{ return m_sprite.getPosition(); }
 const Direction & SpriteSheet::GetDirection()const {
     return m_direction;
 }
 AnimBase* SpriteSheet::GetCurrentAnim(){ return m_animationCurrent; }
 
-void SpriteSheet::SetSpriteSize(const sf::Vector2i &l_size){
-    m_spriteSize = l_size;
-    m_sprite.setOrigin(m_spriteSize.x * 0.5f, m_spriteSize.y);
-}
-
-void SpriteSheet::CropSprite(const sf::IntRect &l_rect){ m_sprite.setTextureRect(l_rect); }
+void SpriteSheet::CropSprite(const sf::IntRect& l_rect){ m_sprite.setTextureRect(l_rect); }
 
 void SpriteSheet::SetSpritePosition(const sf::Vector2f& l_pos){ m_sprite.setPosition(l_pos); }
 
 void SpriteSheet::SetDirection(const Direction& l_dir){
     if (l_dir == m_direction){ return; }
+    
     m_direction = l_dir;
-    m_animationCurrent->CropSprite();
-}
+ }
 
-bool SpriteSheet::LoadSheet(const std::string& l_file){
+bool SpriteSheet::LoadSheet(const std::string& l_file)
+{
     std::ifstream sheet;
     sheet.open(resourcePath() + l_file);
     if(sheet.is_open()){
@@ -70,69 +69,59 @@ bool SpriteSheet::LoadSheet(const std::string& l_file){
                 }
                 m_texture = texture;
                 m_sprite.setTexture(*m_textureManager.GetResource(m_texture));
-            } else if(type == "Size"){
-                keystream >> m_spriteSize.x >> m_spriteSize.y;
-                SetSpriteSize(m_spriteSize);
-            } else if(type == "Scale"){
-                keystream >> m_spriteScale.x >> m_spriteScale.y;
-                m_sprite.setScale(m_spriteScale);
-            } else if(type == "AnimationType"){
-                keystream >> m_animType;
-            } else if(type == "Animation"){
-                /*std::string name;
-                keystream >> name;
-                if (m_animations.find(name) != m_animations.end()){
-                    std::cerr << "! Duplicate animation(" << name << ") in: " << l_file << std::endl;
-                    continue;
-                }
-                AnimBase* anim	= nullptr;
-                if(m_animType == "Directional"){
-                    anim = new AnimDirectional();
-                } else {
-                    std::cerr << "! Unknown animation type: " << m_animType << std::endl;
-                    continue;
-                }
-                
-                keystream >> *anim;
-                anim->SetSpriteSheet(this);
-                anim->SetName(name);
-                anim->Reset();
-                m_animations.emplace(name,anim);
-                
-                if (m_animationCurrent){ continue; }
-                m_animationCurrent = anim;
-                m_animationCurrent->Play();
-                 */
             } else if(type == "Data"){
                 std::string dataPath;
                 
                 keystream >> dataPath;
                 
                 ParseJson(dataPath);
+                
             }
         }
+        
         sheet.close();
+        
+        assert(m_animations.size() > 0);
+        assert(!m_animations.begin()->second->GetName().empty());
+        
         return true;
     }
     std::cerr << "! Failed loading spritesheet: " << l_file << std::endl;
     return false;
 }
 
+//TODO: read scale:  m_sprite.setScale(m_spriteScale);
 void SpriteSheet::ParseJson(const std::string& l_path)
-{
-    std::cout << resourcePath() << l_path << std::endl;
-    
+{    
     std::ifstream i(resourcePath() + l_path);
     
     if(i.is_open()){
         json animData;
         i >> animData;
-    
-      
+        
+        // Set scale.
+        float s = animData["meta"]["scale"].get<float>();
+        m_spriteScale = sf::Vector2f(s, s);
+        m_sprite.setScale(m_spriteScale);
+        
+        // Set origin.
+        int sizeX = animData["meta"]["spriteSize"]["w"];
+        int sizeY = animData["meta"]["spriteSize"]["w"];
+        m_spriteSize = sf::Vector2i(sizeX, sizeY);
+        m_sprite.setOrigin(sizeX * 0.5f, sizeY);
+        
+        // Get default direction.
+        std::string dirName = animData["meta"]["direction"];
+        Direction dir = Direction::Left;
+        if(dirName == "Right"){
+            dir = Direction::Right;
+        }
         
         for(auto it : animData["animations"]){
-            
             std::string animName = it["animName"];
+            
+            assert(m_animations.find(animName) == m_animations.end());
+            
             int animCount = it["frameCount"].get<int>();
             float frameTime = it["frameTime"].get<float>();
             int actionStart = it["frameActionStart"].get<int>();
@@ -151,32 +140,31 @@ void SpriteSheet::ParseJson(const std::string& l_path)
                 }
             }
             
-            std::cout << animName << " " << std::to_string(frames.size()) << " " << animCount << std::endl;
-            
             assert(frames.size() == animCount);
             
-            //name
-            std::cout << animName << std::endl;
-            //int m_frameActionStart;
-            std::cout << actionStart << std::endl;
-            //int m_frameActionEnd;
-            std::cout << actionEnd << std::endl;
-            //float m_frameTime; // amount of time each frame takes to finish.
-            std::cout << frameTime << std::endl;
-            
-            //"frame": {"x":64,"y":0,"w":32,"h":32},
-            
-
             
             AnimBase* anim = new AnimBase();
+            anim->SetSpriteSheet(this);
+            anim->SetName(animName);
+            anim->SetAnimationDefaultDirection(dir);
             anim->SetActionStart(actionStart);
             anim->SetActionEnd(actionEnd);
             anim->SetFrameTime(frameTime);
             anim->SetFrames(frames);
+            anim->Reset();
             
             m_animations.emplace(animName, anim);
+            
+            if (!m_animationCurrent){
+                m_animationCurrent = anim;
+                m_animationCurrent->Play();
+            }
         }
+        
+       
     }
+    
+    i.close();
     
     
     assert(m_animations.size() > 0);

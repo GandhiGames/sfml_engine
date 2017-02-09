@@ -1,10 +1,10 @@
 Texture PlayerSprite
 Data media/Textures/PlayerSheet.json
-Size 32 32
-Scale 1.0 1.0
+
+|Size 32 32
+|Scale 1.0 1.0
 
 |Type|Name|StartFrame|EndFrame|Row|FrameTime|FrameActionStart|FrameActionEnd|
-
 |AnimationType Directional
 |Animation Idle 0 7 0 0.2 -1 -1
 |Animation Walk 0 5 2 0.1 -1 -1

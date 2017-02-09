@@ -19,7 +19,7 @@ enum class EntityType {
 };
 
 enum class EntityState {
-    Idle, Walking, Jumping, Attacking, Hurt, Dying
+    Idle, Walking, Jumping, Dying
 };
 
 struct TileInfo;

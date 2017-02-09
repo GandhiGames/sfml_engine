@@ -49,6 +49,7 @@ void Player::React(EventDetails * l_details){
 void Player::OnEntityCollision(EntityBase* l_collider, bool l_attack){
     if (m_state == EntityState::Dying){ return; }
     if(l_attack){
+        /*
         if (m_state != EntityState::Attacking){ return; }
         if (!m_spriteSheet.GetCurrentAnim()->IsInAction()){ return; }
         if (l_collider->GetType() != EntityType::Enemy &&
@@ -63,6 +64,7 @@ void Player::OnEntityCollision(EntityBase* l_collider, bool l_attack){
         } else {
             opponent->AddVelocity(32,0);
         }
+         */
     } else {
         // Other behavior.
     }

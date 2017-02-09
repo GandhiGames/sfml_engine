@@ -26,23 +26,29 @@ void Character::Move(const Direction& l_dir){
 }
 
 void Character::Jump(){
-    if (GetState() == EntityState::Dying || GetState() == EntityState::Jumping || GetState() == EntityState::Hurt){ return; }
+    if (GetState() == EntityState::Dying || GetState() == EntityState::Jumping){ return; }
     SetState(EntityState::Jumping);
     AddVelocity(0, -m_jumpVelocity);
 }
 
 void Character::Attack(){
+    /*
     if (GetState() == EntityState::Dying || GetState() == EntityState::Jumping ||
         GetState() == EntityState::Hurt || GetState() == EntityState::Attacking)
     { return; }
     SetState(EntityState::Attacking);
+     */
 }
 
 void Character::GetHurt(const int& l_damage){
+    /*
     if (GetState() == EntityState::Dying || GetState() == EntityState::Hurt){ return; }
     m_hitpoints = (m_hitpoints - l_damage > 0 ? m_hitpoints - l_damage : 0);
     if (m_hitpoints){ SetState(EntityState::Hurt); }
     else { SetState(EntityState::Dying); }
+     */
+    
+    SetState(EntityState::Dying);
 }
 
 void Character::Load(const std::string& l_path){
@@ -61,6 +67,8 @@ void Character::Load(const std::string& l_path){
             std::string path;
             keystream >> path;
             m_spriteSheet.LoadSheet("media/SpriteSheets/" + path);
+            
+            assert(!m_spriteSheet.GetCurrentAnim()->GetName().empty());
         } else if(type == "Hitpoints"){
             keystream >> m_hitpoints;
         } else if(type == "BoundingBox"){
@@ -87,23 +95,14 @@ void Character::Animate(){
     EntityState state = GetState();
     
     if(state == EntityState::Walking && m_spriteSheet.
-       GetCurrentAnim()->GetName() != "Walk")
+       GetCurrentAnim()->GetName() != "Run")
     {
-        m_spriteSheet.SetAnimation("Walk",true,true);
+        m_spriteSheet.SetAnimation("Run",true,true);
     }
     else if(state == EntityState::Jumping && m_spriteSheet.
             GetCurrentAnim()->GetName() != "Jump")
     {
         m_spriteSheet.SetAnimation("Jump",true,false);
-    }
-    else if(state == EntityState::Attacking && m_spriteSheet.
-            GetCurrentAnim()->GetName() != "Attack")
-    {
-        m_spriteSheet.SetAnimation("Attack",true,false);
-    } else if(state == EntityState::Hurt && m_spriteSheet.
-              GetCurrentAnim()->GetName() != "Hurt")
-    {
-        m_spriteSheet.SetAnimation("Hurt",true,false);
     }
     else if(state == EntityState::Dying && m_spriteSheet.
             GetCurrentAnim()->GetName() != "Death")
@@ -134,14 +133,12 @@ void Character::Update(float l_dT){
         if(m_entityManager->GetContext()->GetDebugOverlay()->Debug()){
             sf::RectangleShape* arect = new sf::RectangleShape(sf::Vector2f(m_attackAABB.width,m_attackAABB.height));
             arect->setPosition(m_attackAABB.left,m_attackAABB.top);
-            arect->setFillColor(sf::Color(255,0,0,
-                                          (m_state == EntityState::Attacking && m_spriteSheet.GetCurrentAnim()->IsInAction()
-                                           ? 200 : 100)));
+            arect->setFillColor(sf::Color(255,0,0, 100));
             m_entityManager->GetContext()->GetDebugOverlay()->Add(arect);
         }
         // End debug.
     }
-    if(GetState() != EntityState::Dying && GetState() != EntityState::Attacking && GetState() != EntityState::Hurt){
+    if(GetState() != EntityState::Dying){
         if(std::abs(m_velocity.y) >= 0.001f){
             SetState(EntityState::Jumping);
         } else if(std::abs(m_velocity.x) >= 0.1f){
@@ -149,11 +146,7 @@ void Character::Update(float l_dT){
         } else {
             SetState(EntityState::Idle);
         }
-    } else if(GetState() == EntityState::Attacking || GetState() == EntityState::Hurt){
-        if(!m_spriteSheet.GetCurrentAnim()->IsPlaying()){
-            SetState(EntityState::Idle);
-        }
-    } else if(GetState() == EntityState::Dying){
+    }else if(GetState() == EntityState::Dying){
         if(!m_spriteSheet.GetCurrentAnim()->IsPlaying()){
             m_entityManager->Remove(m_id);
         }

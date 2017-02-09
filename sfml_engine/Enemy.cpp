@@ -19,7 +19,7 @@ void Enemy::OnEntityCollision(EntityBase* l_collider, bool l_attack)
     if (l_attack){ return; }
     if (l_collider->GetType() != EntityType::Player){ return; }
     Character* player = (Character*)l_collider;
-    SetState(EntityState::Attacking);
+    //SetState(EntityState::Attacking);
     player->GetHurt(1);
     if(m_position.x > player->GetPosition().x){
         player->AddVelocity(-m_speed.x,0);

@@ -59,7 +59,7 @@ void EntityManager::Remove(unsigned int l_id){
     m_entitiesToRemove.emplace_back(l_id);
 }
 
-void EntityManager::Update(float l_dT){
+void EntityManager::Update(float l_dT){    
     for(auto &itr : m_entities){
         itr.second->Update(l_dT);
     }

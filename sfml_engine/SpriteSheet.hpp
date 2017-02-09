@@ -24,12 +24,12 @@ public:
     ~SpriteSheet();
     
     void CropSprite(const sf::IntRect &l_rect);
-    sf::Vector2i GetSpriteSize() const;
+    const sf::Vector2i& GetSpriteSize() const;
     sf::Vector2f GetSpritePosition() const;
-    void SetSpriteSize(const sf::Vector2i &l_size);
+    //void SetSpriteSize(const sf::Vector2i &l_size);
     void SetSpritePosition(const sf::Vector2f &l_pos);
     
-    void SetDirection(const Direction &l_dir);
+    void SetDirection(const Direction& l_dir);
     const Direction &GetDirection()const;
     
     bool LoadSheet(const std::string &l_file);
@@ -52,7 +52,7 @@ private:
     sf::Vector2f m_spriteScale;
     Direction m_direction;
     
-    std::string m_animType;
+    //std::string m_animType;
     std::unordered_map<std::string, AnimBase*> m_animations;
     AnimBase *m_animationCurrent;
     
