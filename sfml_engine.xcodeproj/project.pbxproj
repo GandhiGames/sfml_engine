@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		664C7A461E4D04FD0062E37A /* Entity_Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664C7A441E4D04FD0062E37A /* Entity_Manager.cpp */; };
+		664C7A521E4D119F0062E37A /* S_Base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664C7A501E4D119F0062E37A /* S_Base.cpp */; };
+		664C7A651E4D1A5A0062E37A /* SystemManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664C7A631E4D1A5A0062E37A /* SystemManager.cpp */; };
 		667D8BA51E4B68B900484517 /* fonts.cfg in Resources */ = {isa = PBXBuildFile; fileRef = 667D8BA41E4B68B900484517 /* fonts.cfg */; };
 		66A511E51E4B673600AC429A /* FontManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66A511E31E4B673600AC429A /* FontManager.cpp */; };
 		66BEB9251E48D92800654885 /* ConsoleCursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66BEB9231E48D92800654885 /* ConsoleCursor.cpp */; };
@@ -23,7 +26,6 @@
 		D6810F2B1C82157300A603C5 /* Textbox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6810F291C82157300A603C5 /* Textbox.cpp */; };
 		D6810F341C8376CD00A603C5 /* EventManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6810F321C8376CD00A603C5 /* EventManager.cpp */; };
 		D6842DDE1C7D161F00691541 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6842DDC1C7D161F00691541 /* Window.cpp */; };
-		D68D9E381C9366E30094CF43 /* EntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D68D9E361C9366E30094CF43 /* EntityManager.cpp */; };
 		D6A0B6111C8E1C8D00148032 /* media in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60D1C8E1C8D00148032 /* media */; };
 		D6A0B6121C8E1C8D00148032 /* textures.cfg in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60E1C8E1C8D00148032 /* textures.cfg */; };
 		D6A0B6131C8E1C8D00148032 /* tiles.cfg in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60F1C8E1C8D00148032 /* tiles.cfg */; };
@@ -37,6 +39,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		664C7A3E1E4CF5DA0062E37A /* ECS_Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECS_Types.h; sourceTree = "<group>"; };
+		664C7A3F1E4CF6AB0062E37A /* C_Base.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C_Base.h; sourceTree = "<group>"; };
+		664C7A411E4D02120062E37A /* C_Position.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = C_Position.hpp; sourceTree = "<group>"; };
+		664C7A431E4D037C0062E37A /* Bitmask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bitmask.h; sourceTree = "<group>"; };
+		664C7A441E4D04FD0062E37A /* Entity_Manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity_Manager.cpp; sourceTree = "<group>"; };
+		664C7A451E4D04FD0062E37A /* Entity_Manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Entity_Manager.hpp; sourceTree = "<group>"; };
+		664C7A4A1E4D0CDE0062E37A /* EntityEvent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EntityEvent.hpp; sourceTree = "<group>"; };
+		664C7A4D1E4D10EA0062E37A /* EventQueue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EventQueue.hpp; sourceTree = "<group>"; };
+		664C7A501E4D119F0062E37A /* S_Base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = S_Base.cpp; sourceTree = "<group>"; };
+		664C7A511E4D119F0062E37A /* S_Base.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = S_Base.hpp; sourceTree = "<group>"; };
+		664C7A551E4D15940062E37A /* Observer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Observer.hpp; sourceTree = "<group>"; };
+		664C7A581E4D15C30062E37A /* Message.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Message.hpp; sourceTree = "<group>"; };
+		664C7A5B1E4D169E0062E37A /* Communicator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Communicator.hpp; sourceTree = "<group>"; };
+		664C7A5E1E4D17C00062E37A /* MessageHandler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MessageHandler.hpp; sourceTree = "<group>"; };
+		664C7A611E4D18660062E37A /* EntityMessage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EntityMessage.hpp; sourceTree = "<group>"; };
+		664C7A631E4D1A5A0062E37A /* SystemManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SystemManager.cpp; sourceTree = "<group>"; };
+		664C7A641E4D1A5A0062E37A /* SystemManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SystemManager.hpp; sourceTree = "<group>"; };
 		666ED5471E4BB7680089474E /* json.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 		667D8BA41E4B68B900484517 /* fonts.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fonts.cfg; sourceTree = "<group>"; };
 		66A511E31E4B673600AC429A /* FontManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontManager.cpp; sourceTree = "<group>"; };
@@ -76,8 +95,6 @@
 		D6842DDC1C7D161F00691541 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Window.cpp; sourceTree = "<group>"; };
 		D6842DDD1C7D161F00691541 /* Window.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Window.hpp; sourceTree = "<group>"; };
 		D68D9E351C933EF70094CF43 /* DebugOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugOverlay.h; sourceTree = "<group>"; };
-		D68D9E361C9366E30094CF43 /* EntityManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityManager.cpp; sourceTree = "<group>"; };
-		D68D9E371C9366E30094CF43 /* EntityManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EntityManager.hpp; sourceTree = "<group>"; };
 		D6A0B60D1C8E1C8D00148032 /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; path = media; sourceTree = "<group>"; };
 		D6A0B60E1C8E1C8D00148032 /* textures.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = textures.cfg; sourceTree = "<group>"; };
 		D6A0B60F1C8E1C8D00148032 /* tiles.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tiles.cfg; sourceTree = "<group>"; };
@@ -108,6 +125,58 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		664C7A3A1E4CF5240062E37A /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				664C7A3E1E4CF5DA0062E37A /* ECS_Types.h */,
+				664C7A3F1E4CF6AB0062E37A /* C_Base.h */,
+				664C7A411E4D02120062E37A /* C_Position.hpp */,
+				664C7A431E4D037C0062E37A /* Bitmask.h */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		664C7A471E4D0CB70062E37A /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				D6810F321C8376CD00A603C5 /* EventManager.cpp */,
+				D6810F331C8376CD00A603C5 /* EventManager.hpp */,
+			);
+			name = Input;
+			sourceTree = "<group>";
+		};
+		664C7A481E4D0CC50062E37A /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				664C7A4A1E4D0CDE0062E37A /* EntityEvent.hpp */,
+				664C7A4D1E4D10EA0062E37A /* EventQueue.hpp */,
+			);
+			name = Entity;
+			sourceTree = "<group>";
+		};
+		664C7A4F1E4D11850062E37A /* Systems */ = {
+			isa = PBXGroup;
+			children = (
+				664C7A501E4D119F0062E37A /* S_Base.cpp */,
+				664C7A511E4D119F0062E37A /* S_Base.hpp */,
+				664C7A631E4D1A5A0062E37A /* SystemManager.cpp */,
+				664C7A641E4D1A5A0062E37A /* SystemManager.hpp */,
+			);
+			name = Systems;
+			sourceTree = "<group>";
+		};
+		664C7A531E4D15830062E37A /* Observer */ = {
+			isa = PBXGroup;
+			children = (
+				664C7A551E4D15940062E37A /* Observer.hpp */,
+				664C7A581E4D15C30062E37A /* Message.hpp */,
+				664C7A5B1E4D169E0062E37A /* Communicator.hpp */,
+				664C7A5E1E4D17C00062E37A /* MessageHandler.hpp */,
+				664C7A611E4D18660062E37A /* EntityMessage.hpp */,
+			);
+			name = Observer;
+			sourceTree = "<group>";
+		};
 		66CFE41E1E47C8B3009333F1 /* Console */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +206,8 @@
 		D614E6051C7E2F170017890C /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				664C7A4F1E4D11850062E37A /* Systems */,
+				664C7A3A1E4CF5240062E37A /* Components */,
 				666ED5471E4BB7680089474E /* json.hpp */,
 				66CFE41E1E47C8B3009333F1 /* Console */,
 				D6A0B6191C8E3BF600148032 /* Entity Manager */,
@@ -144,7 +215,7 @@
 				D6314CC01C8B991B002C041C /* Sprites */,
 				D635F07D1C87742E00F868BB /* Resource Management */,
 				D635F07C1C87741600F868BB /* Debug */,
-				D635F07B1C87740500F868BB /* Event Manager */,
+				D635F07B1C87740500F868BB /* Events */,
 				D6090D1A1C86179200947243 /* State Manager */,
 				D6842DDC1C7D161F00691541 /* Window.cpp */,
 				D6842DDD1C7D161F00691541 /* Window.hpp */,
@@ -172,13 +243,14 @@
 			name = Animations;
 			sourceTree = "<group>";
 		};
-		D635F07B1C87740500F868BB /* Event Manager */ = {
+		D635F07B1C87740500F868BB /* Events */ = {
 			isa = PBXGroup;
 			children = (
-				D6810F321C8376CD00A603C5 /* EventManager.cpp */,
-				D6810F331C8376CD00A603C5 /* EventManager.hpp */,
+				664C7A531E4D15830062E37A /* Observer */,
+				664C7A481E4D0CC50062E37A /* Entity */,
+				664C7A471E4D0CB70062E37A /* Input */,
 			);
-			name = "Event Manager";
+			name = Events;
 			sourceTree = "<group>";
 		};
 		D635F07C1C87741600F868BB /* Debug */ = {
@@ -254,8 +326,8 @@
 		D6A0B6191C8E3BF600148032 /* Entity Manager */ = {
 			isa = PBXGroup;
 			children = (
-				D68D9E361C9366E30094CF43 /* EntityManager.cpp */,
-				D68D9E371C9366E30094CF43 /* EntityManager.hpp */,
+				664C7A441E4D04FD0062E37A /* Entity_Manager.cpp */,
+				664C7A451E4D04FD0062E37A /* Entity_Manager.hpp */,
 			);
 			name = "Entity Manager";
 			sourceTree = "<group>";
@@ -396,6 +468,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				664C7A521E4D119F0062E37A /* S_Base.cpp in Sources */,
 				D67004F31C94C991003EE3F6 /* State_GameOver.cpp in Sources */,
 				D6C50BC91C7D152E00C2CCBC /* main.cpp in Sources */,
 				66CFE4211E47C8C4009333F1 /* Console.cpp in Sources */,
@@ -405,13 +478,14 @@
 				D6810F2B1C82157300A603C5 /* Textbox.cpp in Sources */,
 				D6090D1D1C8617BF00947243 /* StateManager.cpp in Sources */,
 				D6C50BC61C7D152E00C2CCBC /* ResourcePath.mm in Sources */,
+				664C7A651E4D1A5A0062E37A /* SystemManager.cpp in Sources */,
 				66FBE6641E4A1FFA00A9B8D5 /* ConsoleScrollbar.cpp in Sources */,
 				D6A0B6181C8E2BA400148032 /* Map.cpp in Sources */,
 				D6810F341C8376CD00A603C5 /* EventManager.cpp in Sources */,
 				D6314CC31C8B992B002C041C /* SpriteSheet.cpp in Sources */,
 				D635F0C81C8784E700F868BB /* State_Intro.cpp in Sources */,
-				D68D9E381C9366E30094CF43 /* EntityManager.cpp in Sources */,
 				D6C8D8C91C88E4030027F8DE /* State_Game.cpp in Sources */,
+				664C7A461E4D04FD0062E37A /* Entity_Manager.cpp in Sources */,
 				D633D3A71C8C4C450054C097 /* AnimBase.cpp in Sources */,
 				D6C8D8C61C88DB080027F8DE /* State_Menu.cpp in Sources */,
 				D6C8D8CC1C88E8AF0027F8DE /* State_Paused.cpp in Sources */,
