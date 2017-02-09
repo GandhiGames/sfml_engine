@@ -11,9 +11,6 @@
 
 #include <unordered_map>
 #include <functional>
-#include "EntityBase.hpp"
-#include "Player.hpp"
-#include "Enemy.hpp"
 
 using EntityContainer = std::unordered_map<unsigned int,EntityBase*>;
 using EntityFactory = std::unordered_map<EntityType, std::function<EntityBase*(void)>>;
