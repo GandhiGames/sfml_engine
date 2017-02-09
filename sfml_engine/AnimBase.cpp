@@ -9,18 +9,50 @@
 #include "AnimBase.hpp"
 #include "SpriteSheet.hpp"
 
-AnimBase::AnimBase(): m_frameCurrent(0), m_frameStart(0), m_frameEnd(0),
-m_frameRow(0), m_frameTime(0.f), m_elapsedTime(0.f), m_frameActionStart(-1),
+AnimBase::AnimBase(): m_frameCurrent(0), m_frameTime(0.f), m_elapsedTime(0.f), m_frameActionStart(-1),
 m_frameActionEnd(-1), m_loop(false), m_playing(false){}
 
 AnimBase::~AnimBase(){}
 
-void AnimBase::SetFrame(Frame l_frame){
+void AnimBase::SetFrames(const std::vector<Frame>& l_frames)
+{
+    m_frames = l_frames;
+}
+
+void AnimBase::SetFrame(int l_frame){
+    /*
     if((l_frame >= m_frameStart && l_frame <= m_frameEnd) ||
        (l_frame >= m_frameEnd && l_frame <= m_frameStart))
     {
         m_frameCurrent = l_frame;
     }
+     */
+}
+
+void AnimBase::FrameStep()
+{
+    /*
+     if (m_frameStart < m_frameEnd){ ++m_frameCurrent; }
+     else { --m_frameCurrent; }
+     
+     if ((m_frameStart < m_frameEnd && m_frameCurrent > m_frameEnd) ||
+     (m_frameStart > m_frameEnd && m_frameCurrent < m_frameEnd))
+     {
+     if (m_loop){ m_frameCurrent = m_frameStart; return; }
+     m_frameCurrent = m_frameEnd;
+     Pause();
+     }
+     */
+}
+
+void AnimBase::CropSprite()
+{
+    /*
+     sf::IntRect rect(m_spriteSheet->GetSpriteSize().x * m_frameCurrent,
+     m_spriteSheet->GetSpriteSize().y * (m_frameRow + (short)m_spriteSheet->GetDirection()),
+     m_spriteSheet->GetSpriteSize().x, m_spriteSheet->GetSpriteSize().y);
+     m_spriteSheet->CropSprite(rect);
+     */
 }
 
 bool AnimBase::IsInAction(){
@@ -29,9 +61,11 @@ bool AnimBase::IsInAction(){
 }
 
 void AnimBase::Reset(){
+    /*
     m_frameCurrent = m_frameStart;
     m_elapsedTime = 0.0f;
     CropSprite();
+     */
 }
 
 void AnimBase::Update(const float& l_dT){
@@ -48,20 +82,27 @@ void AnimBase::Pause(){ m_playing = false; }
 void AnimBase::Stop(){ m_playing = false; Reset(); }
 
 void AnimBase::SetSpriteSheet(SpriteSheet* l_sheet){ m_spriteSheet = l_sheet; }
+
+/*
 void AnimBase::SetStartFrame(Frame l_frame){ m_frameStart = l_frame; }
 void AnimBase::SetEndFrame(Frame l_frame){ m_frameEnd = l_frame; }
-void AnimBase::SetFrameRow(Frame l_row){ m_frameRow = l_row; }
-void AnimBase::SetActionStart(Frame l_frame){ m_frameActionStart = l_frame; }
-void AnimBase::SetActionEnd(Frame l_frame){ m_frameActionEnd = l_frame; }
+*/
+
+void AnimBase::SetActionStart(int l_frame){ m_frameActionStart = l_frame; }
+void AnimBase::SetActionEnd(int l_frame){ m_frameActionEnd = l_frame; }
 void AnimBase::SetFrameTime(float l_time){ m_frameTime = l_time; }
 void AnimBase::SetLooping(bool l_loop){ m_loop = l_loop; }
 void AnimBase::SetName(const std::string& l_name){ m_name = l_name; }
 
 SpriteSheet* AnimBase::GetSpriteSheet(){ return m_spriteSheet; }
-Frame AnimBase::GetFrame(){ return m_frameCurrent; }
+int AnimBase::GetFrame(){ return m_frameCurrent; }
+
+/*
 Frame AnimBase::GetStartFrame(){ return m_frameStart; }
 Frame AnimBase::GetEndFrame(){ return m_frameEnd; }
-Frame AnimBase::GetFrameRow(){ return m_frameRow; }
+ */
+
+
 int AnimBase::GetActionStart(){ return m_frameActionStart; }
 int AnimBase::GetActionEnd(){ return m_frameActionEnd; }
 float AnimBase::GetFrameTime(){ return m_frameTime; }

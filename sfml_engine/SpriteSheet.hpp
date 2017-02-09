@@ -14,8 +14,9 @@
 #include "TextureManager.hpp"
 #include <SFML/Graphics.hpp>
 #include "Direction.h"
-#include "AnimDirectional.hpp"
+#include "json.hpp"
 
+using json = nlohmann::json;
 
 class SpriteSheet {
 public:
@@ -43,6 +44,8 @@ public:
     void Draw(sf::RenderWindow &l_wnd);
     
 private:
+    void ParseJson(const std::string& l_path);
+    
     std::string m_texture;
     sf::Sprite m_sprite;
     sf::Vector2i m_spriteSize;

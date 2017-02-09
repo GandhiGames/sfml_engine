@@ -27,7 +27,6 @@
 		D68D9E3C1C9372BE0094CF43 /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D68D9E3A1C9372BE0094CF43 /* Character.cpp */; };
 		D68D9E401C938CC80094CF43 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D68D9E3E1C938CC80094CF43 /* Player.cpp */; };
 		D68D9E431C938F430094CF43 /* Enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D68D9E411C938F430094CF43 /* Enemy.cpp */; };
-		D6A0B6051C8E16C500148032 /* AnimDirectional.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6A0B6031C8E16C500148032 /* AnimDirectional.cpp */; };
 		D6A0B6111C8E1C8D00148032 /* media in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60D1C8E1C8D00148032 /* media */; };
 		D6A0B6121C8E1C8D00148032 /* textures.cfg in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60E1C8E1C8D00148032 /* textures.cfg */; };
 		D6A0B6131C8E1C8D00148032 /* tiles.cfg in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60F1C8E1C8D00148032 /* tiles.cfg */; };
@@ -89,8 +88,6 @@
 		D68D9E3F1C938CC80094CF43 /* Player.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Player.hpp; sourceTree = "<group>"; };
 		D68D9E411C938F430094CF43 /* Enemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Enemy.cpp; sourceTree = "<group>"; };
 		D68D9E421C938F430094CF43 /* Enemy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Enemy.hpp; sourceTree = "<group>"; };
-		D6A0B6031C8E16C500148032 /* AnimDirectional.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimDirectional.cpp; sourceTree = "<group>"; };
-		D6A0B6041C8E16C500148032 /* AnimDirectional.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AnimDirectional.hpp; sourceTree = "<group>"; };
 		D6A0B60D1C8E1C8D00148032 /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; path = media; sourceTree = "<group>"; };
 		D6A0B60E1C8E1C8D00148032 /* textures.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = textures.cfg; sourceTree = "<group>"; };
 		D6A0B60F1C8E1C8D00148032 /* tiles.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tiles.cfg; sourceTree = "<group>"; };
@@ -183,8 +180,6 @@
 			children = (
 				D633D3A51C8C4C450054C097 /* AnimBase.cpp */,
 				D633D3A61C8C4C450054C097 /* AnimBase.hpp */,
-				D6A0B6031C8E16C500148032 /* AnimDirectional.cpp */,
-				D6A0B6041C8E16C500148032 /* AnimDirectional.hpp */,
 			);
 			name = Animations;
 			sourceTree = "<group>";
@@ -421,7 +416,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6A0B6051C8E16C500148032 /* AnimDirectional.cpp in Sources */,
 				D67004F31C94C991003EE3F6 /* State_GameOver.cpp in Sources */,
 				D6C50BC91C7D152E00C2CCBC /* main.cpp in Sources */,
 				66CFE4211E47C8C4009333F1 /* Console.cpp in Sources */,

@@ -61,13 +61,6 @@ public:
         
         auto path = m_paths.find(l_id);
         
-        if(m_paths.size() > 0){
-                       std::cout << "retrieved:" << std::endl;
-            for ( auto it = m_paths.begin(); it != m_paths.end(); ++it ){
-                std::cout << it->first << " " << it->second << std::endl;
-            }
-        }
-        
         if (path == m_paths.end()){
             std::cout << "path not found: " << l_id << std::endl;
             return false;
@@ -141,13 +134,6 @@ private:
                 
             }
             paths.close();
-            
-            if(l_pathFile == "fonts.cfg"){
-                 std::cout << "added:" << std::endl;
-                for ( auto it = m_paths.begin(); it != m_paths.end(); ++it ){
-                    std::cout << it->first << " " << it->second << std::endl;
-                }
-            }
             
             return;
         }

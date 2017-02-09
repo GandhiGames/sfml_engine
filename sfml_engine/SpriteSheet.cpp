@@ -79,7 +79,7 @@ bool SpriteSheet::LoadSheet(const std::string& l_file){
             } else if(type == "AnimationType"){
                 keystream >> m_animType;
             } else if(type == "Animation"){
-                std::string name;
+                /*std::string name;
                 keystream >> name;
                 if (m_animations.find(name) != m_animations.end()){
                     std::cerr << "! Duplicate animation(" << name << ") in: " << l_file << std::endl;
@@ -102,6 +102,13 @@ bool SpriteSheet::LoadSheet(const std::string& l_file){
                 if (m_animationCurrent){ continue; }
                 m_animationCurrent = anim;
                 m_animationCurrent->Play();
+                 */
+            } else if(type == "Data"){
+                std::string dataPath;
+                
+                keystream >> dataPath;
+                
+                ParseJson(dataPath);
             }
         }
         sheet.close();
@@ -109,6 +116,70 @@ bool SpriteSheet::LoadSheet(const std::string& l_file){
     }
     std::cerr << "! Failed loading spritesheet: " << l_file << std::endl;
     return false;
+}
+
+void SpriteSheet::ParseJson(const std::string& l_path)
+{
+    std::cout << resourcePath() << l_path << std::endl;
+    
+    std::ifstream i(resourcePath() + l_path);
+    
+    if(i.is_open()){
+        json animData;
+        i >> animData;
+    
+      
+        
+        for(auto it : animData["animations"]){
+            
+            std::string animName = it["animName"];
+            int animCount = it["frameCount"].get<int>();
+            float frameTime = it["frameTime"].get<float>();
+            int actionStart = it["frameActionStart"].get<int>();
+            int actionEnd = it["frameActionEnd"].get<int>();
+            
+            std::vector<Frame> frames;
+            
+            for(auto frame : animData["frames"]){
+
+                
+                size_t fileNameFound = frame["fileName"].get<std::string>().find(animName);
+                
+                if(fileNameFound != std::string::npos){
+                    frames.emplace_back(sf::IntRect(frame["frame"]["x"], frame["frame"]["y"], frame["frame"]["w"], frame["frame"]["h"]));
+
+                }
+            }
+            
+            std::cout << animName << " " << std::to_string(frames.size()) << " " << animCount << std::endl;
+            
+            assert(frames.size() == animCount);
+            
+            //name
+            std::cout << animName << std::endl;
+            //int m_frameActionStart;
+            std::cout << actionStart << std::endl;
+            //int m_frameActionEnd;
+            std::cout << actionEnd << std::endl;
+            //float m_frameTime; // amount of time each frame takes to finish.
+            std::cout << frameTime << std::endl;
+            
+            //"frame": {"x":64,"y":0,"w":32,"h":32},
+            
+
+            
+            AnimBase* anim = new AnimBase();
+            anim->SetActionStart(actionStart);
+            anim->SetActionEnd(actionEnd);
+            anim->SetFrameTime(frameTime);
+            anim->SetFrames(frames);
+            
+            m_animations.emplace(animName, anim);
+        }
+    }
+    
+    
+    assert(m_animations.size() > 0);
 }
 
 bool SpriteSheet::SetAnimation(const std::string& l_name,

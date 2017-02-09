@@ -1,5 +1,5 @@
 Texture PlayerSprite
-Data PlayerSheet.json
+Data media/Textures/PlayerSheet.json
 Size 32 32
 Scale 1.0 1.0
 
