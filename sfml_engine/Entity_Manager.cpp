@@ -18,7 +18,7 @@ m_systems(l_sysMgr), m_textureManager(l_textureMgr)
     AddComponentType<C_State>(Component::State);
     AddComponentType<C_Movable>(Component::Movable);
     AddComponentType<C_Controller>(Component::Controller);
-     //AddComponentType<C_Collidable>(Component::Collidable);
+     AddComponentType<C_Collidable>(Component::Collidable);
 }
 
 EntityManager::~EntityManager(){ Purge(); }

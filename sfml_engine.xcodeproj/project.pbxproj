@@ -11,6 +11,7 @@
 		6600F5E41E509EED00EE2672 /* S_State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6600F5E21E509EED00EE2672 /* S_State.cpp */; };
 		6600F5EA1E50D8E600EE2672 /* S_Control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6600F5E81E50D8E600EE2672 /* S_Control.cpp */; };
 		6600F5ED1E510F6300EE2672 /* S_SheetAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6600F5EB1E510F6300EE2672 /* S_SheetAnimation.cpp */; };
+		6600F5F31E511A0D00EE2672 /* S_Collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6600F5F11E511A0D00EE2672 /* S_Collision.cpp */; };
 		664C7A461E4D04FD0062E37A /* Entity_Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664C7A441E4D04FD0062E37A /* Entity_Manager.cpp */; };
 		664C7A521E4D119F0062E37A /* S_Base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664C7A501E4D119F0062E37A /* S_Base.cpp */; };
 		664C7A651E4D1A5A0062E37A /* SystemManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664C7A631E4D1A5A0062E37A /* SystemManager.cpp */; };
@@ -55,6 +56,9 @@
 		6600F5E91E50D8E600EE2672 /* S_Control.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = S_Control.hpp; sourceTree = "<group>"; };
 		6600F5EB1E510F6300EE2672 /* S_SheetAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = S_SheetAnimation.cpp; sourceTree = "<group>"; };
 		6600F5EC1E510F6300EE2672 /* S_SheetAnimation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = S_SheetAnimation.hpp; sourceTree = "<group>"; };
+		6600F5EF1E51191B00EE2672 /* C_Collidable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = C_Collidable.hpp; sourceTree = "<group>"; };
+		6600F5F11E511A0D00EE2672 /* S_Collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = S_Collision.cpp; sourceTree = "<group>"; };
+		6600F5F21E511A0D00EE2672 /* S_Collision.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = S_Collision.hpp; sourceTree = "<group>"; };
 		664C7A3E1E4CF5DA0062E37A /* ECS_Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECS_Types.h; sourceTree = "<group>"; };
 		664C7A3F1E4CF6AB0062E37A /* C_Base.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C_Base.h; sourceTree = "<group>"; };
 		664C7A411E4D02120062E37A /* C_Position.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = C_Position.hpp; sourceTree = "<group>"; };
@@ -157,6 +161,7 @@
 				6600F5DA1E50987D00EE2672 /* C_Movable.hpp */,
 				6600F5E01E509E1300EE2672 /* C_State.hpp */,
 				6600F5E61E50D88000EE2672 /* C_Controller.hpp */,
+				6600F5EF1E51191B00EE2672 /* C_Collidable.hpp */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -196,6 +201,8 @@
 				6600F5E91E50D8E600EE2672 /* S_Control.hpp */,
 				6600F5EB1E510F6300EE2672 /* S_SheetAnimation.cpp */,
 				6600F5EC1E510F6300EE2672 /* S_SheetAnimation.hpp */,
+				6600F5F11E511A0D00EE2672 /* S_Collision.cpp */,
+				6600F5F21E511A0D00EE2672 /* S_Collision.hpp */,
 			);
 			name = Systems;
 			sourceTree = "<group>";
@@ -501,6 +508,7 @@
 				66CFE4211E47C8C4009333F1 /* Console.cpp in Sources */,
 				6600F5E41E509EED00EE2672 /* S_State.cpp in Sources */,
 				D6842DDE1C7D161F00691541 /* Window.cpp in Sources */,
+				6600F5F31E511A0D00EE2672 /* S_Collision.cpp in Sources */,
 				66BEB9251E48D92800654885 /* ConsoleCursor.cpp in Sources */,
 				66CFE4241E48788B009333F1 /* State_Console.cpp in Sources */,
 				D6810F2B1C82157300A603C5 /* Textbox.cpp in Sources */,

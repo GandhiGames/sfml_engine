@@ -13,6 +13,7 @@
 #include "Map.hpp"
 #include "EventManager.hpp"
 #include "S_Movement.hpp"
+#include "S_Collision.hpp"
 
 class State_Game : public BaseState{
 public:

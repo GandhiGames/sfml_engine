@@ -14,7 +14,7 @@
 #include "C_State.hpp"
 #include "C_Movable.hpp"
 #include "C_Controller.hpp"
-//#include "C_Collidable.hpp"
+#include "C_Collidable.hpp"
 #include "Bitmask.h"
 #include "TextureManager.hpp"
 #include <unordered_map>

@@ -36,7 +36,7 @@ void State_Game::OnCreate(){
     m_gameMap->LoadMap("media/Maps/map1.map");
     
     //EntityManager* entities = m_stateManager.GetContext().GetEntityManager();
-    //m_stateMgr->GetContext()->m_systemManager->GetSystem<S_Collision>(System::Collision)->SetMap(m_gameMap);
+    m_stateManager.GetContext().GetSystemManager()->GetSystem<S_Collision>(System::Collision)->SetMap(m_gameMap);
     m_stateManager.GetContext().GetSystemManager()->GetSystem<S_Movement>(System::Movement)->SetMap(m_gameMap);
     m_player = m_gameMap->GetPlayerId();
 }

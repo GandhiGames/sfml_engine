@@ -13,7 +13,7 @@
 #include "Window.hpp"
 #include "S_Renderer.hpp"
 #include "S_Movement.hpp"
-//#include "S_Collision.h"
+#include "S_Collision.hpp"
 #include "S_Control.hpp"
 #include "S_State.hpp"
 #include "S_SheetAnimation.hpp"
