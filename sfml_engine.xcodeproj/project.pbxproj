@@ -13,6 +13,7 @@
 		664C7A6E1E4E09900062E37A /* S_Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664C7A6C1E4E09900062E37A /* S_Renderer.cpp */; };
 		667D8BA51E4B68B900484517 /* fonts.cfg in Resources */ = {isa = PBXBuildFile; fileRef = 667D8BA41E4B68B900484517 /* fonts.cfg */; };
 		66A511E51E4B673600AC429A /* FontManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66A511E31E4B673600AC429A /* FontManager.cpp */; };
+		66B047121E508D2D00603AF0 /* tiles.cfg in Resources */ = {isa = PBXBuildFile; fileRef = 66B047111E508D2D00603AF0 /* tiles.cfg */; };
 		66BEB9251E48D92800654885 /* ConsoleCursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66BEB9231E48D92800654885 /* ConsoleCursor.cpp */; };
 		66CFE4211E47C8C4009333F1 /* Console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66CFE41F1E47C8C4009333F1 /* Console.cpp */; };
 		66CFE4241E48788B009333F1 /* State_Console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66CFE4221E48788B009333F1 /* State_Console.cpp */; };
@@ -29,7 +30,6 @@
 		D6842DDE1C7D161F00691541 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6842DDC1C7D161F00691541 /* Window.cpp */; };
 		D6A0B6111C8E1C8D00148032 /* media in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60D1C8E1C8D00148032 /* media */; };
 		D6A0B6121C8E1C8D00148032 /* textures.cfg in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60E1C8E1C8D00148032 /* textures.cfg */; };
-		D6A0B6131C8E1C8D00148032 /* tiles.cfg in Resources */ = {isa = PBXBuildFile; fileRef = D6A0B60F1C8E1C8D00148032 /* tiles.cfg */; };
 		D6A0B6181C8E2BA400148032 /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D6A0B6161C8E2BA400148032 /* Map.cpp */; };
 		D6B609F91C84FDD500E5B970 /* keys.cfg in Resources */ = {isa = PBXBuildFile; fileRef = D6B609F81C84FDD500E5B970 /* keys.cfg */; };
 		D6C50BC61C7D152E00C2CCBC /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = D6C50BC51C7D152E00C2CCBC /* ResourcePath.mm */; };
@@ -65,6 +65,7 @@
 		667D8BA41E4B68B900484517 /* fonts.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fonts.cfg; sourceTree = "<group>"; };
 		66A511E31E4B673600AC429A /* FontManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontManager.cpp; sourceTree = "<group>"; };
 		66A511E41E4B673600AC429A /* FontManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FontManager.hpp; sourceTree = "<group>"; };
+		66B047111E508D2D00603AF0 /* tiles.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = tiles.cfg; path = media/tiles.cfg; sourceTree = "<group>"; };
 		66BEB9231E48D92800654885 /* ConsoleCursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConsoleCursor.cpp; sourceTree = "<group>"; };
 		66BEB9241E48D92800654885 /* ConsoleCursor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConsoleCursor.hpp; sourceTree = "<group>"; };
 		66CFE41F1E47C8C4009333F1 /* Console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Console.cpp; sourceTree = "<group>"; };
@@ -102,7 +103,6 @@
 		D68D9E351C933EF70094CF43 /* DebugOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugOverlay.h; sourceTree = "<group>"; };
 		D6A0B60D1C8E1C8D00148032 /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; path = media; sourceTree = "<group>"; };
 		D6A0B60E1C8E1C8D00148032 /* textures.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = textures.cfg; sourceTree = "<group>"; };
-		D6A0B60F1C8E1C8D00148032 /* tiles.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tiles.cfg; sourceTree = "<group>"; };
 		D6A0B6161C8E2BA400148032 /* Map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Map.cpp; sourceTree = "<group>"; };
 		D6A0B6171C8E2BA400148032 /* Map.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Map.hpp; sourceTree = "<group>"; };
 		D6B609F81C84FDD500E5B970 /* keys.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = keys.cfg; sourceTree = "<group>"; };
@@ -308,19 +308,11 @@
 		D63A58271C7DBE9600EC1C97 /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				D68D9E391C9372AB0094CF43 /* Actors */,
 				D635F0C51C8784D400F868BB /* States */,
 				D63A58221C7D25AA00EC1C97 /* Game.cpp */,
 				D63A58231C7D25AA00EC1C97 /* Game.hpp */,
 			);
 			name = Game;
-			sourceTree = "<group>";
-		};
-		D68D9E391C9372AB0094CF43 /* Actors */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Actors;
 			sourceTree = "<group>";
 		};
 		D6A0B6151C8E1F3400148032 /* Map */ = {
@@ -383,7 +375,7 @@
 				D6A0B60D1C8E1C8D00148032 /* media */,
 				D6A0B60E1C8E1C8D00148032 /* textures.cfg */,
 				667D8BA41E4B68B900484517 /* fonts.cfg */,
-				D6A0B60F1C8E1C8D00148032 /* tiles.cfg */,
+				66B047111E508D2D00603AF0 /* tiles.cfg */,
 				D6B609F81C84FDD500E5B970 /* keys.cfg */,
 			);
 			name = Resources;
@@ -446,9 +438,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6A0B6131C8E1C8D00148032 /* tiles.cfg in Resources */,
 				D6A0B6111C8E1C8D00148032 /* media in Resources */,
 				667D8BA51E4B68B900484517 /* fonts.cfg in Resources */,
+				66B047121E508D2D00603AF0 /* tiles.cfg in Resources */,
 				D6B609F91C84FDD500E5B970 /* keys.cfg in Resources */,
 				D6A0B6121C8E1C8D00148032 /* textures.cfg in Resources */,
 			);
