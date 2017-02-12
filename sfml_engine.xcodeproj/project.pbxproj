@@ -10,6 +10,7 @@
 		6600F5DE1E50991800EE2672 /* S_Movement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6600F5DC1E50991800EE2672 /* S_Movement.cpp */; };
 		6600F5E41E509EED00EE2672 /* S_State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6600F5E21E509EED00EE2672 /* S_State.cpp */; };
 		6600F5EA1E50D8E600EE2672 /* S_Control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6600F5E81E50D8E600EE2672 /* S_Control.cpp */; };
+		6600F5ED1E510F6300EE2672 /* S_SheetAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6600F5EB1E510F6300EE2672 /* S_SheetAnimation.cpp */; };
 		664C7A461E4D04FD0062E37A /* Entity_Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664C7A441E4D04FD0062E37A /* Entity_Manager.cpp */; };
 		664C7A521E4D119F0062E37A /* S_Base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664C7A501E4D119F0062E37A /* S_Base.cpp */; };
 		664C7A651E4D1A5A0062E37A /* SystemManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664C7A631E4D1A5A0062E37A /* SystemManager.cpp */; };
@@ -52,6 +53,8 @@
 		6600F5E61E50D88000EE2672 /* C_Controller.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = C_Controller.hpp; sourceTree = "<group>"; };
 		6600F5E81E50D8E600EE2672 /* S_Control.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = S_Control.cpp; sourceTree = "<group>"; };
 		6600F5E91E50D8E600EE2672 /* S_Control.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = S_Control.hpp; sourceTree = "<group>"; };
+		6600F5EB1E510F6300EE2672 /* S_SheetAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = S_SheetAnimation.cpp; sourceTree = "<group>"; };
+		6600F5EC1E510F6300EE2672 /* S_SheetAnimation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = S_SheetAnimation.hpp; sourceTree = "<group>"; };
 		664C7A3E1E4CF5DA0062E37A /* ECS_Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECS_Types.h; sourceTree = "<group>"; };
 		664C7A3F1E4CF6AB0062E37A /* C_Base.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C_Base.h; sourceTree = "<group>"; };
 		664C7A411E4D02120062E37A /* C_Position.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = C_Position.hpp; sourceTree = "<group>"; };
@@ -191,6 +194,8 @@
 				6600F5E31E509EED00EE2672 /* S_State.hpp */,
 				6600F5E81E50D8E600EE2672 /* S_Control.cpp */,
 				6600F5E91E50D8E600EE2672 /* S_Control.hpp */,
+				6600F5EB1E510F6300EE2672 /* S_SheetAnimation.cpp */,
+				6600F5EC1E510F6300EE2672 /* S_SheetAnimation.hpp */,
 			);
 			name = Systems;
 			sourceTree = "<group>";
@@ -504,6 +509,7 @@
 				664C7A651E4D1A5A0062E37A /* SystemManager.cpp in Sources */,
 				66FBE6641E4A1FFA00A9B8D5 /* ConsoleScrollbar.cpp in Sources */,
 				D6A0B6181C8E2BA400148032 /* Map.cpp in Sources */,
+				6600F5ED1E510F6300EE2672 /* S_SheetAnimation.cpp in Sources */,
 				D6810F341C8376CD00A603C5 /* EventManager.cpp in Sources */,
 				6600F5DE1E50991800EE2672 /* S_Movement.cpp in Sources */,
 				D6314CC31C8B992B002C041C /* SpriteSheet.cpp in Sources */,

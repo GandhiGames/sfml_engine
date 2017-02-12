@@ -8,6 +8,8 @@
 
 #include "Game.hpp"
 
+//TODO: enable Apple VVLM optimization
+
 Game::Game():
     m_window("engine_test", sf::Vector2u(800, 600)),m_stateManager(m_context),
         m_entityManager(&m_systemManager, &m_textureManager),

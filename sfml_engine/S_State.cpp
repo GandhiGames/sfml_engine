@@ -69,10 +69,11 @@ void S_State::Notify(const Message& l_message){
         
         if(init){
             m_systemManager->AddEvent(l_message.m_receiver, (EventID)e);
+            ChangeState(l_message.m_receiver,EntityState::Walking,false);
         }
         
     }else if(m == EntityMessage::Switch_State){
-            ChangeState(l_message.m_receiver,
+        ChangeState(l_message.m_receiver,
                         (EntityState)l_message.m_int,false);
     }
 }

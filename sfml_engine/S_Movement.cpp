@@ -33,10 +33,10 @@ void S_Movement::Update(float l_dT){
         C_Position* position = entities->GetComponent<C_Position>(entity, Component::Position);
         C_Movable* movable = entities->GetComponent<C_Movable>(entity, Component::Movable);
         
-        if(movable->GetAcceleration() != sf::Vector2f(0.0f, 0.0f)){
-            MovementStep(l_dT, movable, position);
-            position->MoveBy(movable->GetVelocity() * l_dT);
-        }
+        
+        MovementStep(l_dT, movable, position);
+        position->MoveBy(movable->GetVelocity() * l_dT);
+        
     }
 }
 
@@ -70,6 +70,7 @@ void S_Movement::Notify(const Message& l_message){
     if(m == EntityMessage::Is_Moving){
         if (!HasEntity(l_message.m_receiver)){ return; }
         C_Movable* movable = eMgr->GetComponent<C_Movable>(l_message.m_receiver, Component::Movable);
+        
         if (movable->GetVelocity() != sf::Vector2f(0.0f, 0.0f)){ return; }
         m_systemManager->AddEvent(l_message.m_receiver,(EventID)EntityEvent::Became_Idle);
     }

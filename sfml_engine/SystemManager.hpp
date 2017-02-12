@@ -16,7 +16,7 @@
 //#include "S_Collision.h"
 #include "S_Control.hpp"
 #include "S_State.hpp"
-//#include "S_SheetAnimation.h"
+#include "S_SheetAnimation.hpp"
 #include "EventQueue.hpp"
 #include "MessageHandler.hpp"
 #include <unordered_map>
