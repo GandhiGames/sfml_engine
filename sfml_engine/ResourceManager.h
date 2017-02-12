@@ -36,7 +36,7 @@ public:
             delete m_resources.begin()->second.first;
             m_resources.erase(m_resources.begin());
         }
-        printf("Purging finished.");
+        printf("Purging finished.\n");
     }
     
     T* GetResource(const std::string &l_id)

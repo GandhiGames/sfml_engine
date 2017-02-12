@@ -7,34 +7,35 @@
 //
 
 #include "Textbox.hpp"
-#include <iostream>
+
 
 const sf::Vector2f Textbox::OFFSET = sf::Vector2f(2.0f, 2.0f);
 const sf::Vector2f Textbox::DEFAULT_POSITION = sf::Vector2f(0, 0);
 const sf::Color Textbox::DEFAULT_FONT_COLOUR = sf::Color::White;
 
-Textbox::Textbox(FontManager& l_fontManager)
+Textbox::Textbox(FontManager& l_fontManager) : m_fontManager(l_fontManager)
 {
-    Setup(DEFAULT_LINES_VISIBLE, DEFAULT_CHAR_SIZE, DEFAULT_WIDTH, DEFAULT_POSITION, l_fontManager);
+    Setup(DEFAULT_LINES_VISIBLE, DEFAULT_CHAR_SIZE, DEFAULT_WIDTH, DEFAULT_POSITION);
 }
 
-Textbox::Textbox(int l_visible, int l_charSize, int l_width, const sf::Vector2f & l_screenPos, FontManager& l_fontManager)
+Textbox::Textbox(int l_visible, int l_charSize, int l_width, const sf::Vector2f & l_screenPos, FontManager& l_fontManager) : m_fontManager(l_fontManager)
 {
-    Setup(l_visible, l_charSize, l_width, l_screenPos, l_fontManager);
+    Setup(l_visible, l_charSize, l_width, l_screenPos);
 }
 
 Textbox::~Textbox()
 {
+    m_fontManager.ReleaseResource("Default");
     Clear();
 }
 
 //TODO: create correct resource request for font.
-void Textbox::Setup(int l_visible, int l_charSize, int l_width, const sf::Vector2f &l_screenPos, FontManager& l_fontManager)
+void Textbox::Setup(int l_visible, int l_charSize, int l_width, const sf::Vector2f &l_screenPos)
 {
     m_numLinesVisible = l_visible;
     
-    if(l_fontManager.RequireResource("Default")){
-        m_content.setFont(*l_fontManager.GetResource("Default"));
+    if(m_fontManager.RequireResource("Default")){
+        m_content.setFont(*m_fontManager.GetResource("Default"));
     }
 
     m_content.setString(" ");

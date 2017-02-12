@@ -12,6 +12,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
+#include <iostream>
 #include "ResourcePath.hpp"
 #include "FontManager.hpp"
 
@@ -21,7 +22,7 @@ public:
     Textbox(int l_visible, int l_charSize, int l_width, const sf::Vector2f & l_screenPos, FontManager& l_fontManager);
     ~Textbox();
 
-    void Setup(int l_visible, int l_charSize, int l_width, const sf::Vector2f & l_screenPos, FontManager& l_fontManager);
+    void Setup(int l_visible, int l_charSize, int l_width, const sf::Vector2f & l_screenPos);
     
     void Add(std::string l_message);
     void Clear();
@@ -41,7 +42,7 @@ private:
     
     std::vector<std::string> m_messages;
     int m_numLinesVisible;
-    
+    FontManager& m_fontManager;
     sf::RectangleShape m_background;
     sf::Text m_content;
     sf::View m_view;
