@@ -9,7 +9,7 @@
 #ifndef Observer_hpp
 #define Observer_hpp
 
-#include "Message.h"
+#include "Message.hpp"
 
 class Observer{
 public:

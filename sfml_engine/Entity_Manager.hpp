@@ -10,7 +10,7 @@
 #define Entity_Manager_hpp
 
 #include "C_Position.hpp"
-#include "C_SpriteSheet.h"
+#include "C_SpriteSheet.hpp"
 /*#include "C_State.h"
  #include "C_Movable.h"
  #include "C_Controller.h"

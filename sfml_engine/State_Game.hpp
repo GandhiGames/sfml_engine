@@ -10,13 +10,12 @@
 #define State_Game_hpp
 
 #include "BaseState.h"
-#include "EventManager.hpp"
 #include "Map.hpp"
-#include "EntityBase.hpp"
+#include "EventManager.hpp"
 
-class State_Game : public BaseState {
+class State_Game : public BaseState{
 public:
-    State_Game(StateManager &l_stateManager);
+    State_Game(StateManager& l_stateManager);
     ~State_Game();
     
     void OnCreate();
@@ -27,15 +26,19 @@ public:
     
     void Update(const sf::Time& l_time);
     void Draw();
-
-    void MainMenu(EventDetails* l_detals);
-    void Pause(EventDetails* l_details);
-    void ToggleOverlay(EventDetails* l_details);
-    void OpenConsole(EventDetails* l_details);
-
     
+    void MainMenu(EventDetails* l_details);
+    void Pause(EventDetails* l_details);
+    void PlayerMove(EventDetails* l_details);
+    void OpenConsole(EventDetails* l_details);
+    
+    // Debug:
+    void ToggleOverlay(EventDetails* l_details);
 private:
+    void UpdateCamera();
+    
     Map* m_gameMap;
+    int m_player;
 };
 
 #endif /* State_Game_hpp */

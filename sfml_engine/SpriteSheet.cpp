@@ -8,7 +8,7 @@
 
 #include "SpriteSheet.hpp"
 
-SpriteSheet::SpriteSheet(TextureManager &l_textMgr)
+SpriteSheet::SpriteSheet(TextureManager* l_textMgr)
 :m_textureManager(l_textMgr), m_animationCurrent(nullptr),
 m_spriteScale(1.f, 1.f), m_direction(Direction::Right), m_spriteSize(sf::Vector2f(0, 0)){}
 
@@ -16,7 +16,7 @@ SpriteSheet::~SpriteSheet(){ ReleaseSheet(); }
 
 void SpriteSheet::ReleaseSheet()
 {
-    m_textureManager.ReleaseResource(m_texture);
+    m_textureManager->ReleaseResource(m_texture);
     m_animationCurrent = nullptr;
     while(m_animations.begin() != m_animations.end()){
         delete m_animations.begin()->second;
@@ -25,7 +25,7 @@ void SpriteSheet::ReleaseSheet()
 }
 
 
-const sf::Vector2i& SpriteSheet::GetSpriteSize()const{ return m_spriteSize; }
+const sf::Vector2u& SpriteSheet::GetSpriteSize()const{ return m_spriteSize; }
 
 
 sf::Vector2f SpriteSheet::GetSpritePosition()const{ return m_sprite.getPosition(); }
@@ -63,12 +63,12 @@ bool SpriteSheet::LoadSheet(const std::string& l_file)
                 }
                 std::string texture;
                 keystream >> texture;
-                if (!m_textureManager.RequireResource(texture)){
+                if (!m_textureManager->RequireResource(texture)){
                     std::cerr << "! Could not set up the texture: " << texture << std::endl;
                     continue;
                 }
                 m_texture = texture;
-                m_sprite.setTexture(*m_textureManager.GetResource(m_texture));
+                m_sprite.setTexture(*m_textureManager->GetResource(m_texture));
             } else if(type == "Data"){
                 std::string dataPath;
                 
@@ -107,7 +107,7 @@ void SpriteSheet::ParseJson(const std::string& l_path)
         // Set origin.
         int sizeX = animData["meta"]["spriteSize"]["w"];
         int sizeY = animData["meta"]["spriteSize"]["w"];
-        m_spriteSize = sf::Vector2i(sizeX, sizeY);
+        m_spriteSize = sf::Vector2u(sizeX, sizeY);
         m_sprite.setOrigin(sizeX * 0.5f, sizeY);
         
         // Get default direction.
@@ -192,7 +192,7 @@ void SpriteSheet::Update(const float& l_dT){
     m_animationCurrent->Update(l_dT);
 }
 
-void SpriteSheet::Draw(sf::RenderWindow &l_wnd)
+void SpriteSheet::Draw(sf::RenderWindow* l_wnd)
 {
-    l_wnd.draw(m_sprite);
+    l_wnd->draw(m_sprite);
 }

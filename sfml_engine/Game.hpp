@@ -13,9 +13,10 @@
 #include "EventManager.hpp"
 #include "StateManager.hpp"
 #include "SharedContext.h"
-#include "EntityManager.hpp"
+#include "Entity_Manager.hpp"
 #include "Textbox.hpp"
 #include "Console.hpp"
+#include "SystemManager.hpp"
 #include <iostream>
 
 class Game {
@@ -38,6 +39,7 @@ private:
     SharedContext m_context;
     Window m_window;
     EntityManager m_entityManager;
+    SystemManager m_systemManager;
     TextureManager m_textureManager;
     FontManager m_fontManager;
     StateManager m_stateManager;

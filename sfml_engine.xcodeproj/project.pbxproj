@@ -10,6 +10,7 @@
 		664C7A461E4D04FD0062E37A /* Entity_Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664C7A441E4D04FD0062E37A /* Entity_Manager.cpp */; };
 		664C7A521E4D119F0062E37A /* S_Base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664C7A501E4D119F0062E37A /* S_Base.cpp */; };
 		664C7A651E4D1A5A0062E37A /* SystemManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664C7A631E4D1A5A0062E37A /* SystemManager.cpp */; };
+		664C7A6E1E4E09900062E37A /* S_Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664C7A6C1E4E09900062E37A /* S_Renderer.cpp */; };
 		667D8BA51E4B68B900484517 /* fonts.cfg in Resources */ = {isa = PBXBuildFile; fileRef = 667D8BA41E4B68B900484517 /* fonts.cfg */; };
 		66A511E51E4B673600AC429A /* FontManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66A511E31E4B673600AC429A /* FontManager.cpp */; };
 		66BEB9251E48D92800654885 /* ConsoleCursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66BEB9231E48D92800654885 /* ConsoleCursor.cpp */; };
@@ -56,6 +57,10 @@
 		664C7A611E4D18660062E37A /* EntityMessage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EntityMessage.hpp; sourceTree = "<group>"; };
 		664C7A631E4D1A5A0062E37A /* SystemManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SystemManager.cpp; sourceTree = "<group>"; };
 		664C7A641E4D1A5A0062E37A /* SystemManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SystemManager.hpp; sourceTree = "<group>"; };
+		664C7A671E4E087F0062E37A /* C_Drawable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = C_Drawable.hpp; sourceTree = "<group>"; };
+		664C7A6A1E4E08E80062E37A /* C_Spritesheet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = C_Spritesheet.hpp; sourceTree = "<group>"; };
+		664C7A6C1E4E09900062E37A /* S_Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = S_Renderer.cpp; sourceTree = "<group>"; };
+		664C7A6D1E4E09900062E37A /* S_Renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = S_Renderer.hpp; sourceTree = "<group>"; };
 		666ED5471E4BB7680089474E /* json.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 		667D8BA41E4B68B900484517 /* fonts.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fonts.cfg; sourceTree = "<group>"; };
 		66A511E31E4B673600AC429A /* FontManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontManager.cpp; sourceTree = "<group>"; };
@@ -132,6 +137,8 @@
 				664C7A3F1E4CF6AB0062E37A /* C_Base.h */,
 				664C7A411E4D02120062E37A /* C_Position.hpp */,
 				664C7A431E4D037C0062E37A /* Bitmask.h */,
+				664C7A671E4E087F0062E37A /* C_Drawable.hpp */,
+				664C7A6A1E4E08E80062E37A /* C_Spritesheet.hpp */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -161,6 +168,8 @@
 				664C7A511E4D119F0062E37A /* S_Base.hpp */,
 				664C7A631E4D1A5A0062E37A /* SystemManager.cpp */,
 				664C7A641E4D1A5A0062E37A /* SystemManager.hpp */,
+				664C7A6C1E4E09900062E37A /* S_Renderer.cpp */,
+				664C7A6D1E4E09900062E37A /* S_Renderer.hpp */,
 			);
 			name = Systems;
 			sourceTree = "<group>";
@@ -486,6 +495,7 @@
 				D635F0C81C8784E700F868BB /* State_Intro.cpp in Sources */,
 				D6C8D8C91C88E4030027F8DE /* State_Game.cpp in Sources */,
 				664C7A461E4D04FD0062E37A /* Entity_Manager.cpp in Sources */,
+				664C7A6E1E4E09900062E37A /* S_Renderer.cpp in Sources */,
 				D633D3A71C8C4C450054C097 /* AnimBase.cpp in Sources */,
 				D6C8D8C61C88DB080027F8DE /* State_Menu.cpp in Sources */,
 				D6C8D8CC1C88E8AF0027F8DE /* State_Paused.cpp in Sources */,

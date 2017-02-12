@@ -7,7 +7,7 @@
 //
 
 #include "SystemManager.hpp"
-#include "Entity_Manager.h"
+#include "Entity_Manager.hpp"
 
 SystemManager::SystemManager(): m_entityManager(nullptr){
     /*m_systems[System::State] = new S_State(this);

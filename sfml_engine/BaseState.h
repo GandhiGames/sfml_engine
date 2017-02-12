@@ -51,7 +51,7 @@ public:
         return m_trancendent;
     }
     
-    StateManager &GetStateManager()
+    StateManager& GetStateManager()
     {
         return m_stateManager;
     }

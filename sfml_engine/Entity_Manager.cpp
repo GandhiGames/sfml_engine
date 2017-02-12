@@ -7,7 +7,7 @@
 //
 
 #include "Entity_Manager.hpp"
-#include "System_Manager.h"
+#include "SystemManager.hpp"
 
 EntityManager::EntityManager(SystemManager* l_sysMgr,
                              TextureManager* l_textureMgr): m_idCounter(0),

@@ -12,25 +12,19 @@
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
 #include <map>
-#include <array>
 #include <fstream>
 #include <sstream>
 #include "SharedContext.h"
-#include "BaseState.h"
 
-enum Sheet {
-    Tile_Size = 32, Sheet_Width = 256, Sheet_Height = 256
-};
-
+enum Sheet{ Tile_Size = 32, Sheet_Width = 256, Sheet_Height = 256, Num_Layers = 4 };
 using TileID = unsigned int;
 
-// flyweight pattern, holds everything about every tile type that is not unique.
 struct TileInfo{
-    TileInfo(SharedContext &l_context,
-             const std::string &l_texture = "", TileID l_id = 0)
+    TileInfo(SharedContext* l_context,
+             const std::string& l_texture = "", TileID l_id = 0)
     : m_context(l_context), m_id(0), m_deadly(false)
     {
-        TextureManager *tmgr = l_context.GetTextureManager();
+        TextureManager* tmgr = l_context->GetTextureManager();
         if (l_texture == ""){ m_id = l_id; return; }
         if (!tmgr->RequireResource(l_texture)){ return; }
         m_texture = l_texture;
@@ -38,13 +32,13 @@ struct TileInfo{
         m_sprite.setTexture(*tmgr->GetResource(m_texture));
         sf::IntRect tileBoundaries(m_id % (Sheet::Sheet_Width / Sheet::Tile_Size) * Sheet::Tile_Size,
                                    m_id / (Sheet::Sheet_Height / Sheet::Tile_Size) * Sheet::Tile_Size,
-                                   Sheet::Tile_Size,Sheet::Tile_Size);
+                                   Sheet::Tile_Size, Sheet::Tile_Size);
         m_sprite.setTextureRect(tileBoundaries);
     }
     
     ~TileInfo(){
         if (m_texture == ""){ return; }
-        m_context.GetTextureManager()->ReleaseResource(m_texture);
+        m_context->GetTextureManager()->ReleaseResource(m_texture);
     }
     
     sf::Sprite m_sprite;
@@ -54,60 +48,55 @@ struct TileInfo{
     sf::Vector2f m_friction;
     bool m_deadly;
     
-    SharedContext &m_context;
+    SharedContext* m_context;
     std::string m_texture;
-    
 };
 
-struct Tile {
-    TileInfo *m_properties;
-    bool m_warp; // is the tile a warp tile.
+struct Tile{
+    TileInfo* m_properties;
+    bool m_warp; // Is the tile a warp.
+    bool m_solid; // Is the tile a solid.
 };
 
-//TODO: change to std::array or std::vector when tile count known in advanced.
-using TileMap = std::unordered_map<TileID,Tile*>;
-using TileSet = std::unordered_map<TileID,TileInfo*>;
+using TileMap = std::unordered_map<TileID, Tile*>;
+using TileSet = std::unordered_map<TileID, TileInfo*>;
 
-class Map {
+class Map{
 public:
-    Map(SharedContext &l_context, BaseState &l_currentState);
+    Map(SharedContext* l_context);
     ~Map();
     
-    Tile* GetTile(unsigned int l_x, unsigned int l_y);
+    Tile* GetTile(unsigned int l_x, unsigned int l_y, unsigned int l_layer);
     TileInfo* GetDefaultTile();
     
-    float GetGravity()const;
     unsigned int GetTileSize()const;
-    const sf::Vector2u &GetMapSize()const;
-    const sf::Vector2f &GetPlayerStart()const;
+    const sf::Vector2u& GetMapSize()const;
+    const sf::Vector2f& GetPlayerStart()const;
+    int GetPlayerId()const;
     
-    void LoadMap(const std::string &l_path);
-    void LoadNext();
+    void LoadMap(const std::string& l_path);
     
     void Update(float l_dT);
-    void Draw();
-    
+    void Draw(unsigned int l_layer);
 private:
     // Method for converting 2D coordinates to 1D ints.
-    unsigned int ConvertCoords(unsigned int l_x, unsigned int l_y);
-    void LoadTiles(const std::string &l_path);
+    unsigned int ConvertCoords(unsigned int l_x, unsigned int l_y, unsigned int l_layer)const;
+    
+    void LoadTiles(const std::string& l_path);
+    
     void PurgeMap();
     void PurgeTileSet();
     
     TileSet m_tileSet;
     TileMap m_tileMap;
-    sf::Sprite m_background;
+    
     TileInfo m_defaultTile;
+    
     sf::Vector2u m_maxMapSize;
     sf::Vector2f m_playerStart;
+    int m_playerId;
     unsigned int m_tileCount;
     unsigned int m_tileSetCount;
-    float m_mapGravity;
-    std::string m_nextMap;
-    bool m_loadNextMap;
-    std::string m_backgroundTexture;
-    BaseState &m_currentState;
-    SharedContext &m_context;
+    SharedContext* m_context;
 };
-
 #endif /* Map_hpp */

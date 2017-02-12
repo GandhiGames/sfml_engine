@@ -14,7 +14,8 @@
 #include "EventManager.hpp"
 #include "TextureManager.hpp"
 #include "FontManager.hpp"
-#include "EntityManager.hpp"
+#include "Entity_Manager.hpp"
+#include "SystemManager.hpp"
 #include "DebugOverlay.h"
 #include "Textbox.hpp"
 
@@ -22,7 +23,7 @@ class Map;
 
 //TODO: pass by reference for all setter methods?
 struct SharedContext {
-    SharedContext():m_window(nullptr), m_eventManager(nullptr), m_textureManager(nullptr), m_fontManager(nullptr), m_entityManager(nullptr), m_map(nullptr), m_debugOverlay(nullptr), m_debugText(nullptr){}
+    SharedContext():m_window(nullptr), m_eventManager(nullptr), m_textureManager(nullptr), m_fontManager(nullptr), m_entityManager(nullptr), m_systemManager(nullptr), m_map(nullptr), m_debugOverlay(nullptr), m_debugText(nullptr){}
     
     Window *GetWindow()
     {
@@ -64,12 +65,12 @@ struct SharedContext {
         m_fontManager = l_fontManager;
     }
     
-    Map *GetMap()
+    Map* GetMap()
     {
         return m_map;
     }
     
-    void SetMap(Map *l_map)
+    void SetMap(Map* l_map)
     {
         m_map = l_map;
     }
@@ -79,9 +80,19 @@ struct SharedContext {
         return m_entityManager;
     }
     
-    void SetEntityManager(EntityManager *l_entityManager)
+    void SetEntityManager(EntityManager* l_entityManager)
     {
         m_entityManager = l_entityManager;
+    }
+    
+    SystemManager* GetSystemManager()
+    {
+        return m_systemManager;
+    }
+    
+    void SetSystemManager(SystemManager* l_systemManager)
+    {
+        m_systemManager = l_systemManager;
     }
     
     DebugOverlay *GetDebugOverlay()
@@ -110,6 +121,7 @@ private:
     TextureManager* m_textureManager;
     FontManager* m_fontManager;
     EntityManager* m_entityManager;
+    SystemManager* m_systemManager;
     Map* m_map;
     DebugOverlay* m_debugOverlay;
     Textbox* m_debugText;

@@ -22,6 +22,7 @@ void State_Console::OnCreate()
     m_console.Add("get_player", [this](std::vector<std::string> l) -> std::string{
         if(l[0] == "make"){
             
+            /*
             Character* player = (Character*)GetStateManager().GetContext().GetEntityManager()->Find("Player");
             
             if(player){
@@ -35,6 +36,7 @@ void State_Console::OnCreate()
             }else{
                 return "player not found";
             }
+             */
             
         }
         

@@ -9,6 +9,8 @@
 #ifndef C_Base_h
 #define C_Base_h
 
+#include <iostream>
+#include <sstream>
 #include "ECS_Types.h"
 
 class C_Base{

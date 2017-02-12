@@ -9,8 +9,8 @@
 #ifndef MessageHandler_hpp
 #define MessageHandler_hpp
 
-#include "Communicator.h"
-#include "EntityMessages.h"
+#include "Communicator.hpp"
+#include "EntityMessage.hpp"
 #include <unordered_map>
 
 using Subscribtions = std::unordered_map<EntityMessage,Communicator>;

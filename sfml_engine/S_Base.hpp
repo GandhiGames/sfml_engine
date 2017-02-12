@@ -12,9 +12,9 @@
 #include <vector>
 #include "Bitmask.h"
 #include "Entity_Manager.hpp"
-#include "Event_Queue.h"
-#include "EntityEvents.h"
-#include "Observer.h"
+#include "EventQueue.hpp"
+#include "EntityEvent.hpp"
+#include "Observer.hpp"
 #include "ECS_Types.h"
 
 using EntityList = std::vector<EntityId>;

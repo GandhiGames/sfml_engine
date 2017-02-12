@@ -20,11 +20,11 @@ using json = nlohmann::json;
 
 class SpriteSheet {
 public:
-    SpriteSheet(TextureManager& l_textManager);
+    SpriteSheet(TextureManager* l_textManager);
     ~SpriteSheet();
     
     void CropSprite(const sf::IntRect &l_rect);
-    const sf::Vector2i& GetSpriteSize() const;
+    const sf::Vector2u& GetSpriteSize() const;
     sf::Vector2f GetSpritePosition() const;
     //void SetSpriteSize(const sf::Vector2i &l_size);
     void SetSpritePosition(const sf::Vector2f &l_pos);
@@ -41,22 +41,22 @@ public:
                       const bool& l_loop = false);
     
     void Update(const float &l_dT);
-    void Draw(sf::RenderWindow &l_wnd);
+    void Draw(sf::RenderWindow* l_wnd);
     
 private:
     void ParseJson(const std::string& l_path);
     
     std::string m_texture;
     sf::Sprite m_sprite;
-    sf::Vector2i m_spriteSize;
+    sf::Vector2u m_spriteSize;
     sf::Vector2f m_spriteScale;
     Direction m_direction;
     
     //std::string m_animType;
     std::unordered_map<std::string, AnimBase*> m_animations;
-    AnimBase *m_animationCurrent;
+    AnimBase* m_animationCurrent;
     
-    TextureManager& m_textureManager;
+    TextureManager* m_textureManager;
 };
 
 #endif /* SpriteSheet_hpp */

@@ -7,7 +7,7 @@
 //
 
 #include "S_Base.hpp"
-#include "System_Manager.h"
+#include "SystemManager.hpp"
 
 S_Base::S_Base(const System& l_id, SystemManager* l_systemMgr)
 : m_id(l_id), m_systemManager(l_systemMgr){}
