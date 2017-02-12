@@ -11,10 +11,10 @@
 
 #include "C_Position.hpp"
 #include "C_SpriteSheet.hpp"
-/*#include "C_State.h"
- #include "C_Movable.h"
- #include "C_Controller.h"
- #include "C_Collidable.h"*/
+#include "C_State.hpp"
+#include "C_Movable.hpp"
+#include "C_Controller.hpp"
+//#include "C_Collidable.hpp"
 #include "Bitmask.h"
 #include "TextureManager.hpp"
 #include <unordered_map>

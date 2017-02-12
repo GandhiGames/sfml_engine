@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6600F5DE1E50991800EE2672 /* S_Movement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6600F5DC1E50991800EE2672 /* S_Movement.cpp */; };
 		6600F5E41E509EED00EE2672 /* S_State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6600F5E21E509EED00EE2672 /* S_State.cpp */; };
-		6600F5E71E50D88000EE2672 /* C_Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6600F5E51E50D88000EE2672 /* C_Controller.cpp */; };
 		6600F5EA1E50D8E600EE2672 /* S_Control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6600F5E81E50D8E600EE2672 /* S_Control.cpp */; };
 		664C7A461E4D04FD0062E37A /* Entity_Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664C7A441E4D04FD0062E37A /* Entity_Manager.cpp */; };
 		664C7A521E4D119F0062E37A /* S_Base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664C7A501E4D119F0062E37A /* S_Base.cpp */; };
@@ -50,7 +49,6 @@
 		6600F5E01E509E1300EE2672 /* C_State.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = C_State.hpp; sourceTree = "<group>"; };
 		6600F5E21E509EED00EE2672 /* S_State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = S_State.cpp; sourceTree = "<group>"; };
 		6600F5E31E509EED00EE2672 /* S_State.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = S_State.hpp; sourceTree = "<group>"; };
-		6600F5E51E50D88000EE2672 /* C_Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = C_Controller.cpp; sourceTree = "<group>"; };
 		6600F5E61E50D88000EE2672 /* C_Controller.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = C_Controller.hpp; sourceTree = "<group>"; };
 		6600F5E81E50D8E600EE2672 /* S_Control.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = S_Control.cpp; sourceTree = "<group>"; };
 		6600F5E91E50D8E600EE2672 /* S_Control.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = S_Control.hpp; sourceTree = "<group>"; };
@@ -155,7 +153,6 @@
 				664C7A6A1E4E08E80062E37A /* C_Spritesheet.hpp */,
 				6600F5DA1E50987D00EE2672 /* C_Movable.hpp */,
 				6600F5E01E509E1300EE2672 /* C_State.hpp */,
-				6600F5E51E50D88000EE2672 /* C_Controller.cpp */,
 				6600F5E61E50D88000EE2672 /* C_Controller.hpp */,
 			);
 			name = Components;
@@ -512,7 +509,6 @@
 				D6314CC31C8B992B002C041C /* SpriteSheet.cpp in Sources */,
 				D635F0C81C8784E700F868BB /* State_Intro.cpp in Sources */,
 				D6C8D8C91C88E4030027F8DE /* State_Game.cpp in Sources */,
-				6600F5E71E50D88000EE2672 /* C_Controller.cpp in Sources */,
 				664C7A461E4D04FD0062E37A /* Entity_Manager.cpp in Sources */,
 				664C7A6E1E4E09900062E37A /* S_Renderer.cpp in Sources */,
 				D633D3A71C8C4C450054C097 /* AnimBase.cpp in Sources */,
@@ -654,11 +650,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = "sfml_engine/sfml_engine-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "gandhigames.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
 			};
 			name = Debug;
 		};
@@ -666,11 +664,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = "sfml_engine/sfml_engine-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "gandhigames.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
 			};
 			name = Release;
 		};

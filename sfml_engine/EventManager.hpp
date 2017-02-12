@@ -9,6 +9,8 @@
 #ifndef EventManager_hpp
 #define EventManager_hpp
 
+#pragma clang diagnostic ignored "-Wswitch"
+
 #include <unordered_map>
 #include <functional>
 #include <fstream>

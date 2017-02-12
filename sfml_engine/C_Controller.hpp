@@ -9,6 +9,16 @@
 #ifndef C_Controller_hpp
 #define C_Controller_hpp
 
-#include <stdio.h>
+#include "C_Base.h"
+
+// Currently only used as a flag to show that the entity can be controlled.
+class C_Controller : public C_Base{
+public:
+    C_Controller() : C_Base(Component::Controller){}
+    void ReadIn(std::stringstream& l_stream){}
+private:
+    
+};
+
 
 #endif /* C_Controller_hpp */

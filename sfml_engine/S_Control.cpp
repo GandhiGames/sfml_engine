@@ -29,6 +29,7 @@ void S_Control::Update(float l_dT){}
 void S_Control::HandleEvent(const EntityId& l_entity,
                             const EntityEvent& l_event)
 {
+    
     switch(l_event){
         case EntityEvent::Moving_Left: MoveEntity(l_entity,Direction::Left); break;
         case EntityEvent::Moving_Right: MoveEntity(l_entity, Direction::Right); break;

@@ -46,25 +46,31 @@ void S_State::Notify(const Message& l_message){
     if (!HasEntity(l_message.m_receiver)){ return; }
     EntityMessage m = (EntityMessage)l_message.m_type;
     if(m == EntityMessage::Move){
-            C_State* state = m_systemManager->GetEntityManager()->
-            GetComponent<C_State>(l_message.m_receiver,Component::State);
-            
-            if (state->GetState() == EntityState::Dying){ return; }
-            
-            EntityEvent e = EntityEvent::None;
-            /*if (l_message.m_int == (int)Direction::Up){
-                e = EntityEvent::Moving_Up;
-            } else if (l_message.m_int == (int)Direction::Down){
-                e = EntityEvent::Moving_Down;
-            } else*/ if(l_message.m_int == (int)Direction::Left){
-                e = EntityEvent::Moving_Left;
-            } else if (l_message.m_int == (int)Direction::Right){
-                e = EntityEvent::Moving_Right;
-            }
-            if(e != EntityEvent::None){
-                m_systemManager->AddEvent(l_message.m_receiver, (EventID)e);
-                ChangeState(l_message.m_receiver,EntityState::Walking,false);
-            }
+        C_State* state = m_systemManager->GetEntityManager()->
+        GetComponent<C_State>(l_message.m_receiver,Component::State);
+        
+        if (state->GetState() == EntityState::Dying){ return; }
+        
+        EntityEvent e;
+        
+        bool init = false;
+        /*if (l_message.m_int == (int)Direction::Up){
+         e = EntityEvent::Moving_Up;
+         } else if (l_message.m_int == (int)Direction::Down){
+         e = EntityEvent::Moving_Down;
+         } else*/
+        if(l_message.m_int == (int)Direction::Left){
+             e = EntityEvent::Moving_Left;
+             init = true;
+         } else if (l_message.m_int == (int)Direction::Right){
+             e = EntityEvent::Moving_Right;
+             init = true;
+         }
+        
+        if(init){
+            m_systemManager->AddEvent(l_message.m_receiver, (EventID)e);
+        }
+        
     }else if(m == EntityMessage::Switch_State){
             ChangeState(l_message.m_receiver,
                         (EntityState)l_message.m_int,false);

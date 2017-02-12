@@ -32,7 +32,7 @@ public:
 private:
     void StopEntity(const EntityId& l_entity, const Axis& l_axis);
     void SetDirection(const EntityId& l_entity, const Direction& l_dir);
-    const sf::Vector2f& GetTileFriction(unsigned int l_elevation,
+    const sf::Vector2f& GetTileFriction(int l_elevation,
                                         unsigned int l_x, unsigned int l_y);
     void MovementStep(float l_dT, C_Movable* l_movable, C_Position* l_position);
     

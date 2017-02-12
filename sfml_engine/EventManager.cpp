@@ -50,22 +50,6 @@ void EventManager::Update()
                 case(EventType::Joystick) :
                     // Up for expansion.
                     break;
-                    
-                    // Ignored.
-                case EventType::KeyDown:
-                case EventType::KeyUp:
-                case EventType::MButtonDown:
-                case EventType::MButtonUp:
-                case EventType::MouseWheel:
-                case EventType::WindowResized:
-                case EventType::GainedFocus:
-                case EventType::LostFocus:
-                case EventType::MouseEntered:
-                case EventType::MouseLeft:
-                case EventType::Closed:
-                case EventType::TextEntered:
-                    break;
-
             }
         }
         

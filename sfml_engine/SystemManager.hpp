@@ -12,10 +12,10 @@
 #include <SFML/Graphics.hpp>
 #include "Window.hpp"
 #include "S_Renderer.hpp"
-//#include "S_Movement.h"
+#include "S_Movement.hpp"
 //#include "S_Collision.h"
-//#include "S_Control.h"
-//#include "S_State.h"
+#include "S_Control.hpp"
+#include "S_State.hpp"
 //#include "S_SheetAnimation.h"
 #include "EventQueue.hpp"
 #include "MessageHandler.hpp"

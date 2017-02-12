@@ -32,8 +32,11 @@ void S_Movement::Update(float l_dT){
     for(auto &entity : m_entities){
         C_Position* position = entities->GetComponent<C_Position>(entity, Component::Position);
         C_Movable* movable = entities->GetComponent<C_Movable>(entity, Component::Movable);
-        MovementStep(l_dT, movable, position);
-        position->MoveBy(movable->GetVelocity() * l_dT);
+        
+        if(movable->GetAcceleration() != sf::Vector2f(0.0f, 0.0f)){
+            MovementStep(l_dT, movable, position);
+            position->MoveBy(movable->GetVelocity() * l_dT);
+        }
     }
 }
 
@@ -65,49 +68,48 @@ void S_Movement::Notify(const Message& l_message){
     EntityMessage m = (EntityMessage)l_message.m_type;
     
     if(m == EntityMessage::Is_Moving){
-            if (!HasEntity(l_message.m_receiver)){ return; }
-            C_Movable* movable = eMgr->GetComponent<C_Movable>
-            (l_message.m_receiver, Component::Movable);
-            if (movable->GetVelocity() != sf::Vector2f(0.0f, 0.0f)){ return; }
-            m_systemManager->AddEvent(l_message.m_receiver,(EventID)EntityEvent::Became_Idle);
+        if (!HasEntity(l_message.m_receiver)){ return; }
+        C_Movable* movable = eMgr->GetComponent<C_Movable>(l_message.m_receiver, Component::Movable);
+        if (movable->GetVelocity() != sf::Vector2f(0.0f, 0.0f)){ return; }
+        m_systemManager->AddEvent(l_message.m_receiver,(EventID)EntityEvent::Became_Idle);
     }
 }
 
-const sf::Vector2f& S_Movement::GetTileFriction(unsigned int l_elevation,
-                                                unsigned int l_x, unsigned int l_y)
+// Return friction from top most tile.
+const sf::Vector2f& S_Movement::GetTileFriction(int l_elevation, unsigned int l_x, unsigned int l_y)
 {
     Tile* t = nullptr;
     
     do{
         t = m_gameMap->GetTile(l_x, l_y, l_elevation);
+        
+        if(t){
+            break;
+        }
+        
         --l_elevation;
-    }while (!t && l_elevation > 0);
+    }while (l_elevation >= 0);
     
     return(t ? t->m_properties->m_friction :
            m_gameMap->GetDefaultTile()->m_friction);
 }
 
 void S_Movement::MovementStep(float l_dT, C_Movable* l_movable, C_Position* l_position){
-    sf::Vector2f f_coefficient = GetTileFriction(l_position->GetElevation(),
-                                                 floor(l_position->GetPosition().x / Sheet::Tile_Size),
-                                                 floor(l_position->GetPosition().y / Sheet::Tile_Size));
+    sf::Vector2f f_coefficient = GetTileFriction(l_position->GetElevation(),floor(l_position->GetPosition().x / Sheet::Tile_Size), floor(l_position->GetPosition().y / Sheet::Tile_Size));
     
-    sf::Vector2f friction(l_movable->GetSpeed().x * f_coefficient.x,
-                          l_movable->GetSpeed().y * f_coefficient.y);
+    sf::Vector2f friction(l_movable->GetSpeed().x * f_coefficient.x, l_movable->GetSpeed().y * f_coefficient.y);
     
     l_movable->AddVelocity(l_movable->GetAcceleration() * l_dT);
     l_movable->SetAcceleration(sf::Vector2f(0.0f, 0.0f));
     l_movable->ApplyFriction(friction * l_dT);
     
-    float magnitude = sqrt(
-                           (l_movable->GetVelocity().x * l_movable->GetVelocity().x) +
-                           (l_movable->GetVelocity().y * l_movable->GetVelocity().y));
+    float magnitude = sqrt((l_movable->GetVelocity().x * l_movable->GetVelocity().x) + (l_movable->GetVelocity().y * l_movable->GetVelocity().y));
     
     if (magnitude <= l_movable->GetMaxVelocity()){ return; }
+   
     float max_V = l_movable->GetMaxVelocity();
-    l_movable->SetVelocity(sf::Vector2f(
-                                        (l_movable->GetVelocity().x / magnitude) * max_V,
-                                        (l_movable->GetVelocity().y / magnitude) * max_V));
+    
+    l_movable->SetVelocity(sf::Vector2f((l_movable->GetVelocity().x / magnitude) * max_V,(l_movable->GetVelocity().y / magnitude) * max_V));
 }
 
 void S_Movement::SetMap(Map* l_gameMap){ m_gameMap = l_gameMap; }
@@ -117,7 +119,7 @@ void S_Movement::StopEntity(const EntityId& l_entity,
 {
     C_Movable* movable = m_systemManager->GetEntityManager()->GetComponent<C_Movable>(l_entity,Component::Movable);
     if(l_axis == Axis::x){
-        movable->SetVelocity(sf::Vector2f(0.f, movable->GetVelocity().y));
+        movable->SetVelocity(sf::Vector2f(0.0f, movable->GetVelocity().y));
     } else if(l_axis == Axis::y){
         movable->SetVelocity(sf::Vector2f(movable->GetVelocity().x, 0.f));
     }

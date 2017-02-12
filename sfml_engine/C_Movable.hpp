@@ -73,10 +73,12 @@ public:
     
     void Move(const Direction& l_dir){
         /*if(l_dir == Direction::Up){
-            m_acceleration.y -= m_speed.y;
-        } else if (l_dir == Direction::Down){
-            m_acceleration.y += m_speed.y;
-        } else*/ if (l_dir == Direction::Left){
+         m_acceleration.y -= m_speed.y;
+         } else if (l_dir == Direction::Down){
+         m_acceleration.y += m_speed.y;
+         } else*/
+        
+        if (l_dir == Direction::Left){
             m_acceleration.x -= m_speed.x;
         } else if (l_dir == Direction::Right){
             m_acceleration.x += m_speed.x;

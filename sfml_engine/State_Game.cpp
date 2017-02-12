@@ -22,8 +22,8 @@ void State_Game::OnCreate(){
     evMgr->AddCallback(StateType::Game, "Key_O", &State_Game::ToggleOverlay, this);
     evMgr->AddCallback(StateType::Game, "Player_MoveLeft", &State_Game::PlayerMove, this);
     evMgr->AddCallback(StateType::Game, "Player_MoveRight", &State_Game::PlayerMove, this);
-    evMgr->AddCallback(StateType::Game, "Player_MoveUp", &State_Game::PlayerMove, this);
-    evMgr->AddCallback(StateType::Game, "Player_MoveDown", &State_Game::PlayerMove, this);
+    //evMgr->AddCallback(StateType::Game, "Player_MoveUp", &State_Game::PlayerMove, this);
+    //evMgr->AddCallback(StateType::Game, "Player_MoveDown", &State_Game::PlayerMove, this);
     evMgr->AddCallback(StateType::Game, "Key_Tilde", &State_Game::OpenConsole, this);
     
     sf::Vector2u size = m_stateManager.GetContext().GetWindow()->GetWindowSize();
@@ -109,6 +109,7 @@ void State_Game::Activate(){}
 void State_Game::Deactivate(){}
 
 void State_Game::PlayerMove(EventDetails* l_details){
+    
     Message msg((MessageType)EntityMessage::Move);
     if (l_details->GetName() == "Player_MoveLeft"){
         msg.m_int = (int)Direction::Left;
