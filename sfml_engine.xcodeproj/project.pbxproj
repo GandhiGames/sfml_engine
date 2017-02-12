@@ -59,6 +59,7 @@
 		6600F5EF1E51191B00EE2672 /* C_Collidable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = C_Collidable.hpp; sourceTree = "<group>"; };
 		6600F5F11E511A0D00EE2672 /* S_Collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = S_Collision.cpp; sourceTree = "<group>"; };
 		6600F5F21E511A0D00EE2672 /* S_Collision.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = S_Collision.hpp; sourceTree = "<group>"; };
+		6600F5F51E511FDA00EE2672 /* FPS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FPS.hpp; sourceTree = "<group>"; };
 		664C7A3E1E4CF5DA0062E37A /* ECS_Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECS_Types.h; sourceTree = "<group>"; };
 		664C7A3F1E4CF6AB0062E37A /* C_Base.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C_Base.h; sourceTree = "<group>"; };
 		664C7A411E4D02120062E37A /* C_Position.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = C_Position.hpp; sourceTree = "<group>"; };
@@ -301,6 +302,7 @@
 				D68D9E351C933EF70094CF43 /* DebugOverlay.h */,
 				D6810F291C82157300A603C5 /* Textbox.cpp */,
 				D6810F2A1C82157300A603C5 /* Textbox.hpp */,
+				6600F5F51E511FDA00EE2672 /* FPS.hpp */,
 			);
 			name = Debug;
 			sourceTree = "<group>";

@@ -30,6 +30,8 @@ Game::Game():
     m_context.SetDebugText(&m_debugText);
     
     m_stateManager.SwitchTo(StateType::Intro);
+    
+    GetWindow()->GetRenderWindow()->setFramerateLimit(120);
 }
 
 Game::~Game(){ }
@@ -54,9 +56,7 @@ void Game::Render(){
         m_context.GetDebugOverlay()->Draw(m_window.GetRenderWindow());
     }
     
-    if(m_context.GetDebugText()){
-        m_context.GetDebugText()->Render(m_window.GetRenderWindow());
-    }
+    m_context.GetDebugText()->Render(m_window.GetRenderWindow());
     
     m_window.EndDraw();
 }
@@ -64,4 +64,7 @@ void Game::Render(){
 void Game::LateUpdate(){
     m_stateManager.ProcessRequests();
     RestartClock();
+    
+    m_fps.Update();
+    m_debugText.Add(std::to_string(m_fps.getFPS()));
 }

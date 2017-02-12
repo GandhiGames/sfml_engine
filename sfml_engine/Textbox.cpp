@@ -61,6 +61,8 @@ void Textbox::Render(sf::RenderWindow* l_window)
         return;
     }
     
+    sf::View curView = l_window->getView();
+    
     l_window->setView(m_view);
     std::string l_content;
     
@@ -72,6 +74,7 @@ void Textbox::Render(sf::RenderWindow* l_window)
     l_window->draw(m_background);
     l_window->draw(m_content);
     
+    l_window->setView(curView);
     
 }
 
