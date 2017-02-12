@@ -38,8 +38,8 @@ void S_Renderer::Update(float l_dT){
 
 void S_Renderer::HandleEvent(const EntityId& l_entity, const EntityEvent& l_event)
 {
-    if (l_event == EntityEvent::Moving_Left || l_event == EntityEvent::Moving_Right ||
-        l_event == EntityEvent::Moving_Up || l_event == EntityEvent::Moving_Down ||
+    if (l_event == EntityEvent::Moving_Left || l_event == EntityEvent::Moving_Right /*||
+        l_event == EntityEvent::Moving_Up || l_event == EntityEvent::Moving_Down */||
         l_event == EntityEvent::Elevation_Change || l_event == EntityEvent::Spawned)
     {
         SortDrawables();
@@ -49,10 +49,8 @@ void S_Renderer::HandleEvent(const EntityId& l_entity, const EntityEvent& l_even
 void S_Renderer::Notify(const Message& l_message){
     if(HasEntity(l_message.m_receiver)){
         EntityMessage m = (EntityMessage)l_message.m_type;
-        switch(m){
-            case EntityMessage::Direction_Changed:
-                SetSheetDirection(l_message.m_receiver, (Direction)l_message.m_int);
-                break;
+        if(m == EntityMessage::Direction_Changed){
+            SetSheetDirection(l_message.m_receiver, (Direction)l_message.m_int);
         }
     }
 }

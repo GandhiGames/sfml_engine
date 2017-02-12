@@ -12,6 +12,7 @@
 #include "BaseState.h"
 #include "Map.hpp"
 #include "EventManager.hpp"
+#include "S_Movement.hpp"
 
 class State_Game : public BaseState{
 public:
