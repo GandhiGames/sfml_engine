@@ -47,6 +47,7 @@ public:
     void Pause();
     void Stop();
     void Reset();
+    void ForceUpdate();
     
     void SetAnimationDefaultDirection(const Direction& l_dir);
 

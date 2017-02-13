@@ -124,6 +124,7 @@ void AnimBase::Update(const float& l_dT){
 void AnimBase::Play(){ m_playing = true; }
 void AnimBase::Pause(){ m_playing = false; }
 void AnimBase::Stop(){ m_playing = false; Reset(); }
+void AnimBase::ForceUpdate(){ m_elapsedTime = m_frameTime; }
 
 void AnimBase::SetSpriteSheet(SpriteSheet* l_sheet){ m_spriteSheet = l_sheet; }
 

@@ -164,6 +164,7 @@ void SpriteSheet::ParseJson(const std::string& l_path)
             if (animName == defaultAnim){
                 m_animationCurrent = anim;
                 m_animationCurrent->Play();
+                m_animationCurrent->ForceUpdate();
             }
         }
         
