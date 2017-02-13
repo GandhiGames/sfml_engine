@@ -65,6 +65,6 @@ void Game::LateUpdate(){
     m_stateManager.ProcessRequests();
     RestartClock();
     
-    m_fps.Update();
-    m_debugText.Add(std::to_string(m_fps.getFPS()));
+    //m_fps.Update();
+    //m_debugText.Add(std::to_string(m_fps.getFPS()));
 }

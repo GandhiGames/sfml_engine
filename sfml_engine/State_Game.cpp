@@ -56,9 +56,10 @@ void State_Game::OnDestroy(){
 }
 
 void State_Game::Update(const sf::Time& l_time){
-    SharedContext* context = &m_stateManager.GetContext();
     UpdateCamera();
     m_gameMap->Update(l_time.asSeconds());
+    
+    SharedContext* context = &m_stateManager.GetContext();
     context->GetSystemManager()->Update(l_time.asSeconds());
 }
 

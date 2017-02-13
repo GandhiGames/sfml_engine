@@ -9,6 +9,9 @@
 #ifndef ECS_Types_h
 #define ECS_Types_h
 
+#include <iostream>
+#include <string>
+
 using ComponentType = unsigned int;
 
 #define N_COMPONENT_TYPES 32
@@ -20,6 +23,8 @@ enum class Component{
 enum class System{
     Renderer = 0, Movement, Collision, Control, State, SheetAnimation
 };
+
+
 
 
 

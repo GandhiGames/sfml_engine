@@ -19,8 +19,9 @@
 #include "S_SheetAnimation.hpp"
 #include "EventQueue.hpp"
 #include "MessageHandler.hpp"
+#include "Profiler.hpp"
 #include <unordered_map>
-#include "DebugOverlay.h"
+//#include "DebugOverlay.h"
 
 using SystemContainer = std::unordered_map<System,S_Base*>;
 using EntityEventContainer = std::unordered_map<EntityId,EventQueue>;
@@ -52,12 +53,13 @@ public:
     
     void PurgeEntities();
     void PurgeSystems();
-    DebugOverlay* m_debugOverlay;
+   // DebugOverlay* m_debugOverlay;
 private:
     SystemContainer m_systems;
     EntityManager* m_entityManager;
     EntityEventContainer m_events;
     MessageHandler m_messages;
+    Profiler m_profiler;
 };
 
 #endif /* SystemManager_hpp */

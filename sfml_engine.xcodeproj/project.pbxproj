@@ -18,6 +18,7 @@
 		664C7A6E1E4E09900062E37A /* S_Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 664C7A6C1E4E09900062E37A /* S_Renderer.cpp */; };
 		667D8BA51E4B68B900484517 /* fonts.cfg in Resources */ = {isa = PBXBuildFile; fileRef = 667D8BA41E4B68B900484517 /* fonts.cfg */; };
 		66A511E51E4B673600AC429A /* FontManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66A511E31E4B673600AC429A /* FontManager.cpp */; };
+		66A643A51E5131B400997956 /* Profiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66A643A31E5131B400997956 /* Profiler.cpp */; };
 		66B047121E508D2D00603AF0 /* tiles.cfg in Resources */ = {isa = PBXBuildFile; fileRef = 66B047111E508D2D00603AF0 /* tiles.cfg */; };
 		66BEB9251E48D92800654885 /* ConsoleCursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66BEB9231E48D92800654885 /* ConsoleCursor.cpp */; };
 		66CFE4211E47C8C4009333F1 /* Console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66CFE41F1E47C8C4009333F1 /* Console.cpp */; };
@@ -85,6 +86,8 @@
 		667D8BA41E4B68B900484517 /* fonts.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fonts.cfg; sourceTree = "<group>"; };
 		66A511E31E4B673600AC429A /* FontManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontManager.cpp; sourceTree = "<group>"; };
 		66A511E41E4B673600AC429A /* FontManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FontManager.hpp; sourceTree = "<group>"; };
+		66A643A31E5131B400997956 /* Profiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Profiler.cpp; sourceTree = "<group>"; };
+		66A643A41E5131B400997956 /* Profiler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Profiler.hpp; sourceTree = "<group>"; };
 		66B047111E508D2D00603AF0 /* tiles.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = tiles.cfg; path = media/tiles.cfg; sourceTree = "<group>"; };
 		66BEB9231E48D92800654885 /* ConsoleCursor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConsoleCursor.cpp; sourceTree = "<group>"; };
 		66BEB9241E48D92800654885 /* ConsoleCursor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConsoleCursor.hpp; sourceTree = "<group>"; };
@@ -220,6 +223,15 @@
 			name = Observer;
 			sourceTree = "<group>";
 		};
+		66C6ACC71E5126E800085A65 /* Profiling */ = {
+			isa = PBXGroup;
+			children = (
+				66A643A31E5131B400997956 /* Profiler.cpp */,
+				66A643A41E5131B400997956 /* Profiler.hpp */,
+			);
+			name = Profiling;
+			sourceTree = "<group>";
+		};
 		66CFE41E1E47C8B3009333F1 /* Console */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +261,7 @@
 		D614E6051C7E2F170017890C /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				66C6ACC71E5126E800085A65 /* Profiling */,
 				664C7A4F1E4D11850062E37A /* Systems */,
 				664C7A3A1E4CF5240062E37A /* Components */,
 				666ED5471E4BB7680089474E /* json.hpp */,
@@ -529,6 +542,7 @@
 				664C7A6E1E4E09900062E37A /* S_Renderer.cpp in Sources */,
 				D633D3A71C8C4C450054C097 /* AnimBase.cpp in Sources */,
 				D6C8D8C61C88DB080027F8DE /* State_Menu.cpp in Sources */,
+				66A643A51E5131B400997956 /* Profiler.cpp in Sources */,
 				D6C8D8CC1C88E8AF0027F8DE /* State_Paused.cpp in Sources */,
 				66A511E51E4B673600AC429A /* FontManager.cpp in Sources */,
 				D63A58241C7D25AA00EC1C97 /* Game.cpp in Sources */,
@@ -666,7 +680,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = "sfml_engine/sfml_engine-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
@@ -680,7 +694,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = "sfml_engine/sfml_engine-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
