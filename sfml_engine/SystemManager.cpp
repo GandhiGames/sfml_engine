@@ -40,12 +40,12 @@ void SystemManager::AddEvent(const EntityId& l_entity,
     m_events[l_entity].AddEvent(l_event);
 }
 
-//TODO:retrieve system name from enum.
+//TODO:retrieve system name from enum and print to window.
 void SystemManager::Update(float l_dT){
     for(auto &itr : m_systems){
-        m_profiler.Start();
+       // m_profiler.Start();
         itr.second->Update(l_dT);
-        std::cout << std::to_string(m_profiler.GetElapsed().asMilliseconds()) << std::endl;
+        //std::cout << std::to_string(m_profiler.GetElapsed().asMicroseconds()) << std::endl;
 
     }
     HandleEvents();

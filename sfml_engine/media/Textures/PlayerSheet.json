@@ -255,6 +255,7 @@
         "size": {"w":768,"h":32},
         "direction": "Right",
         "scale": 1,
+        "default": "Idle",
         "smartupdate": "$TexturePacker:SmartUpdate:a7902586e8b40c383e676958699a593a:34479cd83bb45f0e3395b1c5e66656a2:86d5339b780aedd87b35e2b7c0a7e11b$"
     }
 }

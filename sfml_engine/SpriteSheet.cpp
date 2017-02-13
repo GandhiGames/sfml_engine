@@ -99,8 +99,14 @@ void SpriteSheet::ParseJson(const std::string& l_path)
         json animData;
         i >> animData;
         
+        // Get default animation name.
+        std::string defaultAnim = animData["meta"]["default"];
+        
+        assert(defaultAnim.size() > 0);
+        
         // Set scale.
         float s = animData["meta"]["scale"].get<float>();
+        assert(s != 0);
         m_spriteScale = sf::Vector2f(s, s);
         m_sprite.setScale(m_spriteScale);
         
@@ -155,7 +161,7 @@ void SpriteSheet::ParseJson(const std::string& l_path)
             
             m_animations.emplace(animName, anim);
             
-            if (!m_animationCurrent){
+            if (animName == defaultAnim){
                 m_animationCurrent = anim;
                 m_animationCurrent->Play();
             }
