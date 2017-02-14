@@ -75,14 +75,6 @@ int EntityManager::AddEntity(const std::string& l_entityFile){
                 sheet->Create(m_textureManager);
             }
             
-            switch (component->GetType()) {
-                case Component::Collidable:
-                    std::cout << "Adding collidable component" << std::endl;
-                    break;
-                    
-                default:
-                    break;
-            }
         }
     }
     file.close();

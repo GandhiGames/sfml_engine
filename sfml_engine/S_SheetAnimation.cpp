@@ -26,7 +26,7 @@ void S_SheetAnimation::Update(float l_dT){
     EntityManager* entities = m_systemManager->GetEntityManager();
     for(auto &entity : m_entities){
         C_SpriteSheet* sheet = entities->GetComponent<C_SpriteSheet>(entity, Component::SpriteSheet);
-        C_State* state = entities->GetComponent<C_State>(entity, Component::State);
+        //C_State* state = entities->GetComponent<C_State>(entity, Component::State);
         
         sheet->GetSpriteSheet()->Update(l_dT);
         
