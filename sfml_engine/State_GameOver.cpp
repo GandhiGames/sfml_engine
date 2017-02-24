@@ -31,7 +31,7 @@ void State_GameOver::OnCreate(){
     m_text.setFillColor(sf::Color::Black);
     m_text.setPosition(400, 300);
     
-    m_stateManager.Remove(StateType::Game);
+    GetStateManager().Remove(StateType::Game);
 }
 
 void State_GameOver::OnDestroy()
@@ -45,12 +45,12 @@ void State_GameOver::Deactivate(){}
 void State_GameOver::Update(const sf::Time& l_time){
     m_elapsed += l_time.asSeconds();
     if(m_elapsed >= 5.0f){
-        m_stateManager.Remove(StateType::GameOver);
-        m_stateManager.SwitchTo(StateType::MainMenu);
+        GetStateManager().Remove(StateType::GameOver);
+        GetStateManager().SwitchTo(StateType::MainMenu);
     }
 }
 
 void State_GameOver::Draw(){
-    sf::RenderWindow* window = m_stateManager.GetContext().GetWindow()->GetRenderWindow();
+    sf::RenderWindow* window = GetStateManager().GetContext().GetWindow()->GetRenderWindow();
     window->draw(m_text);
 }

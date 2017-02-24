@@ -30,7 +30,7 @@ void State_Menu::OnCreate()
     m_text.setOrigin(textRect.left + textRect.width / 2.0f,
                      textRect.top + textRect.height / 2.0f);
     
-    const sf::Vector2u& windSize = m_stateManager.GetContext().GetWindow()->GetRenderWindow()->getSize();
+    const sf::Vector2u& windSize = GetStateManager().GetContext().GetWindow()->GetRenderWindow()->getSize();
     
     m_text.setPosition(windSize.x * 0.5, 100);
     m_text.setFillColor(sf::Color::Black);
@@ -87,7 +87,7 @@ void State_Menu::OnDestroy()
 
 void State_Menu::Activate()
 {
-    if (m_stateManager.HasState(StateType::Game)
+    if (GetStateManager().HasState(StateType::Game)
         && m_labels[0].getString() != "RESUME")
     {
         m_labels[0].setString(sf::String("RESUME"));
@@ -128,11 +128,11 @@ void State_Menu::MenuSelectionDown(EventDetails* l_details)
 void State_Menu::ValidateSelection(EventDetails* l_details)
 {
     if(m_selectedIndex == 0) {
-        m_stateManager.SwitchTo(StateType::Game);
+        GetStateManager().SwitchTo(StateType::Game);
     } else if (m_selectedIndex == 1) {
         // Load info.
     } else if (m_selectedIndex == 2) {
-        m_stateManager.GetContext().GetWindow()->Close();
+        GetStateManager().GetContext().GetWindow()->Close();
     }
 }
 

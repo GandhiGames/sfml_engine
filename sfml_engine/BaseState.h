@@ -16,7 +16,7 @@
 class StateManager;
 
 class BaseState {
-    friend class StateManager;
+    //friend class StateManager;
     
 public:
     BaseState(StateManager& l_stateManager):m_stateManager(l_stateManager), m_transparent(false), m_trancendent(false){};
@@ -31,37 +31,38 @@ public:
     virtual void Update(const sf::Time &l_time) = 0;
     virtual void Draw() = 0;
     
-    void SetTransparent(const bool &l_transparent)
-    {
-        m_transparent = l_transparent;
-    }
-    
     const bool& IsTransparent() const
     {
         return m_transparent;
+    }
+    
+    const bool& IsTrancendent() const
+    {
+        return m_trancendent;
+    }
+    
+    sf::View& GetView()
+    {
+        return m_view;
+    }
+
+protected:
+    void SetTransparent(const bool &l_transparent)
+    {
+        m_transparent = l_transparent;
     }
     
     void SetTrancendent(const bool &l_trancendent)
     {
         m_trancendent = l_trancendent;
     }
-    
-    const bool &IsTrancendent() const
-    {
-        return m_trancendent;
-    }
-    
+
     StateManager& GetStateManager()
     {
         return m_stateManager;
     }
-    
-    sf::View &GetView()
-    {
-        return m_view;
-    }
 
-protected:
+private:
     StateManager& m_stateManager;
     sf::View m_view;
     bool m_transparent;

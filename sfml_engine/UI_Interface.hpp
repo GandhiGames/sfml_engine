@@ -24,17 +24,17 @@ class UI_Interface : public UI_Element{
     friend class GUI_Element;
     friend class GUI_Manager;
 public:
-    GUI_Interface(const std::string& l_name, GUI_Manager* l_guiManager);
-    ~GUI_Interface();
+    UI_Interface(const std::string& l_name, UI_Manager* l_guiManager);
+    ~UI_Interface();
     
     void SetPosition(const sf::Vector2f& l_pos);
     
-    bool AddElement(const GUI_ElementType& l_type, const std::string& l_name);
-    GUI_Element* GetElement(const std::string& l_name) const;
+    bool AddElement(const UI_ElementType& l_type, const std::string& l_name);
+    UI_Element* GetElement(const std::string& l_name) const;
     bool RemoveElement(const std::string& l_name);
     
     bool HasParent() const;
-    GUI_Manager* GetManager() const;
+    UI_Manager* GetManager() const;
     
     bool IsInside(const sf::Vector2f& l_point) const;
     
@@ -79,8 +79,8 @@ private:
     Elements m_elements;
     sf::Vector2f m_elementPadding;
     
-    GUI_Interface* m_parent;
-    GUI_Manager* m_guiManager;
+    UI_Interface* m_parent;
+    UI_Manager* m_guiManager;
     
     sf::RenderTexture* m_backdropTexture;
     sf::Sprite m_backdrop;
@@ -94,7 +94,7 @@ private:
     bool m_focused;
     
     // Variable size.
-    void AdjustContentSize(const GUI_Element* l_reference = nullptr);
+    void AdjustContentSize(const UI_Element* l_reference = nullptr);
     void SetContentSize(const sf::Vector2f& l_vec);
     sf::RenderTexture* m_contentTexture;
     sf::Sprite m_content;

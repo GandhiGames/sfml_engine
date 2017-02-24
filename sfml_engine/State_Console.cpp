@@ -44,7 +44,7 @@ void State_Console::OnCreate()
         
     }, 2, 2, "make 'jump' 'attack'");
 
-    EventManager* evMgr = m_stateManager.GetContext().GetEventManager();
+    EventManager* evMgr = GetStateManager().GetContext().GetEventManager();
     evMgr->AddCallback(StateType::Console, "Key_Tilde", &State_Console::Close, this);
     evMgr->AddCallback(StateType::Console, "Text_Entered", &Console::HandleTextInput, &m_console);
     evMgr->AddCallback(StateType::Console, "Key_Return", &Console::ValidateInput, &m_console);
@@ -60,7 +60,7 @@ void State_Console::OnCreate()
 
 void State_Console::OnDestroy()
 {
-    EventManager* evMgr = m_stateManager.GetContext().GetEventManager();
+    EventManager* evMgr = GetStateManager().GetContext().GetEventManager();
     evMgr->RemoveCallback(StateType::Console, "Key_Tilde");
     evMgr->RemoveCallback(StateType::Console, "Text_Entered");
     evMgr->RemoveCallback(StateType::Console, "Key_Return");
@@ -97,13 +97,13 @@ void State_Console::Update(const sf::Time& l_time)
     m_console.Update(l_time.asSeconds());
     
     if(!m_console.IsOpen()){
-        m_stateManager.SwitchTo(StateType::Game);
+        GetStateManager().SwitchTo(StateType::Game);
     }
 }
 
 void State_Console::Draw()
 {
-    m_console.Draw(m_stateManager.GetContext().GetWindow()->GetRenderWindow());
+    m_console.Draw(GetStateManager().GetContext().GetWindow()->GetRenderWindow());
 }
 
 void State_Console::OpenHalf()

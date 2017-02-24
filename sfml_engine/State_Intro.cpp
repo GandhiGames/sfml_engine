@@ -15,10 +15,10 @@ State_Intro::~State_Intro(){}
 
 void State_Intro::OnCreate()
 {
-    sf::Vector2u windowSize = m_stateManager.GetContext()
+    sf::Vector2u windowSize = GetStateManager().GetContext()
     .GetWindow()->GetRenderWindow()->getSize();
     
-    TextureManager* textureMgr = m_stateManager.GetContext().GetTextureManager();
+    TextureManager* textureMgr = GetStateManager().GetContext().GetTextureManager();
     
     textureMgr->RequireResource("Intro");
     sf::Texture* introSprite = textureMgr->GetResource("Intro");
@@ -49,7 +49,7 @@ void State_Intro::OnCreate()
 
 void State_Intro::OnDestroy()
 {
-    m_stateManager.GetContext().GetTextureManager()->ReleaseResource("Intro");
+    GetStateManager().GetContext().GetTextureManager()->ReleaseResource("Intro");
     
     GetStateManager().GetContext().GetEventManager()->RemoveCallback(StateType::Intro, "Intro_continue");
     
@@ -58,7 +58,7 @@ void State_Intro::OnDestroy()
 
 void State_Intro::Draw()
 {
-    sf::RenderWindow* window = m_stateManager.
+    sf::RenderWindow* window = GetStateManager().
     GetContext().GetWindow()->GetRenderWindow();
     
     window->draw(m_introSprite);

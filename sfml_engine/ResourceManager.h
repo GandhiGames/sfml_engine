@@ -113,8 +113,6 @@ private:
     {
         std::ifstream paths;
         paths.open(resourcePath() + l_pathFile);
-        
-      
     
         if(paths.is_open()){
             std::string line;
