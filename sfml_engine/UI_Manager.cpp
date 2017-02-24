@@ -12,9 +12,9 @@
 UI_Manager::UI_Manager(EventManager* l_evMgr, SharedContext* l_shared)
 : m_eventMgr(l_evMgr), m_context(l_shared), m_currentState(StateType(0))
 {
-    RegisterElement<UI_Label>(GUI_ElementType::Label);
-    RegisterElement<UI_Scrollbar>(GUI_ElementType::Scrollbar);
-    RegisterElement<UI_Textfield>(GUI_ElementType::Textfield);
+    RegisterElement<UI_Label>(UI_ElementType::Label);
+    RegisterElement<UI_Scrollbar>(UI_ElementType::Scrollbar);
+    RegisterElement<UI_Textfield>(UI_ElementType::Textfield);
     m_elemTypes.emplace("Label", UI_ElementType::Label);
     m_elemTypes.emplace("Button", UI_ElementType::Button);
     m_elemTypes.emplace("Scrollbar", UI_ElementType::Scrollbar);
@@ -108,7 +108,7 @@ void UI_Manager::HandleTextEntered(EventDetails* l_details){
     for (auto &itr : state->second){
         if (!itr.second->IsActive()){ continue; }
         if (!itr.second->IsFocused()){ continue; }
-        itr.second->OnTextEntered(l_details->m_textEntered);
+        itr.second->OnTextEntered(l_details->GetTextEntered());
         return;
     }
 }
@@ -196,7 +196,7 @@ bool UI_Manager::LoadInterface(const StateType& l_state,
                 std::cout << "Failed adding interface: " << l_name << std::endl;
                 return false;
             }
-            GUI_Interface* i = GetInterface(l_state, l_name);
+            UI_Interface* i = GetInterface(l_state, l_name);
             keystream >> *i;
             if (!LoadStyle(style, i)){
                 std::cout << "Failed loading style file: " << style << " for interface " << l_name << std::endl;
@@ -212,16 +212,16 @@ bool UI_Manager::LoadInterface(const StateType& l_state,
             sf::Vector2f position;
             std::string style;
             keystream >> type >> name >> position.x >> position.y >> style;
-            GUI_ElementType eType = StringToType(type);
-            if (eType == GUI_ElementType::None){
+            UI_ElementType eType = StringToType(type);
+            if (eType == UI_ElementType::None){
                 std::cout << "Unknown element('" << name << "') type: '" << type << "'" << std::endl;
                 continue;
             }
             
-            GUI_Interface* i = GetInterface(l_state, l_name);
+            UI_Interface* i = GetInterface(l_state, l_name);
             if (!i){ continue; }
             if (!i->AddElement(eType, name)){ continue; }
-            GUI_Element* e = i->GetElement(name);
+            UI_Element* e = i->GetElement(name);
             keystream >> *e;
             e->SetPosition(position);
             if (!LoadStyle(style, e)){
@@ -233,13 +233,13 @@ bool UI_Manager::LoadInterface(const StateType& l_state,
     file.close();
     return true;
 }
-bool UI_Manager::LoadStyle(const std::string& l_file, GUI_Element* l_element){
+bool UI_Manager::LoadStyle(const std::string& l_file, UI_Element* l_element){
     std::ifstream file;
-    file.open(Utils::GetWorkingDirectory() + "media/GUI_Styles/" + l_file);
+    file.open(resourcePath() + "media/GUI_Styles/" + l_file);
     
     std::string currentState;
-    GUI_Style ParentStyle;
-    GUI_Style TemporaryStyle;
+    UI_Style ParentStyle;
+    UI_Style TemporaryStyle;
     if (!file.is_open()){
         std::cout << "! Failed to load: " << l_file << std::endl;
         return false;
@@ -262,15 +262,15 @@ bool UI_Manager::LoadStyle(const std::string& l_file, GUI_Element* l_element){
                 std::cout << "Error: '/State' keyword found prior to 'State'!" << std::endl;
                 continue;
             }
-            GUI_ElementState state = GUI_ElementState::Neutral;
-            if (currentState == "Hover"){ state = GUI_ElementState::Focused; }
-            else if (currentState == "Clicked"){ state = GUI_ElementState::Clicked; }
+            UI_ElementState state = UI_ElementState::Neutral;
+            if (currentState == "Hover"){ state = UI_ElementState::Focused; }
+            else if (currentState == "Clicked"){ state = UI_ElementState::Clicked; }
             
-            if (state == GUI_ElementState::Neutral){
+            if (state == UI_ElementState::Neutral){
                 ParentStyle = TemporaryStyle;
-                l_element->UpdateStyle(GUI_ElementState::Neutral, TemporaryStyle);
-                l_element->UpdateStyle(GUI_ElementState::Focused, TemporaryStyle);
-                l_element->UpdateStyle(GUI_ElementState::Clicked, TemporaryStyle);
+                l_element->UpdateStyle(UI_ElementState::Neutral, TemporaryStyle);
+                l_element->UpdateStyle(UI_ElementState::Focused, TemporaryStyle);
+                l_element->UpdateStyle(UI_ElementState::Clicked, TemporaryStyle);
             } else {
                 l_element->UpdateStyle(state, TemporaryStyle);
             }
@@ -325,5 +325,5 @@ bool UI_Manager::LoadStyle(const std::string& l_file, GUI_Element* l_element){
 
 UI_ElementType UI_Manager::StringToType(const std::string& l_string){
     auto t = m_elemTypes.find(l_string);
-    return (t != m_elemTypes.end() ? t->second : GUI_ElementType::None);
+    return (t != m_elemTypes.end() ? t->second : UI_ElementType::None);
 }

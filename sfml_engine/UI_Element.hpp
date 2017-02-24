@@ -17,7 +17,7 @@
 #include "UI_Style.h"
 #include <sstream>
 
-enum class UI_ElementType{ Window, Label, Button, Scrollbar, Textfield };
+enum class UI_ElementType{ None = -1, Window, Label, Button, Scrollbar, Textfield };
 
 using ElementStyles = std::unordered_map<UI_ElementState, UI_Style>;
 

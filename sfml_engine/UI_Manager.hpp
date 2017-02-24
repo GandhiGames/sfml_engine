@@ -14,9 +14,9 @@
 
 #include "UI_Interface.hpp"
 #include "UI_Event.h"
-#include "UI_Label.h"
-#include "UI_Scrollbar.h"
-#include "UI_Textfield.h"
+#include "UI_Label.hpp"
+#include "UI_Scrollbar.hpp"
+#include "UI_TextField.hpp"
 
 #include <unordered_map>
 #include <functional>
@@ -62,12 +62,12 @@ public:
     void Render(sf::RenderWindow* l_wind);
     
     template<class T>
-    void RegisterElement(const GUI_ElementType& l_id){
-        m_factory[l_id] = [](GUI_Interface* l_owner) -> GUI_Element*
+    void RegisterElement(const UI_ElementType& l_id){
+        m_factory[l_id] = [](UI_Interface* l_owner) -> UI_Element*
         { return new T("",l_owner); };
     }
 private:
-    UI_Element* CreateElement(const UI_ElementType& l_id, GUI_Interface* l_owner);
+    UI_Element* CreateElement(const UI_ElementType& l_id, UI_Interface* l_owner);
     UI_ElementType StringToType(const std::string& l_string);
     bool LoadStyle(const std::string& l_file, UI_Element* l_element);
     
