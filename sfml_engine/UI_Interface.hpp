@@ -10,6 +10,7 @@
 #define UI_Interface_hpp
 
 #include "UI_Element.hpp"
+#include "Utilities.h"
 #include <unordered_map>
 
 #include <SFML/Graphics/RenderTexture.hpp>
@@ -74,8 +75,17 @@ public:
     
     void UpdateScrollHorizontal(unsigned int l_percent);
     void UpdateScrollVertical(unsigned int l_percent);
+    
+    void AdjustContentSize(const UI_Element* l_reference = nullptr);
+    
+    int GetScrollHorizontal();
+    int GetScrollVertical();
+    
+    void SetContentSize(const sf::Vector2f& l_vec);
+    
 private:
     void DefocusTextfields();
+    
     Elements m_elements;
     sf::Vector2f m_elementPadding;
     
@@ -92,10 +102,7 @@ private:
     bool m_movable;
     bool m_beingMoved;
     bool m_focused;
-    
-    // Variable size.
-    void AdjustContentSize(const UI_Element* l_reference = nullptr);
-    void SetContentSize(const sf::Vector2f& l_vec);
+
     sf::RenderTexture* m_contentTexture;
     sf::Sprite m_content;
     sf::Vector2f m_contentSize;

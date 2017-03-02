@@ -307,7 +307,6 @@
 				66C6ACC71E5126E800085A65 /* Profiling */,
 				664C7A4F1E4D11850062E37A /* Systems */,
 				664C7A3A1E4CF5240062E37A /* Components */,
-				666ED5471E4BB7680089474E /* json.hpp */,
 				66CFE41E1E47C8B3009333F1 /* Console */,
 				D6A0B6191C8E3BF600148032 /* Entity Manager */,
 				D6A0B6151C8E1F3400148032 /* Map */,
@@ -366,6 +365,7 @@
 		D635F07D1C87742E00F868BB /* Resource Management */ = {
 			isa = PBXGroup;
 			children = (
+				666ED5471E4BB7680089474E /* json.hpp */,
 				D6C50BC51C7D152E00C2CCBC /* ResourcePath.mm */,
 				D6C50BC71C7D152E00C2CCBC /* ResourcePath.hpp */,
 				D6314CBC1C8B4C29002C041C /* ResourceManager.h */,
@@ -607,7 +607,7 @@
 		D6C50BD31C7D152E00C2CCBC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -669,7 +669,7 @@
 		D6C50BD41C7D152E00C2CCBC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;

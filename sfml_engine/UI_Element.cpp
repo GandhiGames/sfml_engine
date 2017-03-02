@@ -57,7 +57,7 @@ void UI_Element::ApplyStyle(){
 }
 
 void UI_Element::ApplyTextStyle(){
-    FontManager* fonts = m_owner->GetManager()->GetContext()->m_fontManager;
+    FontManager* fonts = m_owner->GetManager()->GetContext()->GetFontManager();
     const UI_Style& CurrentStyle = m_style[m_state];
     if (CurrentStyle.m_textFont != ""){
         m_visual.m_text.setFont(*fonts->GetResource(CurrentStyle.m_textFont));
@@ -137,8 +137,8 @@ sf::Vector2f UI_Element::GetGlobalPosition() const{
     if (m_owner == nullptr || m_owner == this){ return position; }
     position += m_owner->GetGlobalPosition();
     if (IsControl()){ return position; }
-    position.x -= m_owner->m_scrollHorizontal;
-    position.y -= m_owner->m_scrollVertical;
+    position.x -= m_owner->GetScrollHorizontal();
+    position.y -= m_owner->GetScrollVertical();
     return position;
 }
 

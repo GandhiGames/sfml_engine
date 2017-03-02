@@ -18,6 +18,7 @@
 #include "Console.hpp"
 #include "SystemManager.hpp"
 #include "FPS.hpp"
+#include "UI_Manager.hpp"
 #include <iostream>
 
 class Game {
@@ -47,6 +48,7 @@ private:
     DebugOverlay m_debugOverlay;
     Textbox m_debugText;
     FPS m_fps;
+    UI_Manager m_uiManager;
 };
 
 #endif /* Game_hpp */

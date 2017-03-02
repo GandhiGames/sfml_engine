@@ -28,6 +28,7 @@ Game::Game():
     m_debugOverlay.SetDebug(true);
     m_context.SetDebugOverlay(&m_debugOverlay);
     m_context.SetDebugText(&m_debugText);
+    m_context.SetUIManager(&m_uiManager);
     
     m_stateManager.SwitchTo(StateType::Intro);
     

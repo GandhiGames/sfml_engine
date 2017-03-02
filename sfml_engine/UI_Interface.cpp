@@ -7,7 +7,7 @@
 //
 
 #include "UI_Interface.hpp"
-#include "UI_Manager.h"
+#include "UI_Manager.hpp"
 #include "SharedContext.h"
 
 UI_Interface::UI_Interface(const std::string& l_name, UI_Manager* l_guiManager)
@@ -87,7 +87,7 @@ void UI_Interface::ReadIn(std::stringstream& l_stream){
     std::string title;
     l_stream >> m_elementPadding.x >> m_elementPadding.y
     >> movableState >> titleShow;
-    Utils::ReadQuotedString(l_stream, title);
+    ReadQuotedString(l_stream, title);
     m_visual.m_text.setString(title);
     if (movableState == "Movable"){ m_movable = true; }
     if (titleShow == "Title"){ m_showTitleBar = true; }
@@ -101,7 +101,7 @@ void UI_Interface::OnClick(const sf::Vector2f& l_mousePos){
         m_beingMoved = true;
     } else {
         UI_Event event;
-        event.m_type = GUI_EventType::Click;
+        event.m_type = UI_EventType::Click;
         event.m_interface = m_name.c_str();
         event.m_element = "";
         event.m_clickCoords.x = l_mousePos.x;
@@ -118,13 +118,13 @@ void UI_Interface::OnClick(const sf::Vector2f& l_mousePos){
 }
 
 void UI_Interface::OnRelease(){
-    GUI_Event event;
-    event.m_type = GUI_EventType::Release;
+    UI_Event event;
+    event.m_type = UI_EventType::Release;
     event.m_interface = m_name.c_str();
     event.m_element = "";
     m_guiManager->AddEvent(event);
     for (auto &itr : m_elements){
-        if (itr.second->GetState() != GUI_ElementState::Clicked)
+        if (itr.second->GetState() != UI_ElementState::Clicked)
         {
             continue;
         }
@@ -132,35 +132,35 @@ void UI_Interface::OnRelease(){
         event.m_element = itr.second->m_name.c_str();
         m_guiManager->AddEvent(event);
     }
-    SetState(GUI_ElementState::Neutral);
+    SetState(UI_ElementState::Neutral);
 }
 
 void UI_Interface::OnHover(const sf::Vector2f& l_mousePos){
-    GUI_Event event;
-    event.m_type = GUI_EventType::Hover;
+    UI_Event event;
+    event.m_type = UI_EventType::Hover;
     event.m_interface = m_name.c_str();
     event.m_element = "";
     event.m_clickCoords.x = l_mousePos.x;
     event.m_clickCoords.y = l_mousePos.y;
     m_guiManager->AddEvent(event);
     
-    SetState(GUI_ElementState::Focused);
+    SetState(UI_ElementState::Focused);
 }
 
 void UI_Interface::OnLeave(){
-    GUI_Event event;
-    event.m_type = GUI_EventType::Leave;
+    UI_Event event;
+    event.m_type = UI_EventType::Leave;
     event.m_interface = m_name.c_str();
     event.m_element = "";
     m_guiManager->AddEvent(event);
     
-    SetState(GUI_ElementState::Neutral);
+    SetState(UI_ElementState::Neutral);
 }
 
 void UI_Interface::OnTextEntered(const char& l_char){
     for (auto &itr : m_elements){
-        if (itr.second->GetType() != GUI_ElementType::Textfield){ continue; }
-        if (itr.second->GetState() != GUI_ElementState::Clicked){ continue; }
+        if (itr.second->GetType() != UI_ElementType::Textfield){ continue; }
+        if (itr.second->GetState() != UI_ElementState::Clicked){ continue; }
         if (l_char == 8){
             // Backspace.
             const auto& text = itr.second->GetText();
@@ -180,8 +180,8 @@ void UI_Interface::SetPadding(const sf::Vector2f& l_padding){ m_elementPadding =
 
 void UI_Interface::Update(float l_dT){
     sf::Vector2f mousePos = sf::Vector2f(
-                                         m_guiManager->GetContext()->m_eventManager->GetMousePos(
-                                                                                                 m_guiManager->GetContext()->m_wind->GetRenderWindow()));
+                                         m_guiManager->GetContext()->GetEventManager()->GetMousePos(
+                                                                                                 m_guiManager->GetContext()->GetWindow()->GetRenderWindow()));
     
     if (m_beingMoved && m_moveMouseLast != mousePos){
         sf::Vector2f difference = mousePos - m_moveMouseLast;
@@ -198,7 +198,7 @@ void UI_Interface::Update(float l_dT){
         if (!itr.second->IsActive()){ continue; }
         itr.second->Update(l_dT);
         if (m_beingMoved){ continue; }
-        GUI_Event event;
+        UI_Event event;
         event.m_interface = m_name.c_str();
         event.m_element = itr.second->m_name.c_str();
         event.m_clickCoords.x = mousePos.x;
@@ -206,13 +206,13 @@ void UI_Interface::Update(float l_dT){
         if (IsInside(mousePos) && itr.second->IsInside(mousePos)
             && !m_titleBar.getGlobalBounds().contains(mousePos))
         {
-            if (itr.second->GetState() != GUI_ElementState::Neutral){ continue; }
+            if (itr.second->GetState() != UI_ElementState::Neutral){ continue; }
             itr.second->OnHover(mousePos);
-            event.m_type = GUI_EventType::Hover;
+            event.m_type = UI_EventType::Hover;
             m_guiManager->AddEvent(event);
-        } else if (itr.second->GetState() == GUI_ElementState::Focused){
+        } else if (itr.second->GetState() == UI_ElementState::Focused){
             itr.second->OnLeave();
-            event.m_type = GUI_EventType::Leave;
+            event.m_type = UI_EventType::Leave;
             m_guiManager->AddEvent(event);
         }
     }
@@ -235,15 +235,15 @@ void UI_Interface::BeginMoving(){
     if (!m_showTitleBar || !m_movable){ return; }
     m_beingMoved = true;
     SharedContext* context = m_guiManager->GetContext();
-    m_moveMouseLast = sf::Vector2f(context->m_eventManager->
-                                   GetMousePos(context->m_wind->GetRenderWindow()));
+    m_moveMouseLast = sf::Vector2f(context->GetEventManager()->
+                                   GetMousePos(context->GetWindow()->GetRenderWindow()));
 }
 
 void UI_Interface::StopMoving(){ m_beingMoved = false; }
 
 sf::Vector2f UI_Interface::GetGlobalPosition() const{
     sf::Vector2f pos = m_position;
-    GUI_Interface* i = m_parent;
+    UI_Interface* i = m_parent;
     while (i){
         pos += i->GetPosition();
         i = i->m_parent;
@@ -252,7 +252,7 @@ sf::Vector2f UI_Interface::GetGlobalPosition() const{
 }
 
 void UI_Interface::ApplyStyle(){
-    GUI_Element::ApplyStyle(); // Call base method.
+    UI_Element::ApplyStyle(); // Call base method.
     m_visual.m_backgroundSolid.setPosition(0.f,0.f);
     m_visual.m_backgroundImage.setPosition(0.f,0.f);
     m_titleBar.setSize(sf::Vector2f(m_style[m_state].m_size.x, 16.f));
@@ -292,7 +292,7 @@ void UI_Interface::RedrawContent(){
     m_contentTexture->clear(sf::Color(0, 0, 0, 0));
     
     for (auto &itr : m_elements){
-        GUI_Element* element = itr.second;
+        UI_Element* element = itr.second;
         if (!element->IsActive() || element->IsControl()){ continue; }
         element->ApplyStyle();
         element->Draw(m_contentTexture);
@@ -315,7 +315,7 @@ void UI_Interface::RedrawControls(){
     m_controlTexture->clear(sf::Color(0, 0, 0, 0));
     
     for (auto &itr : m_elements){
-        GUI_Element* element = itr.second;
+        UI_Element* element = itr.second;
         if (!element->IsActive() || !element->IsControl()){ continue; }
         element->ApplyStyle();
         element->Draw(m_controlTexture);
@@ -330,7 +330,7 @@ void UI_Interface::RedrawControls(){
 
 void UI_Interface::ToggleTitleBar(){ m_showTitleBar = !m_showTitleBar; }
 
-void UI_Interface::AdjustContentSize(const GUI_Element* l_reference){
+void UI_Interface::AdjustContentSize(const UI_Element* l_reference){
     if (l_reference){
         sf::Vector2f bottomRight = l_reference->GetPosition() + l_reference->GetSize();
         if (bottomRight.x > m_contentSize.x){ m_contentSize.x = bottomRight.x; m_controlRedraw = true; }
@@ -341,7 +341,7 @@ void UI_Interface::AdjustContentSize(const GUI_Element* l_reference){
     sf::Vector2f farthest = GetSize();
     
     for (auto &itr : m_elements){
-        GUI_Element* element = itr.second;
+        UI_Element* element = itr.second;
         if (!element->IsActive() || element->IsControl()){ continue; }
         sf::Vector2f bottomRight = element->GetPosition() + element->GetSize();
         if (bottomRight.x > farthest.x){ farthest.x = bottomRight.x; m_controlRedraw = true; }
@@ -370,13 +370,23 @@ const sf::Vector2f& UI_Interface::GetContentSize() const{ return m_contentSize; 
 
 void UI_Interface::DefocusTextfields(){
     UI_Event event;
-    event.m_type = GUI_EventType::Release;
+    event.m_type = UI_EventType::Release;
     event.m_interface = m_name.c_str();
     event.m_element = "";
     for (auto &itr : m_elements){
-        if (itr.second->GetType() != GUI_ElementType::Textfield){ continue; }
-        itr.second->SetState(GUI_ElementState::Neutral);
+        if (itr.second->GetType() != UI_ElementType::Textfield){ continue; }
+        itr.second->SetState(UI_ElementState::Neutral);
         event.m_element = itr.second->m_name.c_str();
         m_guiManager->AddEvent(event);
     }
+}
+
+int UI_Interface::GetScrollHorizontal()
+{
+    return m_scrollHorizontal;
+}
+
+int UI_Interface::GetScrollVertical()
+{
+    return m_scrollVertical;
 }

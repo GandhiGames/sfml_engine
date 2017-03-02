@@ -18,12 +18,13 @@
 #include "SystemManager.hpp"
 #include "DebugOverlay.h"
 #include "Textbox.hpp"
+#include "UI_Manager.hpp"
 
 class Map;
 
 //TODO: pass by reference for all setter methods?
 struct SharedContext {
-    SharedContext():m_window(nullptr), m_eventManager(nullptr), m_textureManager(nullptr), m_fontManager(nullptr), m_entityManager(nullptr), m_systemManager(nullptr), m_map(nullptr), m_debugOverlay(nullptr), m_debugText(nullptr){}
+    SharedContext():m_window(nullptr), m_eventManager(nullptr), m_textureManager(nullptr), m_fontManager(nullptr), m_entityManager(nullptr), m_systemManager(nullptr), m_map(nullptr), m_debugOverlay(nullptr), m_debugText(nullptr), m_uiManager(nullptr){}
     
     Window *GetWindow()
     {
@@ -115,6 +116,16 @@ struct SharedContext {
         m_debugText = l_textbox;
     }
     
+    UI_Manager* GetUIManager()
+    {
+        return m_uiManager;
+    }
+    
+    void SetUIManager(UI_Manager* l_uiManager)
+    {
+        m_uiManager = l_uiManager;
+    }
+    
 private:
     Window* m_window;
     EventManager* m_eventManager;
@@ -125,6 +136,7 @@ private:
     Map* m_map;
     DebugOverlay* m_debugOverlay;
     Textbox* m_debugText;
+    UI_Manager* m_uiManager;
 };
 
 #endif /* SharedContext_h */

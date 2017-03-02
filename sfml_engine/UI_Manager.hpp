@@ -21,6 +21,7 @@
 #include <unordered_map>
 #include <functional>
 #include <fstream>
+#include <vector>
 
 using UI_Interfaces = std::unordered_map<std::string, UI_Interface*>;
 using UI_Container = std::unordered_map<StateType, UI_Interfaces>;
@@ -30,7 +31,6 @@ using UI_ElemTypes = std::unordered_map <std::string,UI_ElementType>;
 
 struct SharedContext;
 class UI_Manager{
-    friend class UI_Interface;
 public:
     UI_Manager(EventManager* l_evMgr, SharedContext* l_shared);
     ~UI_Manager();
@@ -66,8 +66,10 @@ public:
         m_factory[l_id] = [](UI_Interface* l_owner) -> UI_Element*
         { return new T("",l_owner); };
     }
-private:
+    
     UI_Element* CreateElement(const UI_ElementType& l_id, UI_Interface* l_owner);
+private:
+
     UI_ElementType StringToType(const std::string& l_string);
     bool LoadStyle(const std::string& l_file, UI_Element* l_element);
     
