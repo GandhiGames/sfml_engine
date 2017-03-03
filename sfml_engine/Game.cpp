@@ -13,7 +13,8 @@
 Game::Game():
     m_window("engine_test", sf::Vector2u(800, 600)),m_stateManager(m_context),
         m_entityManager(&m_systemManager, &m_textureManager),
-        m_debugText(m_fontManager)
+        m_debugText(m_fontManager),
+        m_uiManager(m_window.GetEventManager(), &m_context)
 {
     m_clock.restart();
     srand((unsigned)time(nullptr));
@@ -33,9 +34,14 @@ Game::Game():
     m_stateManager.SwitchTo(StateType::Intro);
     
     GetWindow()->GetRenderWindow()->setFramerateLimit(120);
+    
+    m_fontManager.RequireResource("Main");
 }
 
-Game::~Game(){ }
+Game::~Game()
+{
+    m_fontManager.ReleaseResource("Main");
+}
 
 sf::Time Game::GetElapsed(){ return m_clock.getElapsedTime(); }
 void Game::RestartClock(){ m_elapsed = m_clock.restart(); }
@@ -44,6 +50,14 @@ Window* Game::GetWindow(){ return &m_window; }
 void Game::Update(){
     m_window.Update();
     m_stateManager.Update(m_elapsed);
+    
+    m_context.GetUIManager()->Update(m_elapsed.asSeconds());
+    
+    UI_Event uiEvent;
+    
+    while(m_context.GetUIManager()->PollEvent(uiEvent)){
+        m_window.GetEventManager()->HandleEvent(uiEvent);
+    }
 }
 
 void Game::Render(){
@@ -52,12 +66,20 @@ void Game::Render(){
     // Render here.
     m_stateManager.Draw();
     
+    // UI.
+    sf::View currentView = m_window.GetRenderWindow()->getView();
+    m_window.GetRenderWindow()->setView(m_window.GetRenderWindow()->getDefaultView());
+    m_context.GetUIManager()->Render(m_window.GetRenderWindow());
+    m_window.GetRenderWindow()->setView(currentView);
+    
+    
     // Debug.
     if(m_context.GetDebugOverlay()->Debug()){
         m_context.GetDebugOverlay()->Draw(m_window.GetRenderWindow());
     }
     
     m_context.GetDebugText()->Render(m_window.GetRenderWindow());
+    
     
     m_window.EndDraw();
 }
