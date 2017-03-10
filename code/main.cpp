@@ -1,7 +1,6 @@
-
 #include "Game.hpp"
 
-int main(int, char const**)
+int main()
 {
     Game game;
     

@@ -23,7 +23,7 @@
 #include <fstream>
 #include <vector>
 
-using UI_Interfaces = std::unordered_map<std::string, UI_Interface*>;
+using UI_Interfaces = std::map<std::string, UI_Interface*>;
 using UI_Container = std::unordered_map<StateType, UI_Interfaces>;
 using UI_Events = std::unordered_map<StateType, std::vector<UI_Event>>;
 using UI_Factory = std::unordered_map<UI_ElementType, std::function<UI_Element*(UI_Interface*)>>;
