@@ -22,9 +22,13 @@
 
 class Map;
 
-//TODO: pass by reference for all setter methods?
+//TODO(robert): Remove setter and getters? Convert to pure dataclass.
 struct SharedContext {
-    SharedContext():m_window(nullptr), m_eventManager(nullptr), m_textureManager(nullptr), m_fontManager(nullptr), m_entityManager(nullptr), m_systemManager(nullptr), m_map(nullptr), m_debugOverlay(nullptr), m_debugText(nullptr), m_uiManager(nullptr){}
+    SharedContext():m_window(nullptr), m_eventManager(nullptr),
+                    m_textureManager(nullptr), m_fontManager(nullptr),
+                    m_entityManager(nullptr), m_systemManager(nullptr),
+                    m_map(nullptr), m_debugOverlay(nullptr), m_debugText(nullptr),
+                    m_uiManager(nullptr){}
     
     Window *GetWindow()
     {

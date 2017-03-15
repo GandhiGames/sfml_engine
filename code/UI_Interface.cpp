@@ -180,8 +180,8 @@ void UI_Interface::SetPadding(const sf::Vector2f& l_padding){ m_elementPadding =
 
 void UI_Interface::Update(float l_dT){
     sf::Vector2f mousePos = sf::Vector2f(
-                                         m_guiManager->GetContext()->GetEventManager()->GetMousePos(
-                                                                                                 m_guiManager->GetContext()->GetWindow()->GetRenderWindow()));
+        m_guiManager->GetContext()->GetEventManager()->GetMousePosition(
+            m_guiManager->GetContext()->GetWindow()->GetRenderWindow()));
     
     if (m_beingMoved && m_moveMouseLast != mousePos){
         sf::Vector2f difference = mousePos - m_moveMouseLast;
@@ -236,7 +236,7 @@ void UI_Interface::BeginMoving(){
     m_beingMoved = true;
     SharedContext* context = m_guiManager->GetContext();
     m_moveMouseLast = sf::Vector2f(context->GetEventManager()->
-                                   GetMousePos(context->GetWindow()->GetRenderWindow()));
+                                   GetMousePosition(context->GetWindow()->GetRenderWindow()));
 }
 
 void UI_Interface::StopMoving(){ m_beingMoved = false; }

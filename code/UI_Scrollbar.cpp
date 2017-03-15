@@ -83,8 +83,8 @@ void UI_Scrollbar::Update(float l_dT){
     // Mouse-drag code.
     if (GetState() != UI_ElementState::Clicked){ return; }
     SharedContext* context = m_owner->GetManager()->GetContext();
-    sf::Vector2f mousePos = sf::Vector2f(context->GetEventManager()->GetMousePos(
-                                                                              context->GetWindow()->GetRenderWindow()));
+    sf::Vector2f mousePos = sf::Vector2f(context->GetEventManager()->GetMousePosition(
+                                             context->GetWindow()->GetRenderWindow()));
     if (m_moveMouseLast == mousePos){ return; }
     sf::Vector2f difference = mousePos - m_moveMouseLast;
     m_moveMouseLast = mousePos;

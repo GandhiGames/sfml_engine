@@ -26,7 +26,8 @@ UI_Manager::UI_Manager(EventManager* l_evMgr, SharedContext* l_shared)
     m_eventMgr->AddCallback(StateType(0), "Text_Entered", &UI_Manager::HandleTextEntered, this);
 }
 
-UI_Manager::~UI_Manager(){
+UI_Manager::~UI_Manager()
+{
     m_eventMgr->RemoveCallback(StateType(0), "Mouse_Left");
     m_eventMgr->RemoveCallback(StateType(0), "Mouse_Left_Release");
     m_eventMgr->RemoveCallback(StateType(0), "Text_Entered");
@@ -66,7 +67,8 @@ void UI_Manager::SetCurrentState(const StateType& l_state){
 
 SharedContext* UI_Manager::GetContext(){ return m_context; }
 
-void UI_Manager::DefocusAllInterfaces(){
+void UI_Manager::DefocusAllInterfaces()
+{
     auto state = m_interfaces.find(m_currentState);
     if (state == m_interfaces.end()){ return; }
     for (auto &itr : state->second){
@@ -74,10 +76,11 @@ void UI_Manager::DefocusAllInterfaces(){
     }
 }
 
-void UI_Manager::HandleClick(EventDetails* l_details){
+void UI_Manager::HandleClick(EventDetails* l_details)
+{
     auto state = m_interfaces.find(m_currentState);
     if (state == m_interfaces.end()){ return; }
-    sf::Vector2i mousePos = m_eventMgr->GetMousePos(m_context->GetWindow()->GetRenderWindow());
+    sf::Vector2i mousePos = m_eventMgr->GetMousePosition(m_context->GetWindow()->GetRenderWindow());
     for (auto itr = state->second.rbegin(); itr != state->second.rend(); ++itr){
         if (!itr->second->IsInside(sf::Vector2f(mousePos))){ continue; }
         if (!itr->second->IsActive()){ return; }
@@ -88,7 +91,8 @@ void UI_Manager::HandleClick(EventDetails* l_details){
     }
 }
 
-void UI_Manager::HandleRelease(EventDetails* l_details){
+void UI_Manager::HandleRelease(EventDetails* l_details)
+{
     auto state = m_interfaces.find(m_currentState);
     if (state == m_interfaces.end()){ return; }
     for (auto &itr : state->second){
@@ -102,7 +106,8 @@ void UI_Manager::HandleRelease(EventDetails* l_details){
     }
 }
 
-void UI_Manager::HandleTextEntered(EventDetails* l_details){
+void UI_Manager::HandleTextEntered(EventDetails* l_details)
+{
     auto state = m_interfaces.find(m_currentState);
     if (state == m_interfaces.end()){ return; }
     for (auto &itr : state->second){
@@ -113,18 +118,22 @@ void UI_Manager::HandleTextEntered(EventDetails* l_details){
     }
 }
 
-void UI_Manager::AddEvent(UI_Event l_event){
+void UI_Manager::AddEvent(UI_Event l_event)
+{
     m_events[m_currentState].push_back(l_event);
 }
 
-bool UI_Manager::PollEvent(UI_Event& l_event){
+bool UI_Manager::PollEvent(UI_Event& l_event)
+{
     if (m_events[m_currentState].empty()){ return false; }
     l_event = m_events[m_currentState].back();
     m_events[m_currentState].pop_back();
     return true;
 }
-void UI_Manager::Update(float l_dT){
-    sf::Vector2i mousePos = m_eventMgr->GetMousePos(m_context->GetWindow()->GetRenderWindow());
+
+void UI_Manager::Update(float l_dT)
+{
+    sf::Vector2i mousePos = m_eventMgr->GetMousePosition(m_context->GetWindow()->GetRenderWindow());
     
     auto state = m_interfaces.find(m_currentState);
     if (state == m_interfaces.end()){ return; }
@@ -144,19 +153,31 @@ void UI_Manager::Update(float l_dT){
         }
     }
 }
-void UI_Manager::Render(sf::RenderWindow* l_wind){
+
+void UI_Manager::Render(sf::RenderWindow* l_wind)
+{ 
     auto state = m_interfaces.find(m_currentState);
-    if (state == m_interfaces.end()){ return; }
+    if (state == m_interfaces.end())
+    {
+        return;
+    }
     for (auto &itr : state->second){
         UI_Interface* i = itr.second;
-        if (!i->IsActive()){ continue; }
+
+        if (!i->IsActive())
+        {
+            continue;
+        }
+        
         if (i->NeedsRedraw()){ i->Redraw(); }
         if (i->NeedsContentRedraw()){ i->RedrawContent(); }
         if (i->NeedsControlRedraw()){ i->RedrawControls(); }
         i->Draw(l_wind);
     }
 }
-UI_Element* UI_Manager::CreateElement(const UI_ElementType& l_id, UI_Interface* l_owner){
+
+UI_Element* UI_Manager::CreateElement(const UI_ElementType& l_id, UI_Interface* l_owner)
+{
     if (l_id == UI_ElementType::Window){ return new UI_Interface("", this); }
     auto f = m_factory.find(l_id);
     return (f != m_factory.end() ? f->second(l_owner) : nullptr);
@@ -176,7 +197,7 @@ bool UI_Manager::LoadInterface(const StateType& l_state,
                                 const std::string& l_interface, const std::string& l_name)
 {
     std::ifstream file;
-    file.open(resourcePath() + "media/GUI_Interfaces/" + l_interface);
+    file.open(resourcePath() + "media/UI_Interfaces/" + l_interface);
     std::string InterfaceName;
     
     if (!file.is_open()){
@@ -228,14 +249,18 @@ bool UI_Manager::LoadInterface(const StateType& l_state,
                 std::cout << "Failed loading style file: " << style << " for element " << name << std::endl;
                 continue;
             }
+        } else {
+            std::cout << "! UI_Manager - Key not found: " << key << std::endl;
         }
     }
     file.close();
     return true;
 }
-bool UI_Manager::LoadStyle(const std::string& l_file, UI_Element* l_element){
+
+bool UI_Manager::LoadStyle(const std::string& l_file, UI_Element* l_element)
+{
     std::ifstream file;
-    file.open(resourcePath() + "media/GUI_Styles/" + l_file);
+    file.open(resourcePath() + "media/UI_Styles/" + l_file);
     
     std::string currentState;
     UI_Style ParentStyle;
@@ -323,7 +348,8 @@ bool UI_Manager::LoadStyle(const std::string& l_file, UI_Element* l_element){
     return true;
 }
 
-UI_ElementType UI_Manager::StringToType(const std::string& l_string){
+UI_ElementType UI_Manager::StringToType(const std::string& l_string)
+{
     auto t = m_elemTypes.find(l_string);
     return (t != m_elemTypes.end() ? t->second : UI_ElementType::None);
 }

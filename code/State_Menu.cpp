@@ -13,108 +13,59 @@ State_Menu::State_Menu(StateManager& l_stateManager):BaseState(l_stateManager){}
 
 State_Menu::~State_Menu(){}
 
-//TODO: use resource manager to load fonts.
 void State_Menu::OnCreate()
 {
-    
-    FontManager* fntMngr = GetStateManager().GetContext().GetFontManager();
-    
-    if(fntMngr->RequireResource("Default")){
-        m_text.setFont(*fntMngr->GetResource("Default"));
-    }
-    
-    m_text.setString(sf::String("Main Menu"));
-    m_text.setCharacterSize(24);
-    
-    sf::FloatRect textRect = m_text.getLocalBounds();
-    m_text.setOrigin(textRect.left + textRect.width / 2.0f,
-                     textRect.top + textRect.height / 2.0f);
-    
-    const sf::Vector2u& windSize = GetStateManager().GetContext().GetWindow()->GetRenderWindow()->getSize();
-    
-    m_text.setPosition(windSize.x * 0.5, 100);
-    m_text.setFillColor(sf::Color::Black);
-    
-    m_buttonSize = sf::Vector2f(300.0f, 32.0f);
-    m_buttonPos = sf::Vector2f(windSize.x * 0.5, 200);
-    m_buttonPadding = 4; // 4px.
-    
-    std::string str[3];
-    str[0] = "PLAY";
-    str[1] = "CREDITS";
-    str[2] = "EXIT";
-    
-    for(int i = 0; i < 3; ++i){
-        sf::Vector2f buttonPosition(m_buttonPos.x,m_buttonPos.y +
-                                    (i * (m_buttonSize.y + m_buttonPadding)));
-        m_rects[i].setSize(m_buttonSize);
-        m_rects[i].setFillColor(sf::Color::Red);
-        
-        m_rects[i].setOrigin(m_buttonSize.x / 2.0f, m_buttonSize.y / 2.0f);
-        m_rects[i].setPosition(buttonPosition);
-        
-        m_labels[i].setFont(*GetStateManager().GetContext().GetFontManager()->GetResource("Default"));
-        m_labels[i].setString(sf::String(str[i]));
-        m_labels[i].setCharacterSize(16);
-        
-        sf::FloatRect rect = m_labels[i].getLocalBounds();
-        m_labels[i].setOrigin(rect.left + rect.width / 2.0f,
-                              rect.top + rect.height / 2.0f);
-        
-        m_labels[i].setPosition(buttonPosition);
-    }
+    UI_Manager* ui = GetStateManager().GetContext().GetUIManager();
 
-    m_selectedIndex = 0;
-    m_labels[m_selectedIndex].setFillColor(sf::Color::Black);
-    m_labels[m_selectedIndex].setStyle(sf::Text::Bold);
-    
+    ui->LoadInterface(StateType::MainMenu, "MainMenu.interface", "MainMenu");
+    ui->GetInterface(StateType::MainMenu, "MainMenu")->SetPosition(sf::Vector2f(250.0f, 168.0f));
+
     EventManager* evtMgr = GetStateManager().GetContext().GetEventManager();
-    evtMgr->AddCallback(StateType::MainMenu, "Key_Up", &State_Menu::MenuSelectionUp, this);
-    evtMgr->AddCallback(StateType::MainMenu, "Key_Down", &State_Menu::MenuSelectionDown, this);
-    evtMgr->AddCallback(StateType::MainMenu, "Key_Return", &State_Menu::ValidateSelection, this);
-    
+    evtMgr->AddCallback(StateType::MainMenu, "MainMenu_Play", &State_Menu::Play, this);
+    evtMgr->AddCallback(StateType::MainMenu, "MainMenu_Quit", &State_Menu::Quit, this);       
 }
 
 void State_Menu::OnDestroy()
 {
+    GetStateManager().GetContext().GetUIManager()->RemoveInterface(
+        StateType::MainMenu, "MainMenu");
+
     EventManager* evtMgr = GetStateManager().GetContext().GetEventManager();
-    evtMgr->RemoveCallback(StateType::MainMenu, "Key_Up");
-    evtMgr->RemoveCallback(StateType::MainMenu, "Key_Down");
-    evtMgr->RemoveCallback(StateType::MainMenu, "Key_Return");
-    
-    GetStateManager().GetContext().GetFontManager()->ReleaseResource("Default");
+    evtMgr->RemoveCallback(StateType::MainMenu, "MainMenu_Play");
+    evtMgr->RemoveCallback(StateType::MainMenu, "MainMenu_Quit");
 }
 
 void State_Menu::Activate()
 {
-    if (GetStateManager().HasState(StateType::Game)
-        && m_labels[0].getString() != "RESUME")
+    auto& play = *GetStateManager().GetContext().GetUIManager()->GetInterface(
+        StateType::MainMenu, "MainMenu")->GetElement("Play");
+
+    if(GetStateManager().HasState(StateType::Game))
     {
-        m_labels[0].setString(sf::String("RESUME"));
-    } else {
-        m_labels[0].setString(sf::String("PLAY"));
+        play.SetText("Resume");
     }
-    
-    sf::FloatRect rect = m_labels[0].getLocalBounds();
-    m_labels[0].setOrigin(rect.left + rect.width / 2.0f,
-                          rect.top + rect.height / 2.0f);
+    else
+    {
+        play.SetText("Play");
+    }
 }
 
 void State_Menu::Deactivate(){}
 void State_Menu::Update(const sf::Time &l_time){}
 
-void State_Menu::Draw()
+void State_Menu::Draw(){}
+
+void State_Menu::Play(EventDetails* l_details)
 {
-    sf::RenderWindow *window = GetStateManager().GetContext().GetWindow()->GetRenderWindow();
-    
-    window->draw(m_text);
-    
-    for(int i = 0; i < 3; ++i){
-        window->draw(m_rects[i]);
-        window->draw(m_labels[i]);
-    }
+    GetStateManager().SwitchTo(StateType::Game);
 }
 
+void State_Menu::Quit(EventDetails* l_Details)
+{
+    GetStateManager().GetContext().GetWindow()->Close();
+}
+
+/*
 void State_Menu::MenuSelectionUp(EventDetails* l_details)
 {
     IncrementSelect(-1);
@@ -156,3 +107,4 @@ void State_Menu::IncrementSelect(const sf::Int8& l_increment)
     m_labels[m_selectedIndex].setFillColor(sf::Color::Black);
     m_labels[m_selectedIndex].setStyle(sf::Text::Bold);
 }
+*/

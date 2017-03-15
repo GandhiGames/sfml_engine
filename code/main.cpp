@@ -1,5 +1,7 @@
 #include "Game.hpp"
 
+//TODO(robert): Rename this file to Win32
+//TODO(robert): Move cfg files to media folder - edit build file
 int main()
 {
     Game game;

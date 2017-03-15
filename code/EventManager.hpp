@@ -11,13 +11,17 @@
 
 #pragma clang diagnostic ignored "-Wswitch"
 
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <vector>
 #include <unordered_map>
+#include <assert.h>
 #include <functional>
 #include <fstream>
 #include <sstream>
 #include <iostream>
 #include "ResourcePath.hpp"
-#include <SFML/Graphics.hpp>
+#include "UI_Event.h"
 
 enum class EventType {
     KeyDown = sf::Event::KeyPressed,
@@ -34,13 +38,21 @@ enum class EventType {
     TextEntered = sf::Event::TextEntered,
     Keyboard = sf::Event::Count + 1,
     Mouse,
-    Joystick
+    Joystick,
+    UI_Click, UI_Release, UI_Hover, UI_Leave
 };
 
+//TODO(robert): Convert to boost library? boost::variant<int, UI_Event>
 struct EventInfo {
     EventInfo() {m_code = 0;}
     EventInfo(int l_event) { m_code = l_event;}
-    union {int m_code;};
+    EventInfo(UI_Event l_uiEvent) { m_ui = l_uiEvent; }
+
+    union
+    {
+        int m_code;
+        UI_Event m_ui;
+    };
     
 };
 
@@ -112,11 +124,41 @@ struct EventDetails {
         return m_name;
     }
     
-    void SetName(const std::string &l_name)
+    void SetName(const std::string& l_name)
     {
         m_name = l_name;
     }
+
+    void SetUIInterface(const std::string& l_name)
+    {
+        m_uiInterface = l_name;
+    }
+
+    const std::string& GetUIInterface()
+    {
+        return m_uiInterface;
+    }
     
+    void SetUIElement(const std::string& l_name)
+    {
+        m_uiElement = l_name;
+    }
+
+    const std::string& GetUIElement()
+    {
+        return m_uiElement;
+    }
+
+    void SetUIEvent(UI_EventType l_type)
+    {
+        m_uiEvent = l_type;
+    }
+
+    const UI_EventType& GetUIEvent()
+    {
+        return m_uiEvent;
+    }
+     
     void Clear()
     {
         m_size = sf::Vector2i(0, 0);
@@ -124,6 +166,9 @@ struct EventDetails {
         m_mouse = sf::Vector2i(0, 0);
         m_mouseWheelDelta = 0;
         m_keyCode = -1;
+        m_uiInterface= "";
+        m_uiElement = "";
+        m_uiEvent = UI_EventType::None;
     }
     
 private:
@@ -133,10 +178,32 @@ private:
     sf::Vector2i m_mouse;
     int m_mouseWheelDelta;
     int m_keyCode;
+    std::string m_uiInterface;
+    std::string m_uiElement;
+    UI_EventType m_uiEvent;
 };
 
 struct Binding {
-    Binding(const std::string & l_name):m_name(l_name), m_details(l_name), m_eventCount(0){}
+    Binding(const std::string & l_name):
+            m_name(l_name), m_details(l_name), m_eventCount(0)
+    {
+    }
+
+    ~Binding()
+    {
+        for(auto itr = m_events.begin(); itr != m_events.end(); ++itr)
+        {
+            if (itr->first == EventType::UI_Click ||
+                itr->first == EventType::UI_Release ||
+                itr->first == EventType::UI_Hover ||
+                itr->first == EventType::UI_Leave)
+            {
+                delete [] itr->second.m_ui.m_interface;
+                delete [] itr->second.m_ui.m_element;
+            }
+        }
+    }
+
     void BindEvent(EventType l_type, EventInfo l_info = EventInfo())
     {
         m_events.emplace_back(l_type, l_info);
@@ -212,6 +279,7 @@ public:
     bool RemoveCallback(const StateType &l_state, const std::string & l_name);
     
     void HandleEvent(sf::Event & l_event);
+    void HandleEvent(UI_Event& l_event);
     void Update();
     
     sf::Vector2i GetMousePosition(const sf::RenderWindow * l_window = nullptr);

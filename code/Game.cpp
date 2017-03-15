@@ -8,8 +8,6 @@
 
 #include "Game.hpp"
 
-//TODO: enable Apple VVLM optimization
-
 Game::Game():
     m_window("engine_test", sf::Vector2u(800, 600)),m_stateManager(m_context),
         m_entityManager(&m_systemManager, &m_textureManager),
@@ -34,13 +32,14 @@ Game::Game():
     m_stateManager.SwitchTo(StateType::Intro);
     
     GetWindow()->GetRenderWindow()->setFramerateLimit(120);
-    
-    m_fontManager.RequireResource("Main");
+
+    //TODO(robert): Implement font acquisition in UI_Manager when font loaded.
+    m_fontManager.RequireResource("Default");
 }
 
 Game::~Game()
 {
-    m_fontManager.ReleaseResource("Main");
+    m_fontManager.ReleaseResource("Default");
 }
 
 sf::Time Game::GetElapsed(){ return m_clock.getElapsedTime(); }

@@ -7,8 +7,7 @@
 //
 
 #include "EventManager.hpp"
-
-//TODO: Seperate into seperate header files
+#include "StateManager.hpp"
 
 EventManager::EventManager():m_currentState(StateType(0)), m_hasFocus(true)
 {
@@ -80,11 +79,18 @@ void EventManager::Update()
 
 void EventManager::HandleEvent(sf::Event& l_event)
 {
-   	for (auto &b_itr : m_bindings){
+    for (auto &b_itr : m_bindings){
         Binding* bind = b_itr.second;
         for (auto &e_itr : bind->GetEvents()){
             EventType sfmlEvent = (EventType)l_event.type;
             if (e_itr.first != sfmlEvent){ continue; }
+            if (e_itr.first == EventType::UI_Click ||
+                e_itr.first == EventType::UI_Release ||
+                e_itr.first == EventType::UI_Hover ||
+                e_itr.first == EventType::UI_Leave)
+            {
+                continue;
+            }
             if (sfmlEvent == EventType::KeyDown || sfmlEvent == EventType::KeyUp){
                 if (e_itr.second.m_code == l_event.key.code){
                     // Matching event/keystroke.
@@ -119,6 +125,45 @@ void EventManager::HandleEvent(sf::Event& l_event)
                 }
                 bind->IncrementEventCount();
             }
+        }
+    }
+}
+
+void EventManager::HandleEvent(UI_Event& l_event)
+{
+    for (auto &b_itr : m_bindings)
+    {
+        Binding* bind = b_itr.second;
+
+        for (auto &e_itr : bind->GetEvents())
+        {
+            if (e_itr.first != EventType::UI_Click &&
+                e_itr.first != EventType::UI_Release &&
+                e_itr.first != EventType::UI_Hover &&
+                e_itr.first != EventType::UI_Leave)
+                {
+                    continue;
+                }
+
+            if ((e_itr.first == EventType::UI_Click && l_event.m_type != UI_EventType::Click) ||
+                (e_itr.first == EventType::UI_Release && l_event.m_type != UI_EventType::Release) ||
+                (e_itr.first == EventType::UI_Hover && l_event.m_type != UI_EventType::Hover) ||
+                (e_itr.first == EventType::UI_Leave && l_event.m_type != UI_EventType::Leave))
+            {
+                continue;
+            }
+
+            if (strcmp(e_itr.second.m_ui.m_interface, l_event.m_interface) ||
+                strcmp(e_itr.second.m_ui.m_element, l_event.m_element))
+            {
+                continue;
+            }
+
+            bind->GetDetails().SetUIInterface(l_event.m_interface);
+            bind->GetDetails().SetUIElement(l_event.m_element);
+
+            bind->IncrementEventCount();
+            
         }
     }
 }
@@ -161,7 +206,7 @@ sf::Vector2i EventManager::GetMousePosition(const sf::RenderWindow * l_window)
     return l_window ? sf::Mouse::getPosition(*l_window) : sf::Mouse::getPosition();
 }
 
-//TODO: error handling, refractor (see commented out lines)
+//TODO(robert): error handling, refractor (see commented out lines)
 void EventManager::LoadBindings()
 {
     const std::string delimiter = ":";
@@ -187,8 +232,8 @@ void EventManager::LoadBindings()
             std::string keyval;
             keystream >> keyval;
             
-            const int start = 0;
-            const unsigned long end = keyval.find(delimiter);
+            int start = 0;
+            unsigned long end = keyval.find(delimiter);
             if (end == std::string::npos) {
                 //delete bind;
                 //bind = nullptr;
@@ -196,11 +241,37 @@ void EventManager::LoadBindings()
             }
             
             EventType type = EventType(stoi(keyval.substr(start, end - start)));
-            int code = stoi(keyval.substr(end + delimiter.length()));
-            EventInfo eventinfo;
-            eventinfo.m_code = code;
-            
-            bind->BindEvent(type, eventinfo);
+
+            EventInfo eventInfo;
+            if (type==EventType::UI_Click || type==EventType::UI_Release ||
+                type == EventType::UI_Hover || type == EventType::UI_Leave)
+            {
+                start = end + delimiter.length();
+                end = keyval.find(delimiter, start);
+                std::string window = keyval.substr(start, end - start);
+                std::string element;
+                if (end != std::string::npos)
+                {
+                    start = end + delimiter.length();
+                    end = keyval.length();
+                    element = keyval.substr(start, end);
+                }
+
+                char* w = new char[window.length() + 1]; // +1 for \0
+                char* e = new char[element.length() + 1]; // Size in bytes is the same as character length.1 char = 1B.
+                strcpy_s(w, window.length() + 1, window.c_str());
+                strcpy_s(e, element.length() + 1, element.c_str());
+                eventInfo.m_ui.m_interface = w;
+                eventInfo.m_ui.m_element = e;
+            }
+            else
+            {
+                int code = stoi(keyval.substr(end + delimiter.length(),
+                                              keyval.find(delimiter,end + delimiter.length())));
+                eventInfo.m_code = code;
+            }
+
+            bind->BindEvent(type, eventInfo);
             
         }
         
