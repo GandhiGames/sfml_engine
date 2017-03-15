@@ -1,10 +1,11 @@
 @echo off
 
-rem forfiles /P . /M *.gch /C "cmd /c echo @file"
 rem add -Wall
 rem rmdir /s /q ..\build
 
 set path=c:\mingw64;c:\mingw64\bin;%path%
+
+forfiles /P . /M *.gch /C "cmd /c del @file"
 
 if not exist "..\build" mkdir ..\build
 

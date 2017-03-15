@@ -278,7 +278,7 @@ public:
     
     bool RemoveCallback(const StateType &l_state, const std::string & l_name);
     
-    void HandleEvent(sf::Event & l_event);
+    void HandleEvent(sf::Event& l_event);
     void HandleEvent(UI_Event& l_event);
     void Update();
     
