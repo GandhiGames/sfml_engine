@@ -19,8 +19,10 @@ rem move media files to build dir
 echo Y | rmdir /s media
 xcopy ..\media .\media /E /I
 
-g++ -g -c ..\code\*.cpp -I..\SFML-2.4.2\include 
-g++ -static -static-libgcc -static-libstdc++ *.o -o main.exe -I..\code -L..\SFML-2.4.2\lib -lsfml-graphics -lsfml-window -lsfml-system -lShlwapi
+rem Do compile
+rem g++ -g -ggdb ..\code\*.cpp -I..\SFML-2.4.2\include 
+rem g++ -g -ggdb -static -static-libgcc -static-libstdc++ *.o -o main.exe -I..\code -L..\SFML-2.4.2\lib -lsfml-graphics -lsfml-window -lsfml-system -lShlwapi
+cl -Zi ..\code\*.cpp -I..\SFML-2.4.2\include /link /LIBPATH:..\SFML-2.4.2\lib libsfml-system.a
 
 rem delete intermediate files
 forfiles /P . /M *.o /C "cmd /c del @file"
