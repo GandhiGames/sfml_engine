@@ -9,7 +9,7 @@
 #include "S_Control.hpp"
 #include "SystemManager.hpp"
 
-#pragma clang diagnostic ignored "-Wswitch"
+//#pragma clang diagnostic ignored "-Wswitch"
 
 S_Control::S_Control(SystemManager* l_systemMgr)
 : S_Base(System::Control,l_systemMgr)

@@ -9,7 +9,7 @@
 #ifndef EventManager_hpp
 #define EventManager_hpp
 
-#pragma clang diagnostic ignored "-Wswitch"
+//#pragma clang diagnostic ignored "-Wswitch"
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>

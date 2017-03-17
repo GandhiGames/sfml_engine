@@ -9,7 +9,7 @@
 #ifndef S_Movement_hpp
 #define S_Movement_hpp
 
-#pragma clang diagnostic ignored "-Wswitch"
+//#pragma clang diagnostic ignored "-Wswitch"
 
 #include "S_Base.hpp"
 #include "C_Movable.hpp"
