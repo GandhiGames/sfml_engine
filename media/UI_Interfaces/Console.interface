@@ -1,0 +1,2 @@
+Interface Console Console.style 0 0 Movable NoTitle "Console"
+Element Label Title 100 0 MainMenuTitle.style "Main menu:"

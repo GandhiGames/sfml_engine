@@ -31,12 +31,14 @@ UI_Manager::~UI_Manager()
     m_eventMgr->RemoveCallback(StateType(0), "Mouse_Left");
     m_eventMgr->RemoveCallback(StateType(0), "Mouse_Left_Release");
     m_eventMgr->RemoveCallback(StateType(0), "Text_Entered");
-    
+
     for (auto &itr : m_interfaces){
         for (auto &itr2 : itr.second){
             delete itr2.second;
         }
     }
+
+    m_context->SetUIManager(nullptr);
 }
 
 UI_Interface* UI_Manager::GetInterface(const StateType& l_state,

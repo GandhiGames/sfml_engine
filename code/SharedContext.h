@@ -23,6 +23,7 @@
 class Map;
 
 //TODO(robert): Remove setter and getters? Convert to pure dataclass.
+//TODO(robert): Have components set nullptr in the SharedContext when destructors called to prevent access.
 struct SharedContext {
     SharedContext():m_window(nullptr), m_eventManager(nullptr),
                     m_textureManager(nullptr), m_fontManager(nullptr),

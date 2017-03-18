@@ -9,6 +9,7 @@
 #include "State_Console.hpp"
 #include "StateManager.hpp"
 
+//TODO(robert): Convert to new UI system.
 State_Console::State_Console(StateManager& l_stateManager) : BaseState(l_stateManager), m_console(l_stateManager.GetContext().GetWindow()->GetRenderWindow(), *l_stateManager.GetContext().GetFontManager()){}
 
 State_Console::~State_Console(){}

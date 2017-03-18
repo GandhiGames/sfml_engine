@@ -27,9 +27,14 @@ void State_Menu::OnCreate()
 
 void State_Menu::OnDestroy()
 {
-    GetStateManager().GetContext().GetUIManager()->RemoveInterface(
-        StateType::MainMenu, "MainMenu");
+    UI_Manager* uiMgr = GetStateManager().GetContext().GetUIManager();
 
+    if(uiMgr)
+    {
+        uiMgr->RemoveInterface(
+            StateType::MainMenu, "MainMenu");
+    }
+    
     EventManager* evtMgr = GetStateManager().GetContext().GetEventManager();
     evtMgr->RemoveCallback(StateType::MainMenu, "MainMenu_Play");
     evtMgr->RemoveCallback(StateType::MainMenu, "MainMenu_Quit");
@@ -42,11 +47,11 @@ void State_Menu::Activate()
 
     if(GetStateManager().HasState(StateType::Game))
     {
-        play.SetText("Resume");
+        play.SetText("RESUME");
     }
     else
     {
-        play.SetText("Play");
+        play.SetText("PLAY");
     }
 }
 

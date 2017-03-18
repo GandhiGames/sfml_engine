@@ -1,27 +1,26 @@
 @echo off
 
-rem add -Wall
-rem rmdir /s /q ..\build
+rem set path=c:\mingw64;c:\mingw64\bin;%path%
+rem g++ -g -ggdb ..\code\*.cpp -I..\SFML-2.4.2\include 
+rem g++ -g -ggdb -static -static-libgcc -static-libstdc++ *.o -o main.exe -I..\code -L..\SFML-2.4.2\lib -lsfml-graphics -lsfml-window -lsfml-system -lShlwapi
 
-set path=c:\mingw64;c:\mingw64\bin;%path%
-
-rem forfiles /P . /M *.gch /C "cmd /c del @file"
-
-if not exist "..\build" mkdir ..\build
+rem Recreate build directory
+if not exist ..\build mkdir ..\build
 
 pushd ..\build
 
+rem move libs to build dir
+for %%G in (sfml-graphics-2.dll, sfml-system-2.dll, sfml-window-2.dll) do ^
+forfiles /P ..\SFML-2.4.2\bin /M %%G /C "cmd /c if not exist ..\..\build\@file copy @file ..\..\build\@file"
+
 rem move config files to build dir
-rem forfiles /P . /M *.cfg /C "cmd /c del @file"
 forfiles /P ..\code /M *.cfg /C "cmd /c copy @file ..\build\@file"
 
 rem move media files to build dir
 echo Y | rmdir /s media
 xcopy ..\media .\media /E /I
 
-rem Do compile
-rem g++ -g -ggdb ..\code\*.cpp -I..\SFML-2.4.2\include 
-rem g++ -g -ggdb -static -static-libgcc -static-libstdc++ *.o -o main.exe -I..\code -L..\SFML-2.4.2\lib -lsfml-graphics -lsfml-window -lsfml-system -lShlwapi
+rem compile
 cl -Zi -EHsc ..\code\*.cpp -I..\SFML-2.4.2\include /link /LIBPATH:..\SFML-2.4.2\lib sfml-system.lib sfml-graphics.lib sfml-window.lib Shlwapi.lib 
 
 rem delete intermediate files
