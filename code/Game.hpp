@@ -19,6 +19,9 @@
 #include "SystemManager.hpp"
 #include "FPS.hpp"
 #include "UI_Manager.hpp"
+#include "SoundManager.hpp"
+#include "AudioManager.hpp"
+#include "S_Sound.hpp"
 #include <iostream>
 
 class Game {
@@ -49,6 +52,9 @@ private:
     Textbox m_debugText;
     FPS m_fps;
     UI_Manager m_uiManager;
+    AudioManager m_audioManager;
+    SoundManager m_soundManager;
+
 };
 
 #endif /* Game_hpp */

@@ -10,7 +10,7 @@
 #define EntityMessage_hpp
 
 enum class EntityMessage{
-    Move, Is_Moving, State_Changed, Direction_Changed,
+    Move, Is_Moving, Frame_Change, State_Changed, Direction_Changed,
     Switch_State, Attack_Action, Dead
 };
 

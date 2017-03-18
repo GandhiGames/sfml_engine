@@ -116,6 +116,8 @@ void StateManager::SwitchTo(const StateType &l_type)
 {
     m_sharedContext.GetEventManager()->SetCurrentState(l_type);
     m_sharedContext.GetUIManager()->SetCurrentState(l_type);
+    m_sharedContext.GetSoundManager()->ChangeState(l_type);
+    
     for (auto itr = m_states.begin();
          itr != m_states.end(); ++itr)
     {
@@ -160,6 +162,9 @@ void StateManager::RemoveState(const StateType &l_type)
             itr->second->OnDestroy();
             delete itr->second;
             m_states.erase(itr);
+
+            m_sharedContext.GetSoundManager()->RemoveState(l_type);
+            
             return;
         }
     }

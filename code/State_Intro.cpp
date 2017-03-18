@@ -27,7 +27,7 @@ void State_Intro::OnCreate()
     m_introSprite.setOrigin(introSprite->getSize().x / 2.0f,
                             introSprite->getSize().y / 2.0f);
     
-	m_introSprite.setPosition(windowSize.x * 0.5f, windowSize.y * 0.5f);
+    m_introSprite.setPosition(windowSize.x * 0.5f, windowSize.y * 0.5f);
     
     
     FontManager* fntMngr = GetStateManager().GetContext().GetFontManager();
@@ -39,12 +39,14 @@ void State_Intro::OnCreate()
     m_text.setString({ "Press SPACE to continue" });
     m_text.setCharacterSize(15);
     sf::FloatRect textRect = m_text.getLocalBounds();
-   	m_text.setOrigin(textRect.left + textRect.width / 2.0f,
+    m_text.setOrigin(textRect.left + textRect.width / 2.0f,
                      textRect.top + textRect.height / 2.0f);
     m_text.setPosition(m_introSprite.getPosition().x,
                        m_introSprite.getPosition().y + textureMgr->GetResource("Intro")->getSize().y / 1.5f);
     
    GetStateManager().GetContext().GetEventManager()->AddCallback(StateType::Intro,"Intro_continue",&State_Intro::Continue,this);
+
+   GetStateManager().GetContext().GetSoundManager()->PlayMusic("Electrix", 100.0f, true);
 }
 
 void State_Intro::OnDestroy()

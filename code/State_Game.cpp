@@ -39,6 +39,8 @@ void State_Game::OnCreate(){
     GetStateManager().GetContext().GetSystemManager()->GetSystem<S_Collision>(System::Collision)->SetMap(m_gameMap);
     GetStateManager().GetContext().GetSystemManager()->GetSystem<S_Movement>(System::Movement)->SetMap(m_gameMap);
     m_player = m_gameMap->GetPlayerId();
+
+//    GetStateManager().GetContext().GetSoundManager()->PlayMusic("TownTheme", 50.0f, true);
 }
 
 void State_Game::OnDestroy(){

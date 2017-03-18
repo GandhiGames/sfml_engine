@@ -16,6 +16,8 @@
 #include <sstream>
 #include "ResourcePath.hpp"
 
+//TODO(robert): Rename all resource manager subclasses so role is explicit i.e. whats the difference
+// between a soundmanager and an audiomanager?
 template<typename Derived, typename T>
 class ResourceManager {
 public:
@@ -44,8 +46,8 @@ public:
         auto res = Find(l_id);
         return (res ? res->first : nullptr);
     }
-    
-    const std::string &GetPath(const std::string& l_id)
+
+    std::string GetPath(const std::string& l_id)
     {
         auto path = m_paths.find(l_id);
         return (path != m_paths.end() ? path->second : "");
@@ -89,11 +91,7 @@ protected:
         return static_cast<Derived*>(this)->Load(l_path);
     }
     
-private:
-    std::unordered_map<std::string, std::pair<T*, unsigned int>> m_resources;
-    std::unordered_map<std::string, std::string> m_paths;
-    
-    
+private:    
     std::pair<T*,unsigned int>* Find(const std::string& l_id)
     {
         auto itr = m_resources.find(l_id);
@@ -138,6 +136,10 @@ private:
         
         printf("! Failed loading the path file: %s\n",l_pathFile.c_str());
     }
+
+    
+    std::unordered_map<std::string, std::pair<T*, unsigned int>> m_resources;
+    std::unordered_map<std::string, std::string> m_paths;
 };
 
 

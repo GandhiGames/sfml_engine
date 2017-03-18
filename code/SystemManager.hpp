@@ -17,6 +17,7 @@
 #include "S_Control.hpp"
 #include "S_State.hpp"
 #include "S_SheetAnimation.hpp"
+#include "S_Sound.hpp"
 #include "EventQueue.hpp"
 #include "MessageHandler.hpp"
 #include "Profiler.hpp"

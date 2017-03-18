@@ -13,7 +13,8 @@ Game::Game():
     m_window("engine_test", sf::Vector2u(800, 600)),m_stateManager(m_context),
         m_entityManager(&m_systemManager, &m_textureManager),
         m_debugText(m_fontManager),
-        m_uiManager(m_window.GetEventManager(), &m_context)
+    m_uiManager(m_window.GetEventManager(), &m_context),
+    m_soundManager(&m_audioManager)
 {
     m_clock.restart();
     srand((unsigned)time(nullptr));
@@ -29,6 +30,10 @@ Game::Game():
     m_context.SetDebugOverlay(&m_debugOverlay);
     m_context.SetDebugText(&m_debugText);
     m_context.SetUIManager(&m_uiManager);
+    m_context.SetAudioManager(&m_audioManager);
+    m_context.SetSoundManager(&m_soundManager);
+
+    m_systemManager.GetSystem<S_Sound>(System::Sound)->SetUp(&m_audioManager, &m_soundManager);
     
     m_stateManager.SwitchTo(StateType::Intro);
     
@@ -47,15 +52,15 @@ sf::Time Game::GetElapsed(){ return m_clock.getElapsedTime(); }
 void Game::RestartClock(){ m_elapsed = m_clock.restart(); }
 Window* Game::GetWindow(){ return &m_window; }
 
-void Game::Update(){
+void Game::Update()
+{
     m_window.Update();
     m_stateManager.Update(m_elapsed);
+    m_uiManager.Update(m_elapsed.asSeconds());
+    m_soundManager.Update(m_elapsed.asSeconds());
     
-    m_context.GetUIManager()->Update(m_elapsed.asSeconds());
-    
-    UI_Event uiEvent;
-    
-    while(m_context.GetUIManager()->PollEvent(uiEvent)){
+    UI_Event uiEvent;    
+    while(m_uiManager.PollEvent(uiEvent)){
         m_window.GetEventManager()->HandleEvent(uiEvent);
     }
 }

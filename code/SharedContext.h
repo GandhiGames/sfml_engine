@@ -19,6 +19,8 @@
 #include "DebugOverlay.h"
 #include "Textbox.hpp"
 #include "UI_Manager.hpp"
+#include "SoundManager.hpp"
+#include "AudioManager.hpp"
 
 class Map;
 
@@ -29,7 +31,7 @@ struct SharedContext {
                     m_textureManager(nullptr), m_fontManager(nullptr),
                     m_entityManager(nullptr), m_systemManager(nullptr),
                     m_map(nullptr), m_debugOverlay(nullptr), m_debugText(nullptr),
-                    m_uiManager(nullptr){}
+                    m_uiManager(nullptr), m_soundManager(nullptr), m_audioManager(nullptr){}
     
     Window *GetWindow()
     {
@@ -130,6 +132,26 @@ struct SharedContext {
     {
         m_uiManager = l_uiManager;
     }
+
+    SoundManager* GetSoundManager()
+    {
+        return m_soundManager;
+    }
+
+    void SetSoundManager(SoundManager* l_soundManager)
+    {
+        m_soundManager = l_soundManager;
+    }
+
+    AudioManager* GetAudioManager()
+    {
+        return m_audioManager;
+    }
+
+    void SetAudioManager(AudioManager* l_audioManager)
+    {
+        m_audioManager = l_audioManager;
+    }
     
 private:
     Window* m_window;
@@ -142,6 +164,8 @@ private:
     DebugOverlay* m_debugOverlay;
     Textbox* m_debugText;
     UI_Manager* m_uiManager;
+    SoundManager* m_soundManager;
+    AudioManager* m_audioManager;
 };
 
 #endif /* SharedContext_h */

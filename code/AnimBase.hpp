@@ -24,7 +24,7 @@ public:
     virtual ~AnimBase();
     
     void SetSpriteSheet(SpriteSheet* l_sheet);
-    void SetFrame(int l_frame);
+    bool SetFrame(int l_frame);
     void SetFrames(const std::vector<Frame>& l_frames);
     void SetActionStart(int l_frame);
     void SetActionEnd(int l_frame);
@@ -52,8 +52,12 @@ public:
     void SetAnimationDefaultDirection(const Direction& l_dir);
 
     virtual void Update(const float& l_dT);
-    
-    /*
+
+    bool CheckMoved();
+
+    int GetCurrentFrame();
+
+/*
     friend std::stringstream& operator >>(std::stringstream &l_stream, AnimBase &a)
     {
         a.ReadIn(l_stream);
@@ -64,7 +68,6 @@ public:
 protected:
     void FrameStep();
     void CropSprite();
-    int GetCurrentFrame();
    // virtual void ReadIn(std::stringstream& l_stream) = 0;
     
     sf::Uint8 m_frameCurrent;
@@ -76,10 +79,9 @@ protected:
     float m_elapsedTime;
     bool m_loop;
     bool m_playing;
-    Direction m_defaultDir;
-    
+    Direction m_defaultDir;    
     std::string m_name;
-    
+    bool m_hasMoved;
     SpriteSheet* m_spriteSheet;
 };
 
