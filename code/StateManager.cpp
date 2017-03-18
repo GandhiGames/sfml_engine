@@ -115,6 +115,7 @@ void StateManager::ProcessRequests()
 void StateManager::SwitchTo(const StateType &l_type)
 {
     m_sharedContext.GetEventManager()->SetCurrentState(l_type);
+    m_sharedContext.GetUIManager()->SetCurrentState(l_type);
     for (auto itr = m_states.begin();
          itr != m_states.end(); ++itr)
     {
@@ -144,7 +145,7 @@ void StateManager::SwitchTo(const StateType &l_type)
 
 void StateManager::CreateState(const StateType &l_type)
 {
-   	auto newState = m_stateFactory.find(l_type);
+    auto newState = m_stateFactory.find(l_type);
     if (newState == m_stateFactory.end()){ return; }
     BaseState* state = newState->second();
     state->GetView() = m_sharedContext.GetWindow()->GetRenderWindow()->getDefaultView();
