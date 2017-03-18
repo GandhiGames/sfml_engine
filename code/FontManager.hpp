@@ -12,7 +12,8 @@
 #include "ResourceManager.h"
 #include <SFML/Graphics.hpp>
 
-class FontManager : public ResourceManager<FontManager, sf::Font> {
+class FontManager : public ResourceManager<FontManager, sf::Font>
+{
 public:
     FontManager();
     

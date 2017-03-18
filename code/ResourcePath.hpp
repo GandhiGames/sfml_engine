@@ -19,7 +19,7 @@ inline std::string resourcePath()
         GetModuleFileName(hModule,path,sizeof(path));
         PathRemoveFileSpec(path);
         strcat_s(path,"\\"); // new
-        return std::string(path); // new
+        return std::string(path) + "assets\\"; // new
     }
 
     return "";
