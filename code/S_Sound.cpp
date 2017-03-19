@@ -2,8 +2,8 @@
    $File: $
    $Date: $
    $Revision: $
-   $Creator: Casey Muratori $
-   $Notice: (C) Copyright 2014 by Molly Rocket, Inc. All Rights Reserved. $
+   $Creator: Robert Wells $
+   $Notice: (C) Copyright 2016 by Gandhi Games, Inc. All Rights Reserved. $
    ======================================================================== */
 #include "S_Sound.hpp"
 #include "SystemManager.hpp"
@@ -31,7 +31,8 @@ S_Sound::~S_Sound(){}
 void S_Sound::Update(float l_dT)
 {
     EntityManager* entities = m_systemManager->GetEntityManager();
-    for (auto &entity : m_entities){
+    for (auto &entity : m_entities)
+    {
         C_Position* c_pos = entities->GetComponent<C_Position>(entity, Component::Position);
         sf::Vector2f position = c_pos->GetPosition();
         unsigned int elevation = c_pos->GetElevation();

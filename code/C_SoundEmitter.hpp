@@ -35,10 +35,12 @@ public:
 
     C_SoundEmitter() : C_Base(Component::SoundEmitter), m_soundID(-1){}
 
-    void ReadIn(std::stringstream& l_stream){
+    void ReadIn(std::stringstream& l_stream)
+    {
         std::string main_delimiter = ":";
         std::string frame_delimiter = ",";
-        for (int i = 0; i < Max_EntitySounds; ++i){
+        for (int i = 0; i < Max_EntitySounds; ++i)
+        {
             std::string chunk;
             l_stream >> chunk;
             if (chunk == ""){ break; }
@@ -49,14 +51,18 @@ public:
             size_t pos = 0;
             unsigned int frameNum = 0;
 
-            while (frameNum < SoundParameters::Max_SoundFrames){
+            while (frameNum < SoundParameters::Max_SoundFrames)
+            {
                 pos = frames.find(frame_delimiter);
                 int frame = -1;
 
-                if (pos != std::string::npos){
+                if (pos != std::string::npos)
+                {
                     frame = stoi(frames.substr(0, pos));
                     frames.erase(0, pos + frame_delimiter.length());
-                } else {
+                }
+                else
+                {
                     frame = stoi(frames);
                     m_params[i].m_frames[frameNum] = frame;
                     break;
@@ -81,10 +87,12 @@ public:
     {
         if ((int)l_snd >= Max_EntitySounds){ return false; }
 
-        for (int i = 0; i < SoundParameters::Max_SoundFrames; ++i){
+        for (int i = 0; i < SoundParameters::Max_SoundFrames; ++i)
+        {
             if (m_params[(int)l_snd].m_frames[i] == -1){ return false; }
             if (m_params[(int)l_snd].m_frames[i] == l_frame){ return true; }
         }
+
         return false;
     }
 
