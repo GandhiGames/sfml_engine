@@ -98,6 +98,8 @@ void SoundManager::Update(float l_dT)
 SoundID SoundManager::PlayOneShot(const std::string& l_sound,
     const sf::Vector3f& l_position, bool l_loop, bool l_relative)
 {
+    std::cout << "Playing sound: " << l_sound << std::endl;
+    
     SoundProps* props = GetSoundProperties(l_sound);
     if (!props){ return -1; } // Failed to load sound properties.
 
@@ -116,6 +118,8 @@ SoundID SoundManager::PlayOneShot(const std::string& l_sound,
 
 bool SoundManager::PlayOneShot(const SoundID& l_id)
 {
+    std::cout << "Playing sound with id: " << l_id << std::endl;
+    
     auto& container = m_audio[m_currentState];
     auto sound = container.find(l_id);
     if (sound == container.end()){ return false; }
@@ -146,6 +150,8 @@ bool SoundManager::Pause(const SoundID& l_id)
 
 bool SoundManager::PlayMusic(const std::string& l_musicId, float l_volume, bool l_loop)
 {
+    std::cout << "Playing music with id: " << l_musicId << std::endl;
+    
     auto s = m_music.find(m_currentState);
     if (s == m_music.end()){ return false; }
 
@@ -264,6 +270,7 @@ bool SoundManager::LoadProperties(const std::string& l_name)
 
         if (type == "Audio"){
             keystream >> props.m_audioName;
+            std::cout << " Loading properties for: " << props.m_audioName << std::endl;
         } else if (type == "Volume"){
             keystream >> props.m_volume;
         } else if (type == "Pitch"){

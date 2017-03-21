@@ -21,7 +21,7 @@ echo Y | rmdir /s assets
 xcopy ..\assets .\assets /E /I
 
 rem compile
-cl -Zi -EHsc -Fesfml_engine.exe ..\code\*.cpp -I..\SFML-2.4.2\include /link /LIBPATH:..\SFML-2.4.2\lib sfml-system.lib sfml-graphics.lib sfml-window.lib ^
+cl -Zi -Debug -EHsc -Fesfml_engine.exe ..\code\*.cpp -I..\SFML-2.4.2\include /link /SUBSYSTEM:CONSOLE /LIBPATH:..\SFML-2.4.2\lib sfml-system.lib sfml-graphics.lib sfml-window.lib ^
 sfml-audio.lib openal32.lib flac.lib ogg.lib vorbis.lib vorbisenc.lib vorbisfile.lib Shlwapi.lib 
 
 rem delete intermediate files

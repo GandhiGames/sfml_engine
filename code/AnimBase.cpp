@@ -64,9 +64,12 @@ void AnimBase::FrameStep()
 
 void AnimBase::CropSprite()
 {   
-    if(m_spriteSheet->GetDirection() == m_defaultDir){
+    if(m_spriteSheet->GetDirection() == m_defaultDir)
+    {
         m_spriteSheet->CropSprite(m_frames[GetCurrentFrame()]);
-    }else{
+    }
+    else
+    {
         m_spriteSheet->CropSprite(m_reverseFrames[GetCurrentFrame()]);
     }
 }
@@ -78,8 +81,13 @@ void AnimBase::SetAnimationDefaultDirection(const Direction& l_dir)
 
 bool AnimBase::IsInAction()
 {
-    if (m_frameActionStart == -1 || m_frameActionEnd == -1){ return true; }
-    return (m_frameCurrent >= m_frameActionStart && m_frameCurrent <= m_frameActionEnd);
+    if (m_frameActionStart == -1 || m_frameActionEnd == -1)
+    {
+        return true;
+    }
+
+    return (m_frameCurrent >= m_frameActionStart &&
+            m_frameCurrent <= m_frameActionEnd);
 }
 
 void AnimBase::Reset()
@@ -123,6 +131,7 @@ int AnimBase::GetCurrentFrame(){ return m_frameCurrent; }
 
 bool AnimBase::CheckMoved()
 {
+    std::cout << "Moved: " << m_hasMoved ? "true" : "false"; 
     bool result = m_hasMoved;
     m_hasMoved = false;
     return result;
