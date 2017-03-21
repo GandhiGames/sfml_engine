@@ -37,6 +37,7 @@ bool AnimBase::SetFrame(int l_frame)
 {
     if(l_frame >= 0 && l_frame < m_frames.size())
     {
+        std::cout << l_frame << std::endl;
         m_frameCurrent = l_frame;
         m_hasMoved = true;
         return true;
