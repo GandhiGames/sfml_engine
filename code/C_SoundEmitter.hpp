@@ -85,12 +85,24 @@ public:
 
     bool IsSoundFrame(const EntitySound& l_snd, int l_frame)
     {
-        if ((int)l_snd >= Max_EntitySounds){ return false; }
-
+        if ((int)l_snd >= Max_EntitySounds)
+        {
+            std::cout << "C_SoundEmitter: Greater than max sounds" << std::endl;
+                            
+            return false;
+        }
+        
         for (int i = 0; i < SoundParameters::Max_SoundFrames; ++i)
         {
-            if (m_params[(int)l_snd].m_frames[i] == -1){ return false; }
-            if (m_params[(int)l_snd].m_frames[i] == l_frame){ return true; }
+            if (m_params[(int)l_snd].m_frames[i] == -1)
+            {
+                return false;
+            }
+            
+            if (m_params[(int)l_snd].m_frames[i] == l_frame)
+            {
+                return true;
+            }
         }
 
         return false;

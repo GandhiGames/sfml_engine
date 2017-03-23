@@ -38,18 +38,29 @@ void S_Sound::Update(float l_dT)
         unsigned int elevation = c_pos->GetElevation();
 
         bool IsListener = entities->HasComponent(entity, Component::SoundListener);
-        if (IsListener){ sf::Listener::setPosition(MakeSoundPosition(position, elevation)); }
+        if (IsListener)
+        {
+            sf::Listener::setPosition(MakeSoundPosition(position, elevation));
+        }
 
         if (!entities->HasComponent(entity, Component::SoundEmitter)){ continue; }
+
         C_SoundEmitter* c_snd = entities->GetComponent<C_SoundEmitter>(entity, Component::SoundEmitter);
         if (c_snd->GetSoundID() == -1){ continue; }
-        if (!IsListener){
+
+        if (!IsListener)
+        {
             if (!m_soundManager->SetPosition(c_snd->GetSoundID(), MakeSoundPosition(position, elevation)))
             {
                 c_snd->SetSoundID(-1);
             }
-        } else {
-            if (!m_soundManager->IsPlaying(c_snd->GetSoundID())){ c_snd->SetSoundID(-1); }
+        }
+        else
+        {
+            if (!m_soundManager->IsPlaying(c_snd->GetSoundID()))
+            {
+                c_snd->SetSoundID(-1);
+            }
         }
     }
 }
@@ -58,7 +69,11 @@ void S_Sound::HandleEvent(const EntityId& l_entity, const EntityEvent& l_event){
 
 void S_Sound::Notify(const Message& l_message)
 {
-    if (!HasEntity(l_message.m_receiver)){ return; }
+    if (!HasEntity(l_message.m_receiver))
+    {
+        std::cout << "S_Sound: msg received but no associated entity" << std::endl;
+        return;
+    }
 
     EntityManager* entities = m_systemManager->GetEntityManager();
     bool IsListener = entities->HasComponent(l_message.m_receiver, Component::SoundListener);
@@ -81,7 +96,11 @@ void S_Sound::Notify(const Message& l_message)
         break;
     }
     case EntityMessage::Frame_Change:
-        if (!entities->HasComponent(l_message.m_receiver, Component::SoundEmitter)){ return; }
+        if (!entities->HasComponent(l_message.m_receiver, Component::SoundEmitter))
+        {
+            std::cout << "S_Sound: Frame change event received but no sound emitter" << std::endl;
+            return;
+        }
 
         EntityState state = entities->GetComponent<C_State>(l_message.m_receiver, Component::State)->GetState();
         EntitySound sound = EntitySound::None;
@@ -90,7 +109,10 @@ void S_Sound::Notify(const Message& l_message)
         else if (state == EntityState::Hurt){ sound = EntitySound::Hurt; }
         else if (state == EntityState::Dying){ sound = EntitySound::Death; }
 
-        if (sound == EntitySound::None){ return; }
+        if (sound == EntitySound::None)
+        {
+            return;
+        }
 
         EmitSound(l_message.m_receiver, sound, false, IsListener, l_message.m_int);
 
@@ -110,7 +132,7 @@ sf::Vector3f S_Sound::MakeSoundPosition(const sf::Vector2f& l_entityPos, unsigne
 }
 
 void S_Sound::EmitSound(const EntityId& l_entity, const EntitySound& l_sound, 
-    bool l_useId, bool l_relative, int l_checkFrame)
+    bool l_useId, bool l_relative, int l_checkFrame)F
 {
     if (!HasEntity(l_entity)){ return; }
     if (!m_systemManager->GetEntityManager()->HasComponent(l_entity, Component::SoundEmitter)){ return; }

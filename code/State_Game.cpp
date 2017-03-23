@@ -43,7 +43,8 @@ void State_Game::OnCreate(){
 //    GetStateManager().GetContext().GetSoundManager()->PlayMusic("TownTheme", 50.0f, true);
 }
 
-void State_Game::OnDestroy(){
+void State_Game::OnDestroy()
+{
     EventManager* evMgr = GetStateManager().GetContext().GetEventManager();
     evMgr->RemoveCallback(StateType::Game, "Key_Escape");
     evMgr->RemoveCallback(StateType::Game, "Key_O");

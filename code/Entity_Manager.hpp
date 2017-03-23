@@ -31,7 +31,8 @@ using EntityContainer = std::unordered_map<EntityId,EntityData>;
 using ComponentFactory = std::unordered_map<Component,std::function<C_Base*(void)>>;
 
 class SystemManager;
-class EntityManager{
+class EntityManager
+{
 public:
     EntityManager(SystemManager* l_sysMgr, TextureManager* l_textureMgr);
     ~EntityManager();
@@ -62,7 +63,8 @@ public:
     void Purge();
 private:
     template<class T>
-    void AddComponentType(const Component& l_id){
+    void AddComponentType(const Component& l_id)
+    {
         m_cFactory[l_id] = []()->C_Base* { return new T(); };
     }
     

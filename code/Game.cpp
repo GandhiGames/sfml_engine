@@ -9,6 +9,7 @@
 #include "Game.hpp"
 
 //TODO(robert): Seperate media files and data files in asset folder i.e. assets/media and assets/data
+//TODO(robert): Look into removing some if statements in favour of asserts.
 Game::Game():
     m_window("engine_test", sf::Vector2u(800, 600)),m_stateManager(m_context),
         m_entityManager(&m_systemManager, &m_textureManager),
@@ -60,7 +61,8 @@ void Game::Update()
     m_soundManager.Update(m_elapsed.asSeconds());
     
     UI_Event uiEvent;    
-    while(m_uiManager.PollEvent(uiEvent)){
+    while(m_uiManager.PollEvent(uiEvent))
+    {
         m_window.GetEventManager()->HandleEvent(uiEvent);
     }
 }

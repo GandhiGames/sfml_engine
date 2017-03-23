@@ -21,7 +21,8 @@ void AnimBase::SetFrames(const std::vector<Frame>& l_frames)
     
     assert(m_spriteSheet->GetSpriteSize().x != 0 && m_spriteSheet->GetSpriteSize().y != 0);
     
-    for(auto& it : m_frames){
+    for(auto& it : m_frames)
+    {
          m_reverseFrames.emplace_back(
              sf::IntRect(
                  it.left + m_spriteSheet->GetSpriteSize().x,
@@ -37,7 +38,6 @@ bool AnimBase::SetFrame(int l_frame)
 {
     if(l_frame >= 0 && l_frame < m_frames.size())
     {
-        std::cout << l_frame << std::endl;
         m_frameCurrent = l_frame;
         m_hasMoved = true;
         return true;
@@ -132,7 +132,7 @@ int AnimBase::GetCurrentFrame(){ return m_frameCurrent; }
 
 bool AnimBase::CheckMoved()
 {
-    std::cout << "Moved: " << m_hasMoved ? "true" : "false"; 
+    // std::cout << "Moved: " << m_hasMoved ? "true" : "false" << std::endl; 
     bool result = m_hasMoved;
     m_hasMoved = false;
     return result;

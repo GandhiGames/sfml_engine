@@ -9,7 +9,8 @@
 #include "SystemManager.hpp"
 #include "Entity_Manager.hpp"
 
-SystemManager::SystemManager(): m_entityManager(nullptr){
+SystemManager::SystemManager(): m_entityManager(nullptr)
+{
     m_systems[System::State] = new S_State(this);
     m_systems[System::Control] = new S_Control(this);
     m_systems[System::Movement] = new S_Movement(this);
@@ -19,19 +20,23 @@ SystemManager::SystemManager(): m_entityManager(nullptr){
     m_systems[System::Renderer] = new S_Renderer(this);
 }
 
-SystemManager::~SystemManager(){
+SystemManager::~SystemManager()
+{
     PurgeSystems();
 }
 
-void SystemManager::SetEntityManager(EntityManager* l_entityMgr){
+void SystemManager::SetEntityManager(EntityManager* l_entityMgr)
+{
     if(!m_entityManager){ m_entityManager = l_entityMgr; }
 }
 
-EntityManager* SystemManager::GetEntityManager(){
+EntityManager* SystemManager::GetEntityManager()
+{
     return m_entityManager;
 }
 
-MessageHandler* SystemManager::GetMessageHandler(){
+MessageHandler* SystemManager::GetMessageHandler()
+{
     return &m_messages;
 }
 
@@ -42,23 +47,28 @@ void SystemManager::AddEvent(const EntityId& l_entity,
 }
 
 //TODO:retrieve system name from enum and print to window.
-void SystemManager::Update(float l_dT){
+void SystemManager::Update(float l_dT)
+{
     for(auto &itr : m_systems){
        // m_profiler.Start();
         itr.second->Update(l_dT);
         //std::cout << std::to_string(m_profiler.GetElapsed().asMicroseconds()) << std::endl;
-
     }
+
     HandleEvents();
 }
 
-void SystemManager::HandleEvents(){
-    for(auto &event : m_events){
+void SystemManager::HandleEvents()
+{
+    for(auto &event : m_events)
+    {
         EventID id = 0;
-        while(event.second.ProcessEvents(id)){
+        while(event.second.ProcessEvents(id))
+        {
             for(auto &system : m_systems)
             {
-                if(system.second->HasEntity(event.first)){
+                if(system.second->HasEntity(event.first))
+                {
                     system.second->HandleEvent(event.first,(EntityEvent)id);
                 }
             }
@@ -76,35 +86,48 @@ void SystemManager::Draw(Window* l_wind, unsigned int l_elevation)
 
 void SystemManager::EntityModified(const EntityId& l_entity, const Bitmask& l_bits)
 {
-    for(auto &s_itr : m_systems){
+    for(auto &s_itr : m_systems)
+    {
         S_Base* system = s_itr.second;
-        if(system->FitsRequirements(l_bits)){
-            if(!system->HasEntity(l_entity)){
+        if(system->FitsRequirements(l_bits))
+        {
+            if(!system->HasEntity(l_entity))
+            {
                 system->AddEntity(l_entity);
             }
-        } else {
-            if(system->HasEntity(l_entity)){
+        }
+        else
+        {
+            if(system->HasEntity(l_entity))
+            {
                 system->RemoveEntity(l_entity);
             }
         }
     }
 }
 
-void SystemManager::RemoveEntity(const EntityId& l_entity){
-    for(auto &system : m_systems){
+void SystemManager::RemoveEntity(const EntityId& l_entity)
+{
+    for(auto &system : m_systems)
+    {
         system.second->RemoveEntity(l_entity);
     }
 }
 
-void SystemManager::PurgeEntities(){
-    for(auto &system : m_systems){
+void SystemManager::PurgeEntities()
+{
+    for(auto &system : m_systems)
+    {
         system.second->Purge();
     }
 }
 
-void SystemManager::PurgeSystems(){
-    for (auto &system : m_systems){
+void SystemManager::PurgeSystems()
+{
+    for (auto &system : m_systems)
+    {
         delete system.second;
     }
+
     m_systems.clear();
 }
