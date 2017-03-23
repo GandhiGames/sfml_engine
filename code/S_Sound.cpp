@@ -132,7 +132,7 @@ sf::Vector3f S_Sound::MakeSoundPosition(const sf::Vector2f& l_entityPos, unsigne
 }
 
 void S_Sound::EmitSound(const EntityId& l_entity, const EntitySound& l_sound, 
-    bool l_useId, bool l_relative, int l_checkFrame)F
+    bool l_useId, bool l_relative, int l_checkFrame)
 {
     if (!HasEntity(l_entity)){ return; }
     if (!m_systemManager->GetEntityManager()->HasComponent(l_entity, Component::SoundEmitter)){ return; }
