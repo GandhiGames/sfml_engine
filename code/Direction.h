@@ -10,7 +10,7 @@
 #define Header_h
 
 enum class Direction {
-    Right = 0, Left
+    Right = 0, Left, Up, Down
 };
 
 

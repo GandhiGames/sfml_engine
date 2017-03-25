@@ -21,8 +21,8 @@ void State_Game::OnCreate(){
     evMgr->AddCallback(StateType::Game, "Key_O", &State_Game::ToggleOverlay, this);
     evMgr->AddCallback(StateType::Game, "Player_MoveLeft", &State_Game::PlayerMove, this);
     evMgr->AddCallback(StateType::Game, "Player_MoveRight", &State_Game::PlayerMove, this);
-    //evMgr->AddCallback(StateType::Game, "Player_MoveUp", &State_Game::PlayerMove, this);
-    //evMgr->AddCallback(StateType::Game, "Player_MoveDown", &State_Game::PlayerMove, this);
+    evMgr->AddCallback(StateType::Game, "Player_MoveUp", &State_Game::PlayerMove, this);
+    evMgr->AddCallback(StateType::Game, "Player_MoveDown", &State_Game::PlayerMove, this);
     evMgr->AddCallback(StateType::Game, "Key_Tilde", &State_Game::OpenConsole, this);
     evMgr->AddCallback(StateType::Game, "Key_P", &State_Game::Pause, this);
     
@@ -50,8 +50,8 @@ void State_Game::OnDestroy()
     evMgr->RemoveCallback(StateType::Game, "Key_O");
     evMgr->RemoveCallback(StateType::Game, "Player_MoveLeft");
     evMgr->RemoveCallback(StateType::Game, "Player_MoveRight");
-   // evMgr->RemoveCallback(StateType::Game, "Player_MoveUp");
-   // evMgr->RemoveCallback(StateType::Game, "Player_MoveDown");
+    evMgr->RemoveCallback(StateType::Game, "Player_MoveUp");
+    evMgr->RemoveCallback(StateType::Game, "Player_MoveDown");
     evMgr->RemoveCallback(StateType::Game, "Key_Tilde");
     evMgr->RemoveCallback(StateType::Game, "Key_P");
     
@@ -113,18 +113,17 @@ void State_Game::Activate(){}
 
 void State_Game::Deactivate(){}
 
-void State_Game::PlayerMove(EventDetails* l_details){
-    
+void State_Game::PlayerMove(EventDetails* l_details){    
     Message msg((MessageType)EntityMessage::Move);
     if (l_details->GetName() == "Player_MoveLeft"){
         msg.m_int = (int)Direction::Left;
     } else if (l_details->GetName() == "Player_MoveRight"){
         msg.m_int = (int)Direction::Right;
-    } /*else if (l_details->m_name == "Player_MoveUp"){
+    } else if (l_details->GetName() == "Player_MoveUp"){
         msg.m_int = (int)Direction::Up;
-    } else if (l_details->m_name == "Player_MoveDown"){
+    } else if (l_details->GetName() == "Player_MoveDown"){
         msg.m_int = (int)Direction::Down;
-    }*/
+    }
     
     msg.m_receiver = m_player;
     GetStateManager().GetContext().GetSystemManager()->GetMessageHandler()->Dispatch(msg);

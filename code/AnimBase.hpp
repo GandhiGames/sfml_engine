@@ -17,7 +17,8 @@ class SpriteSheet;
 
 using Frame = sf::IntRect;
 
-class AnimBase {
+class AnimBase
+{
     friend class SpriteSheet;
 public:
     AnimBase();
@@ -49,7 +50,7 @@ public:
     void Reset();
     void ForceUpdate();
     
-    void SetAnimationDefaultDirection(const Direction& l_dir);
+//    void SetAnimationDefaultDirection(const Direction& l_dir);
 
     virtual void Update(const float& l_dT);
 
@@ -72,14 +73,14 @@ protected:
     
     sf::Uint8 m_frameCurrent;
     std::vector<Frame> m_frames;
-    std::vector<Frame> m_reverseFrames;
+    // std::vector<Frame> m_reverseFrames;
     int m_frameActionStart;
     int m_frameActionEnd;
     float m_frameTime; // amount of time each frame takes to finish.
     float m_elapsedTime;
     bool m_loop;
     bool m_playing;
-    Direction m_defaultDir;    
+    //  Direction m_defaultDir;    
     std::string m_name;
     bool m_hasMoved;
     SpriteSheet* m_spriteSheet;

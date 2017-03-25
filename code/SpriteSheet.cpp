@@ -18,7 +18,8 @@ void SpriteSheet::ReleaseSheet()
 {
     m_textureManager->ReleaseResource(m_texture);
     m_animationCurrent = nullptr;
-    while(m_animations.begin() != m_animations.end()){
+    while(m_animations.begin() != m_animations.end())
+    {
         delete m_animations.begin()->second;
         m_animations.erase(m_animations.begin());
     }
@@ -29,47 +30,56 @@ const sf::Vector2u& SpriteSheet::GetSpriteSize()const{ return m_spriteSize; }
 
 
 sf::Vector2f SpriteSheet::GetSpritePosition()const{ return m_sprite.getPosition(); }
-const Direction & SpriteSheet::GetDirection()const {
-    return m_direction;
-}
+//const Direction & SpriteSheet::GetDirection()const { return m_direction; }
 AnimBase* SpriteSheet::GetCurrentAnim(){ return m_animationCurrent; }
 
 void SpriteSheet::CropSprite(const sf::IntRect& l_rect){ m_sprite.setTextureRect(l_rect); }
 
 void SpriteSheet::SetSpritePosition(const sf::Vector2f& l_pos){ m_sprite.setPosition(l_pos); }
 
-void SpriteSheet::SetDirection(const Direction& l_dir){
+/*
+void SpriteSheet::SetDirection(const Direction& l_dir)
+{
     if (l_dir == m_direction){ return; }
     
     m_direction = l_dir;
- }
+}
+*/
 
 bool SpriteSheet::LoadSheet(const std::string& l_file)
 {
     std::ifstream sheet;
     sheet.open(resourcePath() + l_file);
-    if(sheet.is_open()){
+
+    if(sheet.is_open())
+    {
         ReleaseSheet(); // Release current sheet resources.
         std::string line;
-        while(std::getline(sheet,line)){
+        while(std::getline(sheet,line))
+        {
             if (line[0] == '|'){ continue; }
             std::stringstream keystream(line);
             std::string type;
             keystream >> type;
-            if(type == "Texture"){
-                if (m_texture != ""){
+            if(type == "Texture")
+            {
+                if (m_texture != "")
+                {
                     std::cerr << "! Duplicate texture entries in: " << l_file << std::endl;
                     continue;
                 }
                 std::string texture;
                 keystream >> texture;
-                if (!m_textureManager->RequireResource(texture)){
+                if (!m_textureManager->RequireResource(texture))
+                {
                     std::cerr << "! Could not set up the texture: " << texture << std::endl;
                     continue;
                 }
                 m_texture = texture;
                 m_sprite.setTexture(*m_textureManager->GetResource(m_texture));
-            } else if(type == "Data"){
+            }
+            else if(type == "Data")
+            {
                 std::string dataPath;
                 
                 keystream >> dataPath;
@@ -117,11 +127,13 @@ void SpriteSheet::ParseJson(const std::string& l_path)
         m_sprite.setOrigin(sizeX * 0.5f, sizeY);
         
         // Get default direction.
+        /*
         std::string dirName = animData["meta"]["direction"];
         Direction dir = Direction::Left;
         if(dirName == "Right"){
             dir = Direction::Right;
         }
+        */
         
         for(auto it : animData["animations"]){
             std::string animName = it["animName"];
@@ -138,7 +150,7 @@ void SpriteSheet::ParseJson(const std::string& l_path)
             for(auto frame : animData["frames"]){
 
                 
-                size_t fileNameFound = frame["fileName"].get<std::string>().find(animName);
+                size_t fileNameFound = frame["filename"].get<std::string>().find(animName);
                 
                 if(fileNameFound != std::string::npos){
                     frames.emplace_back(sf::IntRect(frame["frame"]["x"], frame["frame"]["y"], frame["frame"]["w"], frame["frame"]["h"]));
@@ -152,7 +164,7 @@ void SpriteSheet::ParseJson(const std::string& l_path)
             AnimBase* anim = new AnimBase();
             anim->SetSpriteSheet(this);
             anim->SetName(animName);
-            anim->SetAnimationDefaultDirection(dir);
+            //anim->SetAnimationDefaultDirection(dir);
             anim->SetActionStart(actionStart);
             anim->SetActionEnd(actionEnd);
             anim->SetFrameTime(frameTime);

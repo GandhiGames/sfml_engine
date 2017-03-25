@@ -20,7 +20,8 @@ void AnimBase::SetFrames(const std::vector<Frame>& l_frames)
     m_frames = l_frames;
     
     assert(m_spriteSheet->GetSpriteSize().x != 0 && m_spriteSheet->GetSpriteSize().y != 0);
-    
+
+    /*
     for(auto& it : m_frames)
     {
          m_reverseFrames.emplace_back(
@@ -32,6 +33,7 @@ void AnimBase::SetFrames(const std::vector<Frame>& l_frames)
              )
          );
     }
+    */
 }
 
 bool AnimBase::SetFrame(int l_frame)
@@ -65,20 +67,22 @@ void AnimBase::FrameStep()
 
 void AnimBase::CropSprite()
 {   
-    if(m_spriteSheet->GetDirection() == m_defaultDir)
-    {
+    // if(m_spriteSheet->GetDirection() == m_defaultDir)
+    //{
         m_spriteSheet->CropSprite(m_frames[GetCurrentFrame()]);
-    }
-    else
-    {
-        m_spriteSheet->CropSprite(m_reverseFrames[GetCurrentFrame()]);
-    }
+        //}
+        //else
+        //{
+        //m_spriteSheet->CropSprite(m_reverseFrames[GetCurrentFrame()]);
+        //
 }
 
+/*
 void AnimBase::SetAnimationDefaultDirection(const Direction& l_dir)
 {
     m_defaultDir = l_dir;
 }
+*/
 
 bool AnimBase::IsInAction()
 {

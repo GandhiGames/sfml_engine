@@ -43,23 +43,26 @@ void S_Movement::Update(float l_dT){
 void S_Movement::HandleEvent(const EntityId& l_entity,
                              const EntityEvent& l_event)
 {
-    switch(l_event){
+    switch(l_event)
+    {
         case EntityEvent::Colliding_X: StopEntity(l_entity,Axis::x); break;
         case EntityEvent::Colliding_Y: StopEntity(l_entity, Axis::y); break;
         case EntityEvent::Moving_Left: SetDirection(l_entity, Direction::Left); break;
         case EntityEvent::Moving_Right: SetDirection(l_entity, Direction::Right); break;
-       /* case EntityEvent::Moving_Up:
+        case EntityEvent::Moving_Up:
         {
+            std::cout << "S_Movement: Moving up" << std::endl;
             C_Movable* mov = m_systemManager->GetEntityManager()->GetComponent<C_Movable>(l_entity,Component::Movable);
             if(mov->GetVelocity().x == 0){ SetDirection(l_entity, Direction::Up); }
-        }
             break;
+        }
         case EntityEvent::Moving_Down:
         {
+            std::cout << "S_Movement: Moving down" << std::endl;
             C_Movable* mov = m_systemManager->GetEntityManager()->GetComponent<C_Movable>(l_entity,Component::Movable);
             if(mov->GetVelocity().x == 0){ SetDirection(l_entity, Direction::Down); }
+            break;
         }
-            break;*/
     }
 }
 
@@ -110,7 +113,8 @@ void S_Movement::MovementStep(float l_dT, C_Movable* l_movable, C_Position* l_po
    
     float max_V = l_movable->GetMaxVelocity();
     
-    l_movable->SetVelocity(sf::Vector2f((l_movable->GetVelocity().x / magnitude) * max_V,(l_movable->GetVelocity().y / magnitude) * max_V));
+    l_movable->SetVelocity(sf::Vector2f((l_movable->GetVelocity().x / magnitude) * max_V,
+                                        (l_movable->GetVelocity().y / magnitude) * max_V));
 }
 
 void S_Movement::SetMap(Map* l_gameMap){ m_gameMap = l_gameMap; }
