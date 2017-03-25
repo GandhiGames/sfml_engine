@@ -80,17 +80,17 @@ void S_SheetAnimation::Notify(const Message& l_message)
                 EntityState s = (EntityState)l_message.m_int;
                 switch(s){
                     case EntityState::Idle:
-                        ChangeAnimation(l_message.m_receiver,"Idle",true,true);
+                        ChangeAnimation(l_message.m_receiver,"Idle", true, true);
                         break;
                     case EntityState::Walking:
-                        ChangeAnimation(l_message.m_receiver,"Run",true,true);
+                        ChangeAnimation(l_message.m_receiver,"Run", true, true);
                         break;
                     case EntityState::Attacking:
-                        ChangeAnimation(l_message.m_receiver,"Attack",true,false);
+                        ChangeAnimation(l_message.m_receiver,"Attack", true, false);
                         break;
                     case EntityState::Hurt: break;
                     case EntityState::Dying:
-                        ChangeAnimation(l_message.m_receiver,"Death",true,false);
+                        ChangeAnimation(l_message.m_receiver,"Death", true, false);
                         break;
                 }
             }
@@ -103,5 +103,5 @@ void S_SheetAnimation::ChangeAnimation(const EntityId& l_entity,
                                        const std::string& l_anim, bool l_play, bool l_loop)
 {
     C_SpriteSheet* sheet = m_systemManager->GetEntityManager()->GetComponent<C_SpriteSheet>(l_entity,Component::SpriteSheet);
-    sheet->GetSpriteSheet()->SetAnimation(l_anim,l_play,l_loop);
+    sheet->GetSpriteSheet()->SetAnimation(l_anim, l_play, l_loop);
 }

@@ -18,7 +18,11 @@
 
 using json = nlohmann::json;
 
-class SpriteSheet {
+using Animation = std::unordered_map<Direction, AnimBase*>;
+using Animations = std::unordered_map<std::string, Animation*>;
+
+class SpriteSheet
+{
 public:
     SpriteSheet(TextureManager* l_textManager);
     ~SpriteSheet();
@@ -29,8 +33,8 @@ public:
     //void SetSpriteSize(const sf::Vector2i &l_size);
     void SetSpritePosition(const sf::Vector2f &l_pos);
     
-//    void SetDirection(const Direction& l_dir);
-//    const Direction &GetDirection()const;
+    void SetDirection(const Direction& l_dir);
+    const Direction &GetDirection()const;
     
     bool LoadSheet(const std::string &l_file);
     void ReleaseSheet();
@@ -51,10 +55,12 @@ private:
     sf::Vector2u m_spriteSize;
     sf::Vector2f m_spriteScale;
     Direction m_direction;
-    
     //std::string m_animType;
-    std::unordered_map<std::string, AnimBase*> m_animations;
+
     AnimBase* m_animationCurrent;
+
+    //TODO(robert): Rename to m_animations.
+    Animations m_animationss;
     
     TextureManager* m_textureManager;
 };

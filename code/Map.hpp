@@ -17,9 +17,11 @@
 #include "SharedContext.h"
 
 enum Sheet{ Tile_Size = 32, Sheet_Width = 256, Sheet_Height = 256, Num_Layers = 4 };
+
 using TileID = unsigned int;
 
-struct TileInfo{
+struct TileInfo
+{
     TileInfo(SharedContext* l_context,
              const std::string& l_texture = "", TileID l_id = 0)
     : m_context(l_context), m_id(0), m_deadly(false)
@@ -36,7 +38,8 @@ struct TileInfo{
         m_sprite.setTextureRect(tileBoundaries);
     }
     
-    ~TileInfo(){
+    ~TileInfo()
+    {
         if (m_texture == ""){ return; }
         m_context->GetTextureManager()->ReleaseResource(m_texture);
     }
@@ -52,7 +55,8 @@ struct TileInfo{
     std::string m_texture;
 };
 
-struct Tile{
+struct Tile
+{
     TileInfo* m_properties;
     bool m_warp; // Is the tile a warp.
     bool m_solid; // Is the tile a solid.
@@ -61,7 +65,8 @@ struct Tile{
 using TileMap = std::unordered_map<TileID, Tile*>;
 using TileSet = std::unordered_map<TileID, TileInfo*>;
 
-class Map{
+class Map
+{
 public:
     Map(SharedContext* l_context);
     ~Map();

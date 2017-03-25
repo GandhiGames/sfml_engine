@@ -15,7 +15,8 @@
 
 class StateManager;
 
-class BaseState {
+class BaseState
+{
     //friend class StateManager;
     
 public:

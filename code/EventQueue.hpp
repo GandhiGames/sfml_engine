@@ -13,11 +13,13 @@
 
 using EventID = unsigned int;
 
-class EventQueue{
+class EventQueue
+{
 public:
     void AddEvent(const EventID& l_event){m_queue.push(l_event);}
     
-    bool ProcessEvents(EventID& l_id){
+    bool ProcessEvents(EventID& l_id)
+    {
         if (m_queue.empty()){ return false; }
         l_id = m_queue.front();
         m_queue.pop();

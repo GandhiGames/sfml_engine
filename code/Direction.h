@@ -9,7 +9,8 @@
 #ifndef Header_h
 #define Header_h
 
-enum class Direction {
+enum class Direction
+{
     Right = 0, Left, Up, Down
 };
 
