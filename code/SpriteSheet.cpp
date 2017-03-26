@@ -172,9 +172,21 @@ void SpriteSheet::ParseJson(const std::string& l_path)
             }
             
             assert(frames.size() == animCount);            
+
+            // Split animation string.            
+            std::vector<std::string> elems;
+            split(animName, ' ', std::back_inserter(elems));
+            for(auto str : elems)
+            {
+                std::cout << "Spritesheet: " << str << std::endl;
+            }
+            assert(animName.size() == 2);
+
             
             AnimBase* anim = new AnimBase();
             anim->SetSpriteSheet(this);
+
+            //TODO(robert): Does animation need a reference to its name?
             anim->SetName(animName);
             //anim->SetAnimationDefaultDirection(dir);
             anim->SetActionStart(actionStart);
@@ -183,11 +195,11 @@ void SpriteSheet::ParseJson(const std::string& l_path)
             anim->SetFrames(frames);
             anim->Reset();
 
-            std::cout << "Spritesheet: " << animName << std::endl;
-
+            std::cout << "Spritesheet: animation name = " << animName << std::endl;
+            
             //TODO(robert): Check if m_animations containks key before insertion attempt.
             //TODO(robert): Get animation dir from name, setup better method of direction retrieval
-            m_animationss[animName]->emplace(Direction::Down, anim);
+//            m_animationss[animName]->emplace(Direction::Down, anim);
             
             if (animName == defaultAnim)
             {
