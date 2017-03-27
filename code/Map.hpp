@@ -15,11 +15,14 @@
 #include <fstream>
 #include <sstream>
 #include "SharedContext.h"
+#include "json.hpp"
 
-enum Sheet{ Tile_Size = 32, Sheet_Width = 256, Sheet_Height = 256, Num_Layers = 4 };
+//TODO(robert): Read sheet data from json file.
+//enum Sheet{ Tile_Size = 32, Sheet_Width = 256, Sheet_Height = 256, Num_Layers = 4 };
 
 using TileID = unsigned int;
 
+//TODO(robert): Define what tile members variables are still required.
 struct TileInfo
 {
     TileInfo(SharedContext* l_context,
@@ -86,13 +89,15 @@ public:
 private:
     // Method for converting 2D coordinates to 1D ints.
     unsigned int ConvertCoords(unsigned int l_x, unsigned int l_y, unsigned int l_layer)const;
-    
     void LoadTiles(const std::string& l_path);
+    void ParseMapJsonData(const json& l_data);
+    void ParseTileJsonData(const json& l_data);
     
     void PurgeMap();
     void PurgeTileSet();
     
     TileSet m_tileSet;
+
     TileMap m_tileMap;
     
     TileInfo m_defaultTile;

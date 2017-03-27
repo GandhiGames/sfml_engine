@@ -128,7 +128,8 @@ void SpriteSheet::ParseJson(const std::string& l_path)
 {    
     std::ifstream i(resourcePath() + l_path);
     
-    if(i.is_open()){
+    if(i.is_open())
+    {
         json animData;
         i >> animData;
         
