@@ -19,7 +19,7 @@
 using json = nlohmann::json;
 
 using Animation = std::unordered_map<Direction, AnimBase*>;
-using Animations = std::unordered_map<std::string, Animation*>;
+using Animations = std::unordered_map<std::string, Animation>;
 
 class SpriteSheet
 {

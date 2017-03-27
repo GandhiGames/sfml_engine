@@ -18,16 +18,18 @@ void SpriteSheet::ReleaseSheet()
 {
     m_textureManager->ReleaseResource(m_texture);
     m_animationCurrent = nullptr;
-    while(m_animationss.begin() != m_animationss.end())
+    while(m_animationss.second->begin() != m_animationss.second->end())
     {
-        while(m_animationss.begin()->second->begin() != m_animationss.begin()->second->end())
+        //TODO(robert): Do I need to release resources for animations
+        /*
+        while(m_animationss.begin().second->begin() != m_animationss.begin().second->end())
         {
-            delete m_animationss.begin()->second->begin()->second;
+            delete m_animationss.begin().second->begin()->second;
             m_animationss.begin()->second->erase(m_animationss.begin()->second->begin());
         }
-        
-        delete m_animationss.begin()->second;
-        m_animationss.erase(m_animationss.begin());
+        */
+        delete m_animationss.second->begin().second;
+        m_animationss.erase(m_animationss.second->begin());
     }
 }
 
@@ -180,8 +182,33 @@ void SpriteSheet::ParseJson(const std::string& l_path)
             {
                 std::cout << "Spritesheet: " << str << std::endl;
             }
-            assert(animName.size() == 2);
 
+            assert(elems.size() == 2);
+
+            Direction dir;
+
+            std::string& dirName = elems[1];
+
+            if(dirName == "Left")
+            {
+                dir = Direction::Left;
+            }
+            else if(dirName == "Down")
+            {
+                dir = Direction::Down;
+            }
+            else if(dirName == "Right")
+            {
+                dir = Direction::Right;
+            }
+            else if(dirName == "Up")
+            {
+                dir = Direction::Up;
+            }
+            else
+            {
+                std::cerr << "Spritesheet: failed to load animation direction with name " << animName << std::endl;
+            }
             
             AnimBase* anim = new AnimBase();
             anim->SetSpriteSheet(this);
@@ -196,10 +223,13 @@ void SpriteSheet::ParseJson(const std::string& l_path)
             anim->Reset();
 
             std::cout << "Spritesheet: animation name = " << animName << std::endl;
+
+            assert(m_animationss.find(elems[0]) == m_animationss.end());
             
             //TODO(robert): Check if m_animations containks key before insertion attempt.
             //TODO(robert): Get animation dir from name, setup better method of direction retrieval
-//            m_animationss[animName]->emplace(Direction::Down, anim);
+            //m_animationss.emplace(elems[0], {});
+            m_animationss[elems[0]].emplace(dir, anim);
             
             if (animName == defaultAnim)
             {
@@ -208,12 +238,8 @@ void SpriteSheet::ParseJson(const std::string& l_path)
                 m_animationCurrent->ForceUpdate();
             }
         }
-        
-       
     }
-    
     i.close();
-    
     
     assert(m_animationss.size() > 0);
 }
@@ -225,16 +251,16 @@ bool SpriteSheet::SetAnimation(const std::string& l_name,
     if (itr == m_animationss.end()){ return false; }
 
     auto itr2 = itr->second->find(m_direction);
-    if(itr2 == itr->second->end()){ return false; }
+    if(itr2 == itr.second->end()){ return false; }
     
-    if (itr2->second == m_animationCurrent)
+    if (itr2.second == m_animationCurrent)
     {
         return false;
     }
     
     if (m_animationCurrent){ m_animationCurrent->Stop(); }
     
-    m_animationCurrent = itr2->second;
+    m_animationCurrent = itr2.second;
     m_animationCurrent->SetLooping(l_loop);
     if(l_play){ m_animationCurrent->Play(); }
     m_animationCurrent->CropSprite();
