@@ -38,11 +38,9 @@ void S_Control::HandleEvent(const EntityId& l_entity,
             MoveEntity(l_entity, Direction::Right);
             break;
         case EntityEvent::Moving_Up:
-            std::cout << "S_Control: Moving up" << std::endl;
             MoveEntity(l_entity, Direction::Up);
             break;
         case EntityEvent::Moving_Down:
-            std::cout << "S_Control: Moving up" << std::endl;
             MoveEntity(l_entity, Direction::Down);
             break;
     }

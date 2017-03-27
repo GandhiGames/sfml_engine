@@ -51,14 +51,12 @@ void S_Movement::HandleEvent(const EntityId& l_entity,
         case EntityEvent::Moving_Right: SetDirection(l_entity, Direction::Right); break;
         case EntityEvent::Moving_Up:
         {
-            std::cout << "S_Movement: Moving up" << std::endl;
             C_Movable* mov = m_systemManager->GetEntityManager()->GetComponent<C_Movable>(l_entity,Component::Movable);
             if(mov->GetVelocity().x == 0){ SetDirection(l_entity, Direction::Up); }
             break;
         }
         case EntityEvent::Moving_Down:
-        {
-            std::cout << "S_Movement: Moving down" << std::endl;
+        {   
             C_Movable* mov = m_systemManager->GetEntityManager()->GetComponent<C_Movable>(l_entity,Component::Movable);
             if(mov->GetVelocity().x == 0){ SetDirection(l_entity, Direction::Down); }
             break;
