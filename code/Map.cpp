@@ -200,21 +200,25 @@ void Map::LoadMap(const std::string& l_path)
  "width":20
 }
 */
-void Map::ParseMapJsonData(const json& l_ data)
+void Map::ParseMapJsonData(const json& l_data)
 {
-            
+
+    /*
     int levelHeight  = levelData["height"];
     int levelWidth = levelData["width"];
         
     for(auto layer : animData["layers"])
     {
         //TODO(robert): Increment tiles layer each pass.
-    }               
+    }
+    */
 }
 
-void Map::ParseTileJsonData(cost json& l_data)
+void Map::ParseTileJsonData(const json& l_data)
 {
+    
     // Create tilemap and tileset
+/*
     for(auto tileSet : animData["tilesets"])
     {
         const std::string& imagePath = tileSet["image"];
@@ -232,7 +236,7 @@ void Map::ParseTileJsonData(cost json& l_data)
 
         int firstId = tileSet["firstgid"];
 
-        
+*/        
         
         // How tiles are current created:
         /*
@@ -281,7 +285,8 @@ void Map::ParseTileJsonData(cost json& l_data)
             tile->m_warp = false;
             if(warp == "WARP"){ tile->m_warp = true; }*/
 
-    }
+//    }
+
 }
 
 void Map::LoadTiles(const std::string& l_path)
