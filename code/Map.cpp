@@ -18,7 +18,9 @@ Map::~Map()
 Tile* Map::GetTile(unsigned int l_x, unsigned int l_y, unsigned int l_layer)
 {
     if(/*l_x < 0 || l_y < 0 ||*/ l_x >= m_maxMapSize.x || l_y >= m_maxMapSize.y || /*l_layer < 0 ||*/ l_layer >= Sheet::Num_Layers)
-    { return nullptr; }
+    {
+        return nullptr;
+    }
     
     auto itr = m_tileMap.find(ConvertCoords(l_x,l_y,l_layer));
     if (itr == m_tileMap.end()){ return nullptr; }
@@ -212,6 +214,7 @@ void Map::ParseMapJsonData(const json& l_ data)
 
 void Map::ParseTileJsonData(cost json& l_data)
 {
+    // Create tilemap and tileset
     for(auto tileSet : animData["tilesets"])
     {
         const std::string& imagePath = tileSet["image"];
@@ -228,6 +231,55 @@ void Map::ParseTileJsonData(cost json& l_data)
         int imageWidth = tileset["imageWidth"];
 
         int firstId = tileSet["firstgid"];
+
+        
+        
+        // How tiles are current created:
+        /*
+                    int tileId = 0;
+            keystream >> tileId;
+            if (tileId < 0)
+            {
+                std::cout << "! Bad tile id: " << tileId << std::endl;
+                continue;
+            }
+
+            auto itr = m_tileSet.find(tileId);
+            if (itr == m_tileSet.end())
+            {
+                std::cout << "! Tile id(" << tileId << ") was not found in tileset." << std::endl;
+                continue;
+            }
+
+            sf::Vector2i tileCoords;
+            unsigned int tileLayer = 0;
+            unsigned int tileSolidity = 0;
+            keystream >> tileCoords.x >> tileCoords.y >> tileLayer >> tileSolidity;
+            if (tileCoords.x > m_maxMapSize.x ||
+                tileCoords.y > m_maxMapSize.y ||
+                tileLayer >= Sheet::Num_Layers)
+            {
+                std::cout << "! Tile is out of range: " << tileCoords.x << " " << tileCoords.y << std::endl;
+                continue;
+            }
+
+            Tile* tile = new Tile();
+            // Bind properties of a tile from a set.
+            tile->m_properties = itr->second;
+            tile->m_solid = (bool)tileSolidity;
+            if(!m_tileMap.emplace(ConvertCoords(
+                                                tileCoords.x,tileCoords.y,tileLayer),tile).second)
+            {
+                // Duplicate tile detected!
+                std::cout << "! Duplicate tile! : " << tileCoords.x << " " << tileCoords.y << std::endl;
+                delete tile;
+                continue;
+            }
+
+            std::string warp;
+            keystream >> warp;
+            tile->m_warp = false;
+            if(warp == "WARP"){ tile->m_warp = true; }*/
 
     }
 }
@@ -299,7 +351,8 @@ unsigned int Map::ConvertCoords(unsigned int l_x, unsigned int l_y, unsigned int
     return ((l_layer*m_maxMapSize.y+l_y) * m_maxMapSize.x + l_x);
 }
 
-void Map::PurgeMap(){
+void Map::PurgeMap()
+{
     while(m_tileMap.begin() != m_tileMap.end()){
         delete m_tileMap.begin()->second;
         m_tileMap.erase(m_tileMap.begin());
@@ -308,7 +361,8 @@ void Map::PurgeMap(){
     m_context->GetEntityManager()->Purge();
 }
 
-void Map::PurgeTileSet(){
+void Map::PurgeTileSet()
+{
     while(m_tileSet.begin() != m_tileSet.end()){
         delete m_tileSet.begin()->second;
         m_tileSet.erase(m_tileSet.begin());

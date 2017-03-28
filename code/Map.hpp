@@ -90,7 +90,7 @@ private:
     // Method for converting 2D coordinates to 1D ints.
     unsigned int ConvertCoords(unsigned int l_x, unsigned int l_y, unsigned int l_layer)const;
     void LoadTiles(const std::string& l_path);
-    void ParseMapJsonData(const json& l_data);
+    ParseMapJsonData(const json& l_data);
     void ParseTileJsonData(const json& l_data);
     
     void PurgeMap();
